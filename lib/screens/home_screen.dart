@@ -14,8 +14,7 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.logout),
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => SliderScreen()));
+              Navigator.pushReplacementNamed(context, '/');
             },
           ),
         ],

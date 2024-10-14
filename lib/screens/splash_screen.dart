@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'slider_screen.dart';
+import 'onboarding_screen.dart';
 import 'home_screen.dart';
 import '../providers/auth_provider.dart';
 
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       } else {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SliderScreen()));
+            context, MaterialPageRoute(builder: (context) => OnboardingScreen()));
       }
     });
   }

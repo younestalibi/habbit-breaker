@@ -21,10 +21,7 @@ class _SignInScreenState extends State<SignInScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var authProvider = Provider.of<AuthProvider>(context, listen: false);
       if (authProvider.isAuthenticated()) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
+        Navigator.pushReplacementNamed(context, "/home");
       }
     });
   }
@@ -62,8 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 );
 
                 if (result == null) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  Navigator.pushReplacementNamed(context, '/home');
                 } else {
                   setState(() {
                     errorMessage = result;
