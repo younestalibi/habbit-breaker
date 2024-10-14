@@ -10,85 +10,196 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String? errorMessage;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    // Check if user is already authenticated
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var authProvider = Provider.of<AuthProvider>(context, listen: false);
       if (authProvider.isAuthenticated()) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
-        );
+        Navigator.pushReplacementNamed(context, "/home");
       }
     });
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            if (errorMessage != null)
-              Text(
-                errorMessage!,
-                style: TextStyle(color: Colors.red),
-              ),
-            ElevatedButton(
-              onPressed: () async {
-                String? result =
-                    await Provider.of<AuthProvider>(context, listen: false)
-                        .signup(
-                  emailController.text,
-                  passwordController.text,
-                );
-
-                if (result == null) {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                } else {
-                  setState(() {
-                    errorMessage = result;
-                  });
-                }
-              },
-              child: Text('Sign Up'),
-            ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Already have an account? "),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/signin');
-                  },
-                  child: Text(
-                    'Sign In',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  SizedBox(height: constraints.maxHeight * 0.1),
+                  Image.network(
+                    "https://i.postimg.cc/nz0YBQcH/Logo-light.png",
+                    height: 100,
                   ),
-                ),
-              ],
-            ),
-          ],
+                  SizedBox(height: constraints.maxHeight * 0.1),
+                  Text("Sign Up",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      )),
+                  SizedBox(height: constraints.maxHeight * 0.05),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: emailController,
+                          decoration: const InputDecoration(
+                            hintText: 'Email',
+                            filled: true,
+                            fillColor: Color(0xFFF5FCF9),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16.0 * 1.5, vertical: 16.0),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your email.';
+                            }
+                            return null;
+                          },
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: TextFormField(
+                            controller: passwordController,
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              hintText: 'Password',
+                              filled: true,
+                              fillColor: Color(0xFFF5FCF9),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0 * 1.5, vertical: 16.0),
+                              border: const OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50)),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your password.';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        if (errorMessage != null)
+                          Container(
+                            width: double.infinity,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
+                              child: Text(
+                                errorMessage!,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    color:
+                                        const Color.fromARGB(255, 172, 58, 50),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ),
+                        const SizedBox(
+                          width: 10,
+                          height: 10,
+                        ),
+                        ElevatedButton(
+                          onPressed: _isLoading
+                              ? null
+                              : () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      errorMessage = '';
+                                      _isLoading = true;
+                                    });
+                                    String? result =
+                                        await Provider.of<AuthProvider>(context,
+                                                listen: false)
+                                            .signup(
+                                      emailController.text,
+                                      passwordController.text,
+                                    );
+                                    if (result == null) {
+                                      Navigator.pushReplacementNamed(
+                                          context, '/home');
+                                    } else {
+                                      setState(() {
+                                        errorMessage = result;
+                                        _isLoading = false;
+                                      });
+                                    }
+                                  }
+                                },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: const Color(0xFF00BF6D),
+                            foregroundColor: Colors.white,
+                            minimumSize: const Size(double.infinity, 48),
+                            shape: const StadiumBorder(),
+                          ),
+                          child: _isLoading
+                              ? SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ),
+                                )
+                              : const Text("Sign Up"),
+                        ),
+                        const SizedBox(height: 16.0),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/signin');
+                          },
+                          child: const Text.rich(
+                            TextSpan(
+                              text: "Already have an account? ",
+                              children: [
+                                TextSpan(
+                                  text: "Sign In",
+                                  style: TextStyle(color: Color(0xFF00BF6D)),
+                                ),
+                              ],
+                            ),
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
