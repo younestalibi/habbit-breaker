@@ -15,7 +15,7 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  // Sign up function with improved error handling
+  // Sign up function
   Future<String?> signup(String email, String password) async {
     try {
       UserCredential userCredential =
@@ -25,15 +25,15 @@ class AuthProvider with ChangeNotifier {
       );
       _user = userCredential.user;
       notifyListeners();
-      return null; // Sign-up successful
+      return null;
     } on FirebaseAuthException catch (e) {
-      return _handleAuthError(e); // Handle Firebase-specific errors
+      return _handleAuthError(e);
     } catch (e) {
-      return "An unknown error occurred. Please try again."; // General error
+      return "An unknown error occurred. Please try again.";
     }
   }
 
-  // Login function with improved error handling
+  // Login function
   Future<String?> login(String email, String password) async {
     try {
       UserCredential userCredential =
@@ -43,11 +43,11 @@ class AuthProvider with ChangeNotifier {
       );
       _user = userCredential.user;
       notifyListeners();
-      return null; // Login successful
+      return null;
     } on FirebaseAuthException catch (e) {
-      return _handleAuthError(e); // Handle Firebase-specific errors
+      return _handleAuthError(e);
     } catch (e) {
-      return "An unknown error occurred. Please try again."; // General error
+      return "An unknown error occurred. Please try again.";
     }
   }
 

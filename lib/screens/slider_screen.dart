@@ -14,8 +14,7 @@ class SliderScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => SignInScreen()));
+          Navigator.pushReplacementNamed(context, '/signin');
         },
         child: Icon(Icons.arrow_forward),
       ),
