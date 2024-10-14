@@ -15,6 +15,20 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
+  String getUserEmail() {
+    return _user?.email ?? "No Email";
+  }
+
+  String getUserName() {
+    print(_user);
+    return _user?.displayName ?? "No Name";
+  }
+
+  String getUserImage() {
+    return _user?.photoURL ??
+        'https://www.gravatar.com/avatar/placeholder';
+  }
+
   // Sign up function
   Future<String?> signup(String email, String password) async {
     try {

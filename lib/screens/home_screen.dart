@@ -15,6 +15,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var authProvider = Provider.of<AuthProvider>(context, listen: false);
+      if (authProvider.isAuthenticated()) {
+        Navigator.pushReplacementNamed(context, "/home");
+      }
+    });
     _controller = PersistentTabController(initialIndex: 0);
   }
 
@@ -58,9 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey, // Attach the key to the Scaffold
+    final authProvider = Provider.of<AuthProvider>(context);
+    String userName = authProvider.getUserName(); // Get user's name
+    String userEmail = authProvider.getUserEmail(); // Get user's email
+    String userImage = authProvider.getUserImage(); // Get user's image
 
+    return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('My App'),
         actions: [
@@ -93,21 +103,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     padding: EdgeInsets.all(50),
                     child: Column(
-                      children: const [
+                      children: [
                         CircleAvatar(
                           radius: 52,
-                          backgroundImage: NetworkImage(
-                              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c21pbHklMjBmYWNlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'),
+                          backgroundImage: NetworkImage(userImage),
                         ),
                         SizedBox(
                           height: 12,
                         ),
                         Text(
-                          'Younes',
+                          userName,
                           style: TextStyle(fontSize: 28, color: Colors.white),
                         ),
-                        const Text(
-                          'younes@gmail.com',
+                        Text(
+                          userEmail,
                           style: TextStyle(fontSize: 14, color: Colors.white),
                         ),
                       ],
