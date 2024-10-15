@@ -59,6 +59,7 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
+      print(e.code);
       return _handleAuthError(e);
     } catch (e) {
       return "An unknown error occurred. Please try again.";
@@ -100,16 +101,12 @@ class AuthProvider with ChangeNotifier {
         return "The email is already registered. Please log in.";
       case 'invalid-email':
         return "The email address is not valid.";
-      case 'operation-not-allowed':
-        return "Email/password accounts are not enabled.";
       case 'weak-password':
         return "The password is too weak. Please use a stronger password.";
       case 'user-disabled':
         return "This account has been disabled.";
-      case 'user-not-found':
-        return "No account found for this email.";
-      case 'wrong-password':
-        return "Incorrect password. Please try again.";
+      case 'invalid-credential':
+        return "Oops! Those credentials don't seem to match. Try again.";
       default:
         return "An error occurred. Please try again later.";
     }
