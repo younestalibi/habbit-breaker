@@ -10,6 +10,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
   int hours = 23;
   int minutes = 59;
   int seconds = 55;
+  int relapse = 12;
+  int recoveryTime = 19;
+  int longest = 33;
   Timer? _timer;
 
   @override
@@ -75,9 +78,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _statsCard('140', 'Relapse', Icons.sentiment_dissatisfied),
-                _statsCard('0', 'Recovery time', Icons.emoji_events),
-                _statsCard('0', 'Longest', Icons.timer),
+                _statsCard(relapse, 'Relapse', Icons.sentiment_dissatisfied),
+                _statsCard(recoveryTime, 'Recovery time', Icons.emoji_events),
+                _statsCard(longest, 'Longest', Icons.timer),
               ],
             ),
           ),
@@ -89,22 +92,21 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 Expanded(
                   child: ElevatedButton(
                       onPressed: () {
-                        print('Button Pressed');
+                        _showResetConfirmationDialog(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        padding: EdgeInsets.all(15) ,// Button padding
-                        backgroundColor: const Color.fromARGB(255, 139, 212, 255)
-                      ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          padding: EdgeInsets.all(15),
+                          backgroundColor:
+                              const Color.fromARGB(255, 139, 212, 255)),
                       child: Text(
                         'Reset the counter',
                         style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                        ),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       )),
                 ),
                 SizedBox(width: 8),
@@ -114,19 +116,18 @@ class _TrackerScreenState extends State<TrackerScreen> {
                         print('Button Pressed');
                       },
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        padding: EdgeInsets.all(15),
-                        backgroundColor: const Color.fromARGB(255, 39, 39, 39)
-                      ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          padding: EdgeInsets.all(15),
+                          backgroundColor:
+                              const Color.fromARGB(255, 39, 39, 39)),
                       child: Text(
                         'Add relapse',
                         style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white
-                        ),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       )),
                 ),
               ],
@@ -137,7 +138,80 @@ class _TrackerScreenState extends State<TrackerScreen> {
     );
   }
 
-  Widget _statsCard(String number, String label, IconData icon) {
+  void _showResetConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Container(
+            padding: EdgeInsets.all(20),
+            height: 250,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  Icons.info,
+                  size: 30.0,
+                  color: const Color.fromARGB(255, 57, 166, 255),
+                ),
+                Text(
+                  'Reset Counter',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Are you sure you want to reset the counter?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          setState(() {
+                            hours = 0;
+                            minutes = 0;
+                            seconds = 0;
+                            relapse = 0;
+                            recoveryTime = 0;
+                            longest = 0;
+                          });
+                        },
+                        child: Text("Confirm"),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _statsCard(int number, String label, IconData icon) {
     return Expanded(
       child: Card(
         shape: RoundedRectangleBorder(
@@ -152,10 +226,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    number,
+                    number.toString(),
                     style: const TextStyle(
                       fontSize: 30,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 61, 224, 66),
                     ),
                   ),
