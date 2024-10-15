@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:habbit_breaker/models/user_model.dart';
 
 class AuthProvider with ChangeNotifier {
   User? _user;
+  UserModel? _userModel;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   User? get user => _user;
+  UserModel? get userModel => _userModel;
 
   AuthProvider() {
     // Listen for changes in authentication state
@@ -20,17 +25,22 @@ class AuthProvider with ChangeNotifier {
   }
 
   String getUserName() {
-    print(_user);
-    return _user?.displayName ?? "No Name";
+    return _userModel?.firstName ?? "No Name";
   }
 
   String getUserImage() {
-    return _user?.photoURL ??
-        'https://www.gravatar.com/avatar/placeholder';
+    return _user?.photoURL ?? 'https://www.gravatar.com/avatar/placeholder';
   }
 
-  // Sign up function
-  Future<String?> signup(String email, String password) async {
+  bool isValidEmail(String email) {
+    final RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+    return emailRegex.hasMatch(email);
+  }
+
+  Future<String?> signup(String email, String password, String firstName,
+      String lastName, String gender) async {
     try {
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
@@ -38,8 +48,20 @@ class AuthProvider with ChangeNotifier {
         password: password,
       );
       _user = userCredential.user;
-      notifyListeners();
-      return null;
+
+      if (_user != null) {
+        await _firestore.collection('users').doc(_user!.uid).set({
+          'firstName': firstName,
+          'lastName': lastName,
+          'gender': gender,
+          'email': email,
+        });
+
+        notifyListeners();
+        return null;
+      } else {
+        return "User creation failed. Please try again.";
+      }
     } on FirebaseAuthException catch (e) {
       return _handleAuthError(e);
     } catch (e) {
@@ -56,6 +78,11 @@ class AuthProvider with ChangeNotifier {
         password: password,
       );
       _user = userCredential.user;
+
+      if (_user != null) {
+        await _fetchUserData(_user!.uid);
+      }
+
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
@@ -65,19 +92,38 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Logout function
+  Future<void> _fetchUserData(String uid) async {
+    try {
+      DocumentSnapshot doc =
+          await _firestore.collection('users').doc(uid).get();
+
+      if (doc.exists) {
+        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
+
+        _userModel = UserModel(
+          firstName: data?['firstName'] ?? '',
+          lastName: data?['lastName'] ?? '',
+          gender: data?['gender'] ?? '',
+          email: data?['email'] ?? '',
+        );
+        notifyListeners();
+      }
+    } catch (e) {
+      throw "Error fetching user data";
+    }
+  }
+
   Future<void> logout() async {
     await _firebaseAuth.signOut();
     _user = null;
+    _userModel = null;
     notifyListeners();
   }
 
-  // Check if the user is authenticated
   bool isAuthenticated() {
     return _user != null;
   }
 
-  // Handle Firebase authentication errors
   String _handleAuthError(FirebaseAuthException e) {
     switch (e.code) {
       case 'email-already-in-use':

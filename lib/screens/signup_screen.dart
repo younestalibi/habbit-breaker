@@ -13,8 +13,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   String? errorMessage;
   bool _isLoading = false;
+  String? selectedGender;
 
   @override
   void initState() {
@@ -31,6 +34,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
     super.dispose();
   }
 
@@ -63,13 +68,83 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       children: [
                         TextFormField(
+                          controller: firstNameController,
+                          decoration: const InputDecoration(
+                            hintText: 'First Name',
+                            filled: true,
+                            fillColor: Color(0xFFF5FCF9),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your first name.';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        TextFormField(
+                          controller: lastNameController,
+                          decoration: const InputDecoration(
+                            hintText: 'Last Name',
+                            filled: true,
+                            fillColor: Color(0xFFF5FCF9),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your last name.';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        DropdownButtonFormField<String>(
+                          value: selectedGender,
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              selectedGender = newValue;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                            filled: true,
+                            fillColor: Color(0xFFF5FCF9),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50)),
+                            ),
+                          ),
+                          hint: const Text('Select Gender'),
+                          items: <String>['Male', 'Female', 'Other']
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select your gender.';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        TextFormField(
                           controller: emailController,
                           decoration: const InputDecoration(
                             hintText: 'Email',
                             filled: true,
                             fillColor: Color(0xFFF5FCF9),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16.0 * 1.5, vertical: 16.0),
                             border: const OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius:
@@ -93,10 +168,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               hintText: 'Password',
                               filled: true,
                               fillColor: Color(0xFFF5FCF9),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0 * 1.5, vertical: 16.0),
                               border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
+                              
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                               ),
@@ -145,6 +219,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                             .signup(
                                       emailController.text,
                                       passwordController.text,
+                                      firstNameController.text,
+                                      lastNameController.text,
+                                      selectedGender ?? 'Other',
                                     );
                                     if (result == null) {
                                       Navigator.pushReplacementNamed(

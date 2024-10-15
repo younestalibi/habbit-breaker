@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
+import 'package:habbit_breaker/screens/tracker_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var authProvider = Provider.of<AuthProvider>(context, listen: false);
-      if (authProvider.isAuthenticated()) {
-        Navigator.pushReplacementNamed(context, "/home");
+      if (!authProvider.isAuthenticated()) {
+        Navigator.pushReplacementNamed(context, "/signin");
       }
     });
     _controller = PersistentTabController(initialIndex: 0);
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> _buildScreens() {
     return [
       Center(child: Text("Home Page")),
-      Center(child: Text("Search Page")),
+      Center(child: TrackerScreen()),
       Center(child: Text("Profile Page")),
       Center(child: Text("Community Page")),
     ];
@@ -65,9 +66,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
-    String userName = authProvider.getUserName(); // Get user's name
-    String userEmail = authProvider.getUserEmail(); // Get user's email
-    String userImage = authProvider.getUserImage(); // Get user's image
+    String userName = authProvider.getUserName();
+    String userEmail = authProvider.getUserEmail();
+    String userImage = authProvider.getUserImage();
 
     return Scaffold(
       key: _scaffoldKey,
