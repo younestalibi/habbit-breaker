@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:habbit_breaker/models/user_model.dart';
+import 'package:habbit_breaker/models/progress_model.dart';
 
 class AuthProvider with ChangeNotifier {
   User? _user;
-  UserModel? _userModel;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   User? get user => _user;
-  UserModel? get userModel => _userModel;
 
   AuthProvider() {
     // Listen for changes in authentication state
@@ -18,25 +16,6 @@ class AuthProvider with ChangeNotifier {
       _user = user;
       notifyListeners();
     });
-  }
-
-  String getUserEmail() {
-    return _user?.email ?? "No Email";
-  }
-
-  String getUserName() {
-    return _userModel?.firstName ?? "No Name";
-  }
-
-  String getUserImage() {
-    return _user?.photoURL ?? 'https://www.gravatar.com/avatar/placeholder';
-  }
-
-  bool isValidEmail(String email) {
-    final RegExp emailRegex = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-    );
-    return emailRegex.hasMatch(email);
   }
 
   Future<String?> signup(String email, String password, String firstName,
@@ -50,12 +29,12 @@ class AuthProvider with ChangeNotifier {
       _user = userCredential.user;
 
       if (_user != null) {
-        await _firestore.collection('users').doc(_user!.uid).set({
-          'firstName': firstName,
-          'lastName': lastName,
-          'gender': gender,
-          'email': email,
-        });
+        await _user?.updateProfile(
+            displayName: '$firstName $lastName',
+            photoURL: 'https://www.gravatar.com/avatar/placeholder');
+
+        await _user?.reload(); //recheck this
+        _user = _firebaseAuth.currentUser;
 
         notifyListeners();
         return null;
@@ -69,7 +48,6 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Login function
   Future<String?> login(String email, String password) async {
     try {
       UserCredential userCredential =
@@ -78,11 +56,6 @@ class AuthProvider with ChangeNotifier {
         password: password,
       );
       _user = userCredential.user;
-
-      if (_user != null) {
-        await _fetchUserData(_user!.uid);
-      }
-
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
@@ -92,36 +65,33 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> _fetchUserData(String uid) async {
-    try {
-      DocumentSnapshot doc =
-          await _firestore.collection('users').doc(uid).get();
-
-      if (doc.exists) {
-        Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-
-        _userModel = UserModel(
-          firstName: data?['firstName'] ?? '',
-          lastName: data?['lastName'] ?? '',
-          gender: data?['gender'] ?? '',
-          email: data?['email'] ?? '',
-        );
-        notifyListeners();
-      }
-    } catch (e) {
-      throw "Error fetching user data";
-    }
-  }
-
   Future<void> logout() async {
     await _firebaseAuth.signOut();
     _user = null;
-    _userModel = null;
     notifyListeners();
   }
 
   bool isAuthenticated() {
     return _user != null;
+  }
+
+  String getUserEmail() {
+    return _user?.email ?? "No Email";
+  }
+
+  String getUserName() {
+    return _user?.displayName ?? "No Name";
+  }
+
+  String getUserPhoto() {
+    return _user?.photoURL ?? "No photo";
+  }
+
+  bool isValidEmail(String email) {
+    final RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+    return emailRegex.hasMatch(email);
   }
 
   String _handleAuthError(FirebaseAuthException e) {

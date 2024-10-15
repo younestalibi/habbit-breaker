@@ -68,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
     final authProvider = Provider.of<AuthProvider>(context);
     String userName = authProvider.getUserName();
     String userEmail = authProvider.getUserEmail();
-    String userImage = authProvider.getUserImage();
+    String userImage =authProvider.getUserPhoto();
+
 
     return Scaffold(
       key: _scaffoldKey,

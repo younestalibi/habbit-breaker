@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -9,6 +11,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

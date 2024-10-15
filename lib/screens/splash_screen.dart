@@ -14,13 +14,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      final user = Provider.of<AuthProvider>(context, listen: false).user;
-      if (user != null) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      if (authProvider.isAuthenticated()) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => OnboardingScreen()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => OnboardingScreen()));
       }
     });
   }

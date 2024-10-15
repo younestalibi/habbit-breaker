@@ -19,18 +19,6 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _isLoading = false;
 
   @override
-  void initState() {
-    super.initState();
-    // Check if user is already authenticated
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var authProvider = Provider.of<AuthProvider>(context, listen: false);
-      if (authProvider.isAuthenticated()) {
-        Navigator.pushReplacementNamed(context, "/home");
-      }
-    });
-  }
-
-  @override
   void dispose() {
     // Dispose the controllers
     phoneController.dispose();
