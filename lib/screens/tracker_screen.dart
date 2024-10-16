@@ -7,12 +7,20 @@ class TrackerScreen extends StatefulWidget {
 }
 
 class _TrackerScreenState extends State<TrackerScreen> {
-  int hours = 23;
-  int minutes = 59;
-  int seconds = 55;
-  int relapse = 12;
-  int recoveryTime = 19;
-  int longest = 33;
+  // Start date of the habit breaker
+  DateTime habitStartDate = DateTime(2022, 5, 12, 14, 30, 0);
+  DateTime? lastRelapse; // Will track the last time a relapse happened
+  Duration timeDifference =
+      Duration(); // Will hold the calculated time difference
+
+  // Tracking variables
+  int days = 0;
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
+  int relapse = 0;
+  int recoveryTime = 0;
+  int longest = 0;
   Timer? _timer;
 
   @override
@@ -22,22 +30,17 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       setState(() {
-        seconds++;
-        if (seconds >= 60) {
-          seconds = 0;
-          minutes++;
-        }
-        if (minutes >= 60) {
-          minutes = 0;
-          hours++;
-        }
-        if (hours >= 24) {
-          hours = 0;
-          minutes = 0;
-          seconds = 0;
-        }
+        // Calculate the time difference between now and the habit start date
+        DateTime now = DateTime.now();
+        timeDifference = now.difference(habitStartDate);
+
+        // Update days, hours, minutes, and seconds
+        days = timeDifference.inDays;
+        hours = timeDifference.inHours.remainder(24);
+        minutes = timeDifference.inMinutes.remainder(60);
+        seconds = timeDifference.inSeconds.remainder(60);
       });
     });
   }
@@ -46,6 +49,40 @@ class _TrackerScreenState extends State<TrackerScreen> {
   void dispose() {
     _timer?.cancel();
     super.dispose();
+  }
+
+  bool isSameDay(DateTime? date1, DateTime? date2) {
+    if (date1 == null || date2 == null) {
+      return false;
+    }
+    return date1.year == date2.year &&
+        date1.month == date2.month &&
+        date1.day == date2.day;
+  }
+
+  void _addRelapse() {
+    DateTime now = DateTime.now();
+    setState(() {
+      // Check if the relapse is on the same day
+      if (lastRelapse == null || !isSameDay(lastRelapse, now)) {
+        relapse++;
+        habitStartDate =
+            habitStartDate.subtract(Duration(days: 1)); // Update the start date
+      } else {
+        relapse++; // Increment the relapse count
+      }
+      lastRelapse = now; // Update last relapse time
+    });
+  }
+
+  void _resetCounter() {
+    setState(() {
+      habitStartDate = DateTime.now(); // Reset to the current date
+      relapse = 0; // Reset relapse count
+      recoveryTime = 0; // Reset recovery time
+      longest = 0; // Reset longest streak
+      lastRelapse = null; // Reset last relapse time
+    });
   }
 
   @override
@@ -63,8 +100,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
             'Days',
             style: TextStyle(fontSize: 18),
           ),
-          const Text(
-            "0/90",
+          Text(
+            _formatDays(days),
             style: TextStyle(
                 fontSize: 50,
                 fontWeight: FontWeight.bold,
@@ -84,7 +121,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _statsCard(relapse, 'Relapse', Icons.sentiment_dissatisfied),
-                _statsCard(recoveryTime, 'Recovery time', Icons.emoji_events),
+                _statsCard(days, 'Recovery Time', Icons.emoji_events),
                 _statsCard(longest, 'Longest', Icons.timer),
               ],
             ),
@@ -96,9 +133,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                      onPressed: () {
-                        _showResetConfirmationDialog(context);
-                      },
+                      onPressed: () => _showResetConfirmationDialog(context),
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -117,9 +152,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                 SizedBox(width: 8),
                 Expanded(
                   child: ElevatedButton(
-                      onPressed: () {
-                        print('Button Pressed');
-                      },
+                      onPressed: _addRelapse,
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -194,14 +227,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          setState(() {
-                            hours = 0;
-                            minutes = 0;
-                            seconds = 0;
-                            relapse = 0;
-                            recoveryTime = 0;
-                            longest = 0;
-                          });
+                          _resetCounter(); // Reset the counter on confirmation
                         },
                         child: Text("Confirm"),
                       ),
@@ -283,5 +309,21 @@ class _TrackerScreenState extends State<TrackerScreen> {
 
   String _formatTime(int time) {
     return time.toString().padLeft(2, '0');
+  }
+
+  String _formatDays(int days) {
+    if (days >= 500) {
+      return "$days/1000";
+    } else if (days >= 400) {
+      return "$days/500";
+    } else if (days >= 300) {
+      return "$days/400";
+    } else if (days >= 200) {
+      return "$days/300";
+    } else if (days >= 100) {
+      return "$days/200";
+    } else {
+      return days.toString();
+    }
   }
 }
