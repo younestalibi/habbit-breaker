@@ -54,6 +54,11 @@ class _TrackerScreenState extends State<TrackerScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Image.asset(
+            "assets/logo.png",
+            height: 100,
+          ),
+          SizedBox(height: 16),
           const Text(
             'Days',
             style: TextStyle(fontSize: 18),

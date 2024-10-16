@@ -38,8 +38,8 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Column(
                 children: [
                   SizedBox(height: constraints.maxHeight * 0.1),
-                  Image.network(
-                    "https://i.postimg.cc/nz0YBQcH/Logo-light.png",
+                  Image.asset(
+                    "assets/logo.png",
                     height: 100,
                   ),
                   SizedBox(height: constraints.maxHeight * 0.1),
@@ -183,7 +183,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         // ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/signup');
+                            Navigator.pushNamed(context, '/signup');
                           },
                           child: const Text.rich(
                               TextSpan(

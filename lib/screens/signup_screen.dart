@@ -42,6 +42,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: null,
+        backgroundColor: Colors.white,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: LayoutBuilder(
@@ -50,11 +54,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 children: [
-                  SizedBox(height: constraints.maxHeight * 0.1),
-                  Image.network(
-                    "https://i.postimg.cc/nz0YBQcH/Logo-light.png",
-                    height: 100,
-                  ),
                   SizedBox(height: constraints.maxHeight * 0.1),
                   Text("Sign Up",
                       style: TextStyle(
@@ -67,44 +66,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          controller: firstNameController,
-                          decoration: const InputDecoration(
-                            hintText: 'First Name',
-                            filled: true,
-                            fillColor: Color(0xFFF5FCF9),
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: firstNameController,
+                                decoration: const InputDecoration(
+                                  hintText: 'First Name',
+                                  filled: true,
+                                  fillColor: Color(0xFFF5FCF9),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your first name.';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your first name.';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 16.0),
-                        TextFormField(
-                          controller: lastNameController,
-                          decoration: const InputDecoration(
-                            hintText: 'Last Name',
-                            filled: true,
-                            fillColor: Color(0xFFF5FCF9),
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
+                            const SizedBox(width: 16.0),
+                            Expanded(
+                              child: TextFormField(
+                                controller: lastNameController,
+                                decoration: const InputDecoration(
+                                  hintText: 'Last Name',
+                                  filled: true,
+                                  fillColor: Color(0xFFF5FCF9),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                  ),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your last name.';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your last name.';
-                            }
-                            return null;
-                          },
+                          ],
                         ),
                         SizedBox(height: 16.0),
                         DropdownButtonFormField<String>(
@@ -170,7 +178,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fillColor: Color(0xFFF5FCF9),
                               border: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                              
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(50)),
                               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:habbit_breaker/models/progress_model.dart';
+// import 'package:habbit_breaker/models/progress_model.dart';
 
 class AuthProvider with ChangeNotifier {
   User? _user;

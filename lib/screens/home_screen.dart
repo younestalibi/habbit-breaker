@@ -29,8 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return [
       Center(child: Text("Home Page")),
       Center(child: TrackerScreen()),
-      Center(child: Text("Profile Page")),
-      Center(child: Text("Community Page")),
     ];
   }
 
@@ -43,20 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.search),
-        title: "Search",
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
-        title: "Profile",
-        activeColorPrimary: Colors.blue,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.people),
-        title: "Community",
+        icon: Icon(Icons.timer),
+        title: "Progress",
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),
@@ -68,8 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final authProvider = Provider.of<AuthProvider>(context);
     String userName = authProvider.getUserName();
     String userEmail = authProvider.getUserEmail();
-    String userImage =authProvider.getUserPhoto();
-
+    String userImage = authProvider.getUserPhoto();
 
     return Scaffold(
       key: _scaffoldKey,
