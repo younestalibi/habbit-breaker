@@ -7,20 +7,17 @@ class TrackerScreen extends StatefulWidget {
 }
 
 class _TrackerScreenState extends State<TrackerScreen> {
-  // Start date of the habit breaker
-  DateTime habitStartDate = DateTime(2022, 5, 12, 14, 30, 0);
-  DateTime? lastRelapse; // Will track the last time a relapse happened
-  Duration timeDifference =
-      Duration(); // Will hold the calculated time difference
+  DateTime habitStartDate = DateTime(2022, 5, 12, 4, 30, 30);
+  DateTime? lastRelapse;
+  Duration timeDifference = Duration();
 
-  // Tracking variables
   int days = 0;
   int hours = 0;
   int minutes = 0;
   int seconds = 0;
-  int relapse = 0;
-  int recoveryTime = 0;
-  int longest = 0;
+  int relapse = 12;
+  int recoveryTime = 19;
+  int longest = 33;
   Timer? _timer;
 
   @override
@@ -30,7 +27,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         // Calculate the time difference between now and the habit start date
         DateTime now = DateTime.now();
@@ -55,6 +52,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
     if (date1 == null || date2 == null) {
       return false;
     }
+
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
@@ -63,25 +61,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
   void _addRelapse() {
     DateTime now = DateTime.now();
     setState(() {
-      // Check if the relapse is on the same day
       if (lastRelapse == null || !isSameDay(lastRelapse, now)) {
         relapse++;
-        habitStartDate =
-            habitStartDate.subtract(Duration(days: 1)); // Update the start date
+        habitStartDate = habitStartDate.add(Duration(days: 1));
       } else {
-        relapse++; // Increment the relapse count
+        relapse++;
       }
-      lastRelapse = now; // Update last relapse time
-    });
-  }
-
-  void _resetCounter() {
-    setState(() {
-      habitStartDate = DateTime.now(); // Reset to the current date
-      relapse = 0; // Reset relapse count
-      recoveryTime = 0; // Reset recovery time
-      longest = 0; // Reset longest streak
-      lastRelapse = null; // Reset last relapse time
+      lastRelapse = now;
     });
   }
 
@@ -121,7 +107,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _statsCard(relapse, 'Relapse', Icons.sentiment_dissatisfied),
-                _statsCard(days, 'Recovery Time', Icons.emoji_events),
+                _statsCard(days, 'Recovery time', Icons.emoji_events),
                 _statsCard(longest, 'Longest', Icons.timer),
               ],
             ),
@@ -133,7 +119,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                      onPressed: () => _showResetConfirmationDialog(context),
+                      onPressed: () {
+                        _showResetConfirmationDialog(context);
+                      },
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -227,7 +215,13 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          _resetCounter(); // Reset the counter on confirmation
+                          setState(() {
+                            habitStartDate = DateTime.now();
+                            relapse = 0;
+                            recoveryTime = 0;
+                            longest = 0;
+                            lastRelapse = null; // Reset the lastRelapse
+                          });
                         },
                         child: Text("Confirm"),
                       ),
