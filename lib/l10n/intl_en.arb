@@ -1,0 +1,16 @@
+{
+    "appTitle": "Habit Breaker",
+    "welcomeMessage": "Welcome to Habit Breaker",
+    "selectLanguage": "Select Language",
+    "hour": ":Hour",
+    "minute": ":Minute",
+    "second": ":Second",
+    "days": "Days",
+    "you_have_relapsed_today": "You have relapsed today! 🤡",
+    "reset_counter": "Reset the counter",
+    "add_relapse": "Add relapse",
+    "confirm_reset_counter": "Are you sure you want to reset the counter?",
+    "confirm_add_relapse": "Are you sure you want to add relapse?",
+    "cancel": "Cancel",
+    "confirm":"Confirm"
+}

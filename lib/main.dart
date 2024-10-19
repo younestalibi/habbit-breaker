@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habbit_breaker/firebase_options.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
@@ -33,6 +35,14 @@ class MyApp extends StatelessWidget {
           '/signup': (context) => SignUpScreen(),
           '/home': (context) => HomeScreen(),
         },
+        locale: const Locale('en'),
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
       ),
     );
   }

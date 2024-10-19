@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -201,7 +202,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     color:
-                                        const Color.fromARGB(255, 172, 58, 50),
+                                         ColorConstants.danger,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -243,8 +244,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: const Color(0xFF00BF6D),
-                            foregroundColor: Colors.white,
+                            backgroundColor: ColorConstants.primary,
+                            foregroundColor: ColorConstants.white,
                             minimumSize: const Size(double.infinity, 48),
                             shape: const StadiumBorder(),
                           ),
@@ -254,7 +255,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   width: 20,
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white),
+                                        ColorConstants.white),
                                   ),
                                 )
                               : const Text("Sign Up"),
@@ -270,11 +271,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               children: [
                                 TextSpan(
                                   text: "Sign In",
-                                  style: TextStyle(color: Color(0xFF00BF6D)),
+                                  style: TextStyle(
+                                      color: ColorConstants.secondary),
                                 ),
                               ],
                             ),
-                            style: TextStyle(color: Colors.grey),
+                            style: TextStyle(color: ColorConstants.grey),
                           ),
                         ),
                       ],

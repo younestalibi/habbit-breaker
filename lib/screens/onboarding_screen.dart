@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConstants.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -52,8 +53,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Navigator.pushReplacementNamed(context, '/signin');
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF22A45D),
-                  foregroundColor: Colors.white,
+                  backgroundColor: ColorConstants.primary,
+                  foregroundColor: ColorConstants.white,
                   minimumSize: const Size(double.infinity, 40),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -116,8 +117,8 @@ class DotIndicator extends StatelessWidget {
   const DotIndicator({
     super.key,
     this.isActive = false,
-    this.activeColor = const Color(0xFF22A45D),
-    this.inActiveColor = const Color(0xFF868686),
+    this.activeColor = ColorConstants.active,
+    this.inActiveColor = ColorConstants.inActive,
   });
 
   final bool isActive;

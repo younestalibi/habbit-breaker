@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/screens/tracker_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
@@ -59,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('My App'),
+        title: Text(S.of(context).appTitle),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),

@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/color_constants.dart';
+import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -35,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConstants.background,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -45,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   SizedBox(height: constraints.maxHeight * 0.1),
                   Image.asset(
-                    "assets/logo.png",
+                    ImageConstants.logo,
                     height: 100,
                   ),
                   SizedBox(height: constraints.maxHeight * 0.1),
@@ -66,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           decoration: const InputDecoration(
                             hintText: 'Email',
                             filled: true,
-                            fillColor: Color(0xFFF5FCF9),
+                            fillColor: ColorConstants.fillInput,
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 16.0 * 1.5, vertical: 16.0),
                             border: const OutlineInputBorder(
@@ -91,7 +93,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             decoration: const InputDecoration(
                               hintText: 'Password',
                               filled: true,
-                              fillColor: Color(0xFFF5FCF9),
+                              fillColor: ColorConstants.fillInput,
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 16.0 * 1.5, vertical: 16.0),
                               border: OutlineInputBorder(
@@ -118,8 +120,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 errorMessage!,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color:
-                                        const Color.fromARGB(255, 172, 58, 50),
+                                    color: ColorConstants.danger,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -160,33 +161,33 @@ class _SignInScreenState extends State<SignInScreen> {
                                 },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: const Color(0xFF00BF6D),
-                            foregroundColor: Colors.white,
+                            backgroundColor: ColorConstants.primary,
+                            foregroundColor: ColorConstants.white,
                             minimumSize: const Size(double.infinity, 48),
                             shape: const StadiumBorder(),
                           ),
-                          child: _isLoading // Show loading indicator
+                          child: _isLoading
                               ? SizedBox(
                                   height: 20,
                                   width: 20,
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white),
+                                        ColorConstants.white),
                                   ),
                                 )
                               : const Text("Sign in"),
                         ),
                         const SizedBox(height: 16.0),
-                        // TextButton(
-                        //   onPressed: () {
-                        //     // Handle forgot password action
-                        //   },
-                        //   child: const Text('Forgot Password?',
-                        //       style: TextStyle(
-                        //         color: Colors.black,
-                        //         fontWeight: FontWeight.bold,
-                        //       )),
-                        // ),
+                        TextButton(
+                          onPressed: () {
+                            _showForgotPasswordDialog(context);
+                          },
+                          child: const Text('Forgot Password?',
+                              style: TextStyle(
+                                color: ColorConstants.dark,
+                                fontWeight: FontWeight.bold,
+                              )),
+                        ),
                         TextButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/signup');
@@ -197,11 +198,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                 children: [
                                   TextSpan(
                                     text: "Sign Up",
-                                    style: TextStyle(color: Color(0xFF00BF6D)),
+                                    style: TextStyle(
+                                        color: ColorConstants.secondary),
                                   ),
                                 ],
                               ),
-                              style: TextStyle(color: Colors.grey)),
+                              style: TextStyle(color: ColorConstants.grey)),
                         ),
                       ],
                     ),
@@ -212,6 +214,51 @@ class _SignInScreenState extends State<SignInScreen> {
           },
         ),
       ),
+    );
+  }
+
+  void _showForgotPasswordDialog(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Reset Password'),
+          content: TextField(
+            controller: emailController,
+            decoration: const InputDecoration(hintText: 'Enter your email'),
+            keyboardType: TextInputType.emailAddress,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                String? result =
+                    await Provider.of<AuthProvider>(context, listen: false)
+                        .resetPassword(emailController.text);
+                if (result == null) {
+                  // Show success message
+                  Navigator.of(context).pop(); // Close dialog
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Password reset email sent!')),
+                  );
+                } else {
+                  // Show error message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(result)),
+                  );
+                }
+              },
+              child: const Text('Send Reset Link'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

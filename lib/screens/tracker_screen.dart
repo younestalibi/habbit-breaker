@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/color_constants.dart';
+import 'package:habbit_breaker/constants/image_constants.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:provider/provider.dart';
@@ -82,34 +85,29 @@ class _TrackerScreenState extends State<TrackerScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Image.asset(
-          "assets/logo.png",
+          ImageConstants.logo,
           height: 100,
         ),
         SizedBox(height: 16),
-        const Text(
-          'Days',
+        Text(
+          S.of(context).days,
           style: TextStyle(fontSize: 18),
         ),
-        Text(
-          _formatDays(days),
-          style: TextStyle(
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 61, 224, 66)),
-        ),
+        Text(_formatDays(days),
+            style: TextStyle(
+                fontSize: 55,
+                fontWeight: FontWeight.bold,
+                color: ColorConstants.secondary)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _timeLabelColumn(hours, ": hour "),
-            _timeLabelColumn(minutes, ": minute "),
-            _timeLabelColumn(seconds, ": second "),
+            _timeLabelColumn(hours, "hour"),
+            _timeLabelColumn(minutes, "minute"),
+            _timeLabelColumn(seconds, "second"),
           ],
         ),
-        lastRelapse != null
-            ? Text(
-                'Last relapse on : ${lastRelapse?.toLocal()}',
-                style: TextStyle(fontSize: 12),
-              )
+        isSameDay(lastRelapse, DateTime.now())
+            ? Text(S.of(context).you_have_relapsed_today)
             : SizedBox.shrink(),
         Padding(
           padding: const EdgeInsets.all(15.0),
@@ -130,7 +128,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               Expanded(
                 child: ElevatedButton(
                     onPressed: () {
-                      _showResetConfirmationDialog(context);
+                      _showConfirmationDialog(context, 'reset');
                     },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -140,7 +138,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                         backgroundColor:
                             const Color.fromARGB(255, 139, 212, 255)),
                     child: Text(
-                      'Reset the counter',
+                      S.of(context).reset_counter,
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -150,7 +148,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
               SizedBox(width: 8),
               Expanded(
                 child: ElevatedButton(
-                    onPressed: _addRelapse,
+                    onPressed: () {
+                      _showConfirmationDialog(context, 'relapse');
+                    },
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
@@ -158,7 +158,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                         padding: EdgeInsets.all(15),
                         backgroundColor: const Color.fromARGB(255, 39, 39, 39)),
                     child: Text(
-                      'Add relapse',
+                      S.of(context).add_relapse,
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -206,33 +206,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
     });
   }
 
-  void _addRelapse() {
-    DateTime now = DateTime.now();
-    setState(() {
-      if (lastRelapse == null || !isSameDay(lastRelapse, now)) {
-        relapse++;
-        if (!isSameDay(habitStartDate, now)) {
-          habitStartDate = habitStartDate!.add(Duration(days: 1));
-        }
-      } else {
-        relapse++;
-      }
-      lastRelapse = now;
-      _data = _fetch();
-    });
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final trackerProvider =
-        Provider.of<TrackerProvider>(context, listen: false);
-
-    String userId = authProvider.user?.uid ?? '';
-
-    if (userId.isNotEmpty) {
-      trackerProvider.addRelapse(
-          userId, habitStartDate!, lastRelapse, relapse, recoveryTime, longest);
-    }
-  }
-
-  void _showResetConfirmationDialog(BuildContext context) {
+  void _showConfirmationDialog(BuildContext context, String type) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -252,14 +226,18 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   color: const Color.fromARGB(255, 57, 166, 255),
                 ),
                 Text(
-                  'Reset Counter',
+                  type == 'reset'
+                      ? S.of(context).reset_counter
+                      : S.of(context).add_relapse,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  'Are you sure you want to reset the counter?',
+                  type == 'reset'
+                      ? S.of(context).confirm_reset_counter
+                      : S.of(context).confirm_add_relapse,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -274,8 +252,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
                           Navigator.of(context).pop();
                         },
                         child: Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.red),
+                          S.of(context).cancel,
+                          style: TextStyle(color: ColorConstants.danger),
                         ),
                       ),
                     ),
@@ -283,27 +261,54 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          setState(() {
-                            habitStartDate = DateTime.now();
-                            relapse = 0;
-                            recoveryTime = 0;
-                            longest = 0;
-                            lastRelapse = null;
-                            _data = _fetch();
-                          });
-                          print(habitStartDate);
                           final authProvider =
                               Provider.of<AuthProvider>(context, listen: false);
-                          String userId = authProvider.user?.uid ?? '';
                           final trackerProvider = Provider.of<TrackerProvider>(
                               context,
                               listen: false);
 
-                          if (userId.isNotEmpty) {
-                            trackerProvider.resetCounter(userId);
+                          String userId = authProvider.user?.uid ?? '';
+                          if (type == 'reset') {
+                            setState(() {
+                              habitStartDate = DateTime.now();
+                              relapse = 0;
+                              recoveryTime = 0;
+                              longest = 0;
+                              lastRelapse = null;
+                            });
+                            if (userId.isNotEmpty) {
+                              trackerProvider.resetCounter(userId);
+                            }
+                          } else {
+                            DateTime now = DateTime.now();
+                            setState(() {
+                              if (lastRelapse == null ||
+                                  !isSameDay(lastRelapse, now)) {
+                                relapse++;
+                                if (!isSameDay(habitStartDate, now)) {
+                                  habitStartDate =
+                                      habitStartDate!.add(Duration(days: 1));
+                                }
+                              } else {
+                                relapse++;
+                              }
+                              lastRelapse = now;
+                            });
+                            if (userId.isNotEmpty) {
+                              trackerProvider.addRelapse(
+                                  userId,
+                                  habitStartDate!,
+                                  lastRelapse,
+                                  relapse,
+                                  recoveryTime,
+                                  longest);
+                            }
                           }
+                          setState(() {
+                            _data = _fetch();
+                          });
                         },
-                        child: Text("Confirm"),
+                        child: Text(S.of(context).confirm),
                       ),
                     ),
                   ],
@@ -370,11 +375,15 @@ class _TrackerScreenState extends State<TrackerScreen> {
               _formatTime(time),
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
-            const SizedBox(width: 4),
+            const SizedBox(width: 2),
             Text(
-              label,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              _getLocalizedLabel(label),
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
             ),
+            const SizedBox(width: 4),
           ],
         ),
       ],
@@ -394,10 +403,34 @@ class _TrackerScreenState extends State<TrackerScreen> {
       return "$days/400";
     } else if (days >= 200) {
       return "$days/300";
-    } else if (days >= 100) {
+    } else if (days >= 120) {
       return "$days/200";
+    } else if (days >= 90) {
+      return "$days/120";
+    } else if (days >= 30) {
+      return "$days/90";
+    } else if (days >= 15) {
+      return "$days/30";
+    } else if (days >= 7) {
+      return "$days/15";
+    } else if (days < 7) {
+      return "$days/7";
     } else {
       return days.toString();
+    }
+  }
+
+  String _getLocalizedLabel(String label) {
+    print('hi');
+    switch (label) {
+      case 'hour':
+        return S.of(context).hour;
+      case 'minute':
+        return S.of(context).minute;
+      case 'second':
+        return S.of(context).second;
+      default:
+        return '';
     }
   }
 }
