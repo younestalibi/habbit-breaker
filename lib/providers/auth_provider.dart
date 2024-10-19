@@ -111,4 +111,43 @@ class AuthProvider with ChangeNotifier {
         return "An error occurred. Please try again later.";
     }
   }
+
+  // Firestore reference
+  final CollectionReference trackerCollection =
+      FirebaseFirestore.instance.collection('trackers');
+
+  // Function to add a relapse
+  Future<void> addRelapse(String userId, DateTime habitStartDate,
+      DateTime? lastRelapse, int relapse, int recoveryTime, int longest) async {
+    await trackerCollection.doc(userId).set({
+      'habit_start_date': habitStartDate.toIso8601String(),
+      'last_relapse': lastRelapse?.toIso8601String(),
+      'relapse': relapse,
+      'recovery_time': recoveryTime,
+      'longest': longest,
+      'created_at': DateTime.now().toIso8601String(),
+      'updated_at': DateTime.now().toIso8601String(),
+    }, SetOptions(merge: true)); // Merge to update existing document
+  }
+
+  // Function to reset the counter
+  Future<void> resetCounter(String userId) async {
+    await trackerCollection.doc(userId).update({
+      'habit_start_date': DateTime.now().toIso8601String(),
+      'last_relapse': null,
+      'relapse': 0,
+      'recovery_time': 0,
+      'longest': 0,
+      'updated_at': DateTime.now().toIso8601String(),
+    });
+  }
+
+  // Function to get tracker data
+  Future<Map<String, dynamic>?> getTrackerData(String userId) async {
+    DocumentSnapshot doc = await trackerCollection.doc(userId).get();
+    if (doc.exists) {
+      return doc.data() as Map<String, dynamic>?;
+    }
+    return null;
+  }
 }
