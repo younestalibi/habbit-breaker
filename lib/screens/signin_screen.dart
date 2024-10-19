@@ -13,15 +13,21 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   String? errorMessage;
   bool _isLoading = false;
+
+  void initState() {
+    emailController.text = 'younessetalibi8@gmail.com';
+    passwordController.text = '123456';
+  }
 
   @override
   void dispose() {
     // Dispose the controllers
-    phoneController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -56,7 +62,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: phoneController,
+                          controller: emailController,
                           decoration: const InputDecoration(
                             hintText: 'Email',
                             filled: true,
@@ -137,7 +143,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .login(
-                                      phoneController.text,
+                                      emailController.text,
                                       passwordController.text,
                                     );
 

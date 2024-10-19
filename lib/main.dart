@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:habbit_breaker/firebase_options.dart';
+import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => TrackerProvider()),
       ],
       child: MaterialApp(
         title: 'Habit Breaker',
