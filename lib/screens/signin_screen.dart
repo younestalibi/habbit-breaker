@@ -131,15 +131,15 @@ class _SignInScreenState extends State<SignInScreen> {
                           height: 10,
                         ),
                         ElevatedButton(
-                          onPressed: _isLoading // Disable button when loading
+                          onPressed: _isLoading
                               ? null
                               : () async {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
                                       errorMessage = '';
-                                      _isLoading = true; // Set loading to true
+                                      _isLoading = true;
                                     });
-                                    // If the form is valid, proceed to login
+
                                     String? result =
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
@@ -154,7 +154,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                     } else {
                                       setState(() {
                                         errorMessage = result;
-                                        _isLoading = false; // Reset loading
+                                        _isLoading = false;
                                       });
                                     }
                                   }
@@ -236,13 +236,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     await Provider.of<AuthProvider>(context, listen: false)
                         .resetPassword(emailController.text);
                 if (result == null) {
-                  // Show success message
-                  Navigator.of(context).pop(); // Close dialog
+                  Navigator.of(context).pop(); 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Password reset email sent!')),
                   );
                 } else {
-                  // Show error message
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(result)),
                   );
