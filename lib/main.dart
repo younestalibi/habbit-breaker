@@ -5,19 +5,24 @@ import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
+import 'package:habbit_breaker/screens/onboarding_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:habbit_breaker/screens/splash_screen.dart';
+import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefs.instance.init();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  String languageCode = SharedPrefs.instance.getStringData('languageCode');
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -34,8 +39,10 @@ class MyApp extends StatelessWidget {
           '/signin': (context) => SignInScreen(),
           '/signup': (context) => SignUpScreen(),
           '/home': (context) => HomeScreen(),
+          '/onboarding': (context) => OnboardingScreen(),
         },
-        locale: const Locale('en'),
+        locale:
+            languageCode.isEmpty ? const Locale('en') : Locale(languageCode),
         localizationsDelegates: [
           S.delegate,
           GlobalMaterialLocalizations.delegate,

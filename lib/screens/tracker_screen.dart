@@ -106,7 +106,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
             _timeLabelColumn(seconds, "second"),
           ],
         ),
-        isSameDay(lastRelapse, DateTime.now())
+        isAtLeast24HoursApart(lastRelapse, DateTime.now())
             ? Text(S.of(context).you_have_relapsed_today)
             : SizedBox.shrink(),
         Padding(
@@ -170,16 +170,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
         )
       ],
     );
-  }
-
-  bool isSameDay(DateTime? date1, DateTime? date2) {
-    if (date1 == null || date2 == null) {
-      return false;
-    }
-
-    return date1.year == date2.year &&
-        date1.month == date2.month &&
-        date1.day == date2.day;
   }
 
   Future<Map<String, dynamic>> _fetch() async {
@@ -283,9 +273,11 @@ class _TrackerScreenState extends State<TrackerScreen> {
                             DateTime now = DateTime.now();
                             setState(() {
                               if (lastRelapse == null ||
-                                  !isSameDay(lastRelapse, now)) {
+                                  isAtLeast24HoursApart(lastRelapse, now)) {
                                 relapse++;
-                                if (!isSameDay(habitStartDate, now)) {
+
+                                if (isAtLeast24HoursApart(
+                                    habitStartDate, now)) {
                                   habitStartDate =
                                       habitStartDate!.add(Duration(days: 1));
                                 }
@@ -319,6 +311,16 @@ class _TrackerScreenState extends State<TrackerScreen> {
         );
       },
     );
+  }
+
+  bool isAtLeast24HoursApart(DateTime? firstDate, DateTime? secondDate) {
+    print('hii');
+    if (firstDate == null || secondDate == null) {
+      return false;
+    }
+    Duration difference = secondDate.difference(firstDate);
+    print(difference);
+    return difference.inHours >= 24;
   }
 
   Widget _statsCard(int number, String label, IconData icon) {
@@ -421,7 +423,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   String _getLocalizedLabel(String label) {
-    print('hi');
     switch (label) {
       case 'hour':
         return S.of(context).hour;
