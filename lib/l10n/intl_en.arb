@@ -1,6 +1,5 @@
 {
-    "appTitle": "Habit Breaker",
-    "welcomeMessage": "Welcome to Habit Breaker",
+    "appName": "Habit Breaker",
     "selectLanguage": "Select Language",
     "hour": ":Hour",
     "minute": ":Minute",
@@ -12,5 +11,24 @@
     "confirm_reset_counter": "Are you sure you want to reset the counter?",
     "confirm_add_relapse": "Are you sure you want to add relapse?",
     "cancel": "Cancel",
-    "confirm":"Confirm"
+    "confirm": "Confirm",
+    "sign_in": "Sign In",
+    "forget_password": "Forgot Password?",
+    "reset_password": "Reset Password",
+    "enter_email": "Enter your email",
+    "password_reset_sent": "Password reset email sent!",
+    "send_reset_link": "Send Reset Link",
+    "have_no_account": "Don't have an account?",
+    "sign_up": "Sign Up",
+    "email": "Email",
+    "please_enter_email": "Please enter your email.",
+    "password": "Password",
+    "please_enter_password": "Please enter your password",
+    "first_name": "First Name",
+    "please_enter_first_name": "Please enter your first name.",
+    "last_name": "Last Name",
+    "please_enter_last_name": "Please enter your last name.",
+    "select_gender": "Select Gender",
+    "please_select_gender": "Please select your gender.",
+    "have_account": "Already have an account?"
 }

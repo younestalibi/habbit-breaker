@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -28,7 +29,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void dispose() {
-    // Dispose the controllers
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -52,7 +52,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: constraints.maxHeight * 0.1),
                   Text(
-                    "Sign In",
+                    S.of(context).sign_in,
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!
@@ -65,8 +65,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       children: [
                         TextFormField(
                           controller: emailController,
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
+                          decoration: InputDecoration(
+                            hintText: S.of(context).email,
                             filled: true,
                             fillColor: ColorConstants.fillInput,
                             contentPadding: const EdgeInsets.symmetric(
@@ -80,7 +80,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email.';
+                              return S.of(context).please_enter_email;
                             }
                             return null;
                           },
@@ -90,8 +90,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: TextFormField(
                             controller: passwordController,
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              hintText: 'Password',
+                            decoration: InputDecoration(
+                              hintText: S.of(context).password,
                               filled: true,
                               fillColor: ColorConstants.fillInput,
                               contentPadding: const EdgeInsets.symmetric(
@@ -104,7 +104,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your password';
+                                return S.of(context).please_enter_password;
                               }
                               return null;
                             },
@@ -175,14 +175,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                         ColorConstants.white),
                                   ),
                                 )
-                              : const Text("Sign in"),
+                              : Text(S.of(context).sign_in),
                         ),
                         const SizedBox(height: 16.0),
                         TextButton(
                           onPressed: () {
                             _showForgotPasswordDialog(context);
                           },
-                          child: const Text('Forgot Password?',
+                          child: Text(S.of(context).forget_password,
                               style: TextStyle(
                                 color: ColorConstants.dark,
                                 fontWeight: FontWeight.bold,
@@ -192,12 +192,12 @@ class _SignInScreenState extends State<SignInScreen> {
                           onPressed: () {
                             Navigator.pushNamed(context, '/signup');
                           },
-                          child: const Text.rich(
+                          child: Text.rich(
                               TextSpan(
-                                text: "Don't have an account? ",
+                                text: S.of(context).have_no_account,
                                 children: [
                                   TextSpan(
-                                    text: "Sign Up",
+                                    text: S.of(context).sign_up,
                                     style: TextStyle(
                                         color: ColorConstants.secondary),
                                   ),
@@ -223,10 +223,10 @@ class _SignInScreenState extends State<SignInScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Reset Password'),
+          title: Text(S.of(context).reset_password),
           content: TextField(
             controller: emailController,
-            decoration: const InputDecoration(hintText: 'Enter your email'),
+            decoration: InputDecoration(hintText: S.of(context).enter_email),
             keyboardType: TextInputType.emailAddress,
           ),
           actions: [
@@ -236,9 +236,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     await Provider.of<AuthProvider>(context, listen: false)
                         .resetPassword(emailController.text);
                 if (result == null) {
-                  Navigator.of(context).pop(); 
+                  Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Password reset email sent!')),
+                    SnackBar(content: Text(S.of(context).password_reset_sent)),
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -246,13 +246,13 @@ class _SignInScreenState extends State<SignInScreen> {
                   );
                 }
               },
-              child: const Text('Send Reset Link'),
+              child: Text(S.of(context).send_reset_link),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close dialog
+                Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              child: Text(S.of(context).cancel),
             ),
           ],
         );

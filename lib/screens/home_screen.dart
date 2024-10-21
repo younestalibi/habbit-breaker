@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(S.of(context).appTitle),
+        title: Text(S.of(context).appName),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),

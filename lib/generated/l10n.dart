@@ -51,20 +51,10 @@ class S {
   }
 
   /// `Habit Breaker`
-  String get appTitle {
+  String get appName {
     return Intl.message(
       'Habit Breaker',
-      name: 'appTitle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Welcome to Habit Breaker`
-  String get welcomeMessage {
-    return Intl.message(
-      'Welcome to Habit Breaker',
-      name: 'welcomeMessage',
+      name: 'appName',
       desc: '',
       args: [],
     );
@@ -185,6 +175,196 @@ class S {
     return Intl.message(
       'Confirm',
       name: 'confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign In`
+  String get sign_in {
+    return Intl.message(
+      'Sign In',
+      name: 'sign_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get forget_password {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'forget_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get reset_password {
+    return Intl.message(
+      'Reset Password',
+      name: 'reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email`
+  String get enter_email {
+    return Intl.message(
+      'Enter your email',
+      name: 'enter_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset email sent!`
+  String get password_reset_sent {
+    return Intl.message(
+      'Password reset email sent!',
+      name: 'password_reset_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Reset Link`
+  String get send_reset_link {
+    return Intl.message(
+      'Send Reset Link',
+      name: 'send_reset_link',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account?`
+  String get have_no_account {
+    return Intl.message(
+      'Don\'t have an account?',
+      name: 'have_no_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Up`
+  String get sign_up {
+    return Intl.message(
+      'Sign Up',
+      name: 'sign_up',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your email.`
+  String get please_enter_email {
+    return Intl.message(
+      'Please enter your email.',
+      name: 'please_enter_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your password`
+  String get please_enter_password {
+    return Intl.message(
+      'Please enter your password',
+      name: 'please_enter_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `First Name`
+  String get first_name {
+    return Intl.message(
+      'First Name',
+      name: 'first_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your first name.`
+  String get please_enter_first_name {
+    return Intl.message(
+      'Please enter your first name.',
+      name: 'please_enter_first_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last Name`
+  String get last_name {
+    return Intl.message(
+      'Last Name',
+      name: 'last_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter your last name.`
+  String get please_enter_last_name {
+    return Intl.message(
+      'Please enter your last name.',
+      name: 'please_enter_last_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Gender`
+  String get select_gender {
+    return Intl.message(
+      'Select Gender',
+      name: 'select_gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select your gender.`
+  String get please_select_gender {
+    return Intl.message(
+      'Please select your gender.',
+      name: 'please_select_gender',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account?`
+  String get have_account {
+    return Intl.message(
+      'Already have an account?',
+      name: 'have_account',
       desc: '',
       args: [],
     );

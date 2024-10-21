@@ -5,6 +5,7 @@ import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
+import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
 class TrackerScreen extends StatefulWidget {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
+import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:habbit_breaker/screens/language_selection_screen.dart';
@@ -20,23 +22,18 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _initializeApp() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? localeCode = prefs.getString('languageCode');
+    String languageCode = SharedPrefs.instance.getStringData('languageCode');
 
     Future.delayed(Duration(seconds: 2), () {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       if (authProvider.isAuthenticated()) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
-        if (localeCode != null) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LanguageSelectionScreen()));
+        if (!languageCode.isNotEmpty) {
+          //update this to remove page language after first time
+          Navigator.pushReplacementNamed(context, '/onboarding');
         } else {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => OnboardingScreen()));
+          Navigator.pushReplacementNamed(context, '/language');
         }
       }
     });
@@ -52,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Image.asset(ImageConstants.logo, width: 150, height: 150),
             const SizedBox(height: 10),
             Text(
-              'Habit Breaker',
+              S.of(context).appName,
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),

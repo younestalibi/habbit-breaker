@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -56,7 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   SizedBox(height: constraints.maxHeight * 0.1),
-                  Text("Sign Up",
+                  Text(S.of(context).sign_up,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -73,11 +74,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Expanded(
                               child: TextFormField(
                                 controller: firstNameController,
-                                decoration: const InputDecoration(
-                                  hintText: 'First Name',
+                                decoration: InputDecoration(
+                                  hintText: S.of(context).first_name,
                                   filled: true,
                                   fillColor: Color(0xFFF5FCF9),
-                                  border: OutlineInputBorder(
+                                  border: const OutlineInputBorder(
                                     borderSide: BorderSide.none,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)),
@@ -85,7 +86,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your first name.';
+                                    return S
+                                        .of(context)
+                                        .please_enter_first_name;
                                   }
                                   return null;
                                 },
@@ -95,8 +98,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Expanded(
                               child: TextFormField(
                                 controller: lastNameController,
-                                decoration: const InputDecoration(
-                                  hintText: 'Last Name',
+                                decoration: InputDecoration(
+                                  hintText: S.of(context).last_name,
                                   filled: true,
                                   fillColor: Color(0xFFF5FCF9),
                                   border: OutlineInputBorder(
@@ -107,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your last name.';
+                                    return S.of(context).please_enter_last_name;
                                   }
                                   return null;
                                 },
@@ -132,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   BorderRadius.all(Radius.circular(50)),
                             ),
                           ),
-                          hint: const Text('Select Gender'),
+                          hint: Text(S.of(context).select_gender),
                           items: <String>['Male', 'Female', 'Other']
                               .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
@@ -142,7 +145,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           }).toList(),
                           validator: (value) {
                             if (value == null) {
-                              return 'Please select your gender.';
+                              return S.of(context).please_select_gender;
                             }
                             return null;
                           },
@@ -150,8 +153,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         SizedBox(height: 16.0),
                         TextFormField(
                           controller: emailController,
-                          decoration: const InputDecoration(
-                            hintText: 'Email',
+                          decoration: InputDecoration(
+                            hintText: S.of(context).email,
                             filled: true,
                             fillColor: Color(0xFFF5FCF9),
                             border: const OutlineInputBorder(
@@ -163,7 +166,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email.';
+                              return S.of(context).please_enter_email;
                             }
                             return null;
                           },
@@ -173,8 +176,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: TextFormField(
                             controller: passwordController,
                             obscureText: true,
-                            decoration: const InputDecoration(
-                              hintText: 'Password',
+                            decoration: InputDecoration(
+                              hintText: S.of(context).password,
                               filled: true,
                               fillColor: Color(0xFFF5FCF9),
                               border: const OutlineInputBorder(
@@ -185,7 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter your password.';
+                                return S.of(context).please_enter_password;
                               }
                               return null;
                             },
@@ -201,8 +204,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 errorMessage!,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    color:
-                                         ColorConstants.danger,
+                                    color: ColorConstants.danger,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400),
                               ),
@@ -258,19 +260,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         ColorConstants.white),
                                   ),
                                 )
-                              : const Text("Sign Up"),
+                              : Text(S.of(context).sign_up),
                         ),
                         const SizedBox(height: 16.0),
                         TextButton(
                           onPressed: () {
                             Navigator.pushReplacementNamed(context, '/signin');
                           },
-                          child: const Text.rich(
+                          child: Text.rich(
                             TextSpan(
-                              text: "Already have an account? ",
+                              text: S.of(context).have_account,
                               children: [
                                 TextSpan(
-                                  text: "Sign In",
+                                  text: S.of(context).sign_in,
                                   style: TextStyle(
                                       color: ColorConstants.secondary),
                                 ),

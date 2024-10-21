@@ -5,6 +5,7 @@ import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
+import 'package:habbit_breaker/screens/language_selection_screen.dart';
 import 'package:habbit_breaker/screens/onboarding_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
           '/signin': (context) => SignInScreen(),
           '/signup': (context) => SignUpScreen(),
           '/home': (context) => HomeScreen(),
-          '/onboarding': (context) => OnboardingScreen(),
+          '/language': (context) => LanguageSelectionScreen(),
+          '/onboarding': (context) => const OnboardingScreen(),
         },
         locale:
             languageCode.isEmpty ? const Locale('en') : Locale(languageCode),
