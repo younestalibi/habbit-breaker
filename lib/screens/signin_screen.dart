@@ -6,7 +6,7 @@ import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
-import 'home_screen.dart';
+import 'layout_screen.dart';
 import '../providers/auth_provider.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -150,7 +150,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                                     if (result == null) {
                                       Navigator.pushReplacementNamed(
-                                          context, '/home');
+                                          context, '/layout');
                                     } else {
                                       setState(() {
                                         errorMessage = result;

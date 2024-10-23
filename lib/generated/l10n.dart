@@ -369,6 +369,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome {userName}`
+  String pageHomeWelcomeFullName(Object userName) {
+    return Intl.message(
+      'Welcome $userName',
+      name: 'pageHomeWelcomeFullName',
+      desc: '',
+      args: [userName],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

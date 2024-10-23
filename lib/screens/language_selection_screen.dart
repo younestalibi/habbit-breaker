@@ -13,7 +13,7 @@ class LanguageSelectionScreen extends StatelessWidget {
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     if (authProvider.isAuthenticated()) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/layout');
     } else {
       Navigator.pushReplacementNamed(context, '/onboarding');
     }

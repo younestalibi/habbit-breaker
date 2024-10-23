@@ -30,5 +30,11 @@
     "please_enter_last_name": "Please enter your last name.",
     "select_gender": "Select Gender",
     "please_select_gender": "Please select your gender.",
-    "have_account": "Already have an account?"
+    "have_account": "Already have an account?",
+    "pageHomeWelcomeFullName": "Welcome {userName}",
+    "@pageHomeWelcomeFullName": {
+        "placeholders": {
+            "userName": {}
+        }
+    }
 }

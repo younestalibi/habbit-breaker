@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:habbit_breaker/screens/language_selection_screen.dart';
 import 'package:habbit_breaker/screens/onboarding_screen.dart';
-import 'package:habbit_breaker/screens/home_screen.dart';
+import 'package:habbit_breaker/screens/layout_screen.dart';
 import '../providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 2), () {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       if (authProvider.isAuthenticated()) {
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushReplacementNamed(context, '/layout');
       } else {
         if (!languageCode.isNotEmpty) {
           //update this to remove page language after first time

@@ -3,7 +3,7 @@ import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:provider/provider.dart';
-import 'home_screen.dart';
+import 'layout_screen.dart';
 import '../providers/auth_provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var authProvider = Provider.of<AuthProvider>(context, listen: false);
       if (authProvider.isAuthenticated()) {
-        Navigator.pushReplacementNamed(context, "/home");
+        Navigator.pushReplacementNamed(context, "/layout");
       }
     });
   }
@@ -235,7 +235,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     );
                                     if (result == null) {
                                       Navigator.pushReplacementNamed(
-                                          context, '/home');
+                                          context, '/layout');
                                     } else {
                                       setState(() {
                                         errorMessage = result;

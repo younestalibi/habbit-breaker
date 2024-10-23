@@ -4,12 +4,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
-import 'package:habbit_breaker/screens/home_screen.dart';
+import 'package:habbit_breaker/screens/layout_screen.dart';
 import 'package:habbit_breaker/screens/language_selection_screen.dart';
 import 'package:habbit_breaker/screens/onboarding_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:habbit_breaker/screens/splash_screen.dart';
+import 'package:habbit_breaker/screens/tracker_screen.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
@@ -39,9 +40,10 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           '/signin': (context) => SignInScreen(),
           '/signup': (context) => SignUpScreen(),
-          '/home': (context) => HomeScreen(),
+          '/layout': (context) => LayoutScreen(),
           '/language': (context) => LanguageSelectionScreen(),
           '/onboarding': (context) => const OnboardingScreen(),
+          '/tracker': (context) => TrackerScreen(),
         },
         locale:
             languageCode.isEmpty ? const Locale('en') : Locale(languageCode),
