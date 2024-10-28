@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:io';
 
 class AuthProvider with ChangeNotifier {
   User? _user;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
   User? get user => _user;
 
@@ -79,6 +83,47 @@ class AuthProvider with ChangeNotifier {
       return _handleAuthError(e);
     } catch (e) {
       return "An unknown error occurred. Please try again.";
+    }
+  }
+
+  Future<String?> uploadProfilePicture(String filePath) async {
+    File file = File(filePath);
+
+    // Check if the file exists
+    if (!await file.exists()) {
+      return "File does not exist.";
+    }
+    print(file);
+
+    String filePathInStorage = 'user_profile_pictures/${_user?.uid}.png';
+    print(filePathInStorage);
+
+    try {
+      // Upload the file to Firebase Storage
+      TaskSnapshot snapshot =
+          await _firebaseStorage.ref(filePathInStorage).putFile(file);
+      print('hii');
+      print(snapshot);
+
+      // Check if the upload was successful
+      if (snapshot.state == TaskState.success) {
+        // Get the download URL
+        String downloadUrl = await snapshot.ref.getDownloadURL();
+
+        // Update the user's profile photo URL
+        await _user?.updateProfile(photoURL: downloadUrl);
+        await _user?.reload();
+        _user = _firebaseAuth.currentUser; // Refresh the user data
+
+        print(
+            'Profile picture uploaded successfully. Download URL: $downloadUrl');
+        return null; // Return null if the upload is successful
+      } else {
+        return "Failed to upload profile picture: ${snapshot.state}";
+      }
+    } catch (e) {
+      print('Error occurred during upload: $e');
+      return "Failed to upload profile picture: $e"; // Return error message if something goes wrong
     }
   }
 

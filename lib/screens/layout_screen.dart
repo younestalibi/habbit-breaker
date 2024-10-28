@@ -3,6 +3,7 @@ import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
+import 'package:habbit_breaker/screens/setting_screen.dart';
 import 'package:habbit_breaker/screens/tracker_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   List<Widget> _buildScreens() {
     return [
+      Center(child: SettingsScreen()),
       Center(child: HomeScreen()),
       Center(child: TrackerScreen()),
     ];
@@ -45,6 +47,12 @@ class _LayoutScreenState extends State<LayoutScreen> {
       PersistentBottomNavBarItem(
         icon: Icon(Icons.timer),
         title: "Progress",
+        activeColorPrimary: Colors.blue,
+        inactiveColorPrimary: Colors.grey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.settings),
+        title: "Settings",
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),

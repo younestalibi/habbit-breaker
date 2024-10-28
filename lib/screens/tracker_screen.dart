@@ -315,12 +315,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   bool isAtLeast24HoursApart(DateTime? firstDate, DateTime? secondDate) {
-    print('hii');
     if (firstDate == null || secondDate == null) {
       return false;
     }
     Duration difference = secondDate.difference(firstDate);
-    print(difference);
     return difference.inHours >= 24;
   }
 

@@ -7,6 +7,8 @@ import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/screens/layout_screen.dart';
 import 'package:habbit_breaker/screens/language_selection_screen.dart';
 import 'package:habbit_breaker/screens/onboarding_screen.dart';
+import 'package:habbit_breaker/screens/profile_setting_screen.dart';
+import 'package:habbit_breaker/screens/setting_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:habbit_breaker/screens/splash_screen.dart';
@@ -44,6 +46,8 @@ class MyApp extends StatelessWidget {
           '/language': (context) => LanguageSelectionScreen(),
           '/onboarding': (context) => const OnboardingScreen(),
           '/tracker': (context) => TrackerScreen(),
+          '/settings/profile': (context) => ProfileSettingsScreen(),
+          '/settings': (context) => SettingsScreen(),
         },
         locale:
             languageCode.isEmpty ? const Locale('en') : Locale(languageCode),
