@@ -65,7 +65,6 @@ class _LayoutScreenState extends State<LayoutScreen> {
     String userName = authProvider.getUserName();
     String userEmail = authProvider.getUserEmail();
     String userImage = authProvider.getUserPhoto();
-    print(authProvider.user);
 
     return Scaffold(
       appBar: AppBar(
@@ -88,6 +87,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             },
           ),
         ],
+        automaticallyImplyLeading: false,
       ),
       body: PersistentTabView(
         context,

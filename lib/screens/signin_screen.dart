@@ -5,6 +5,7 @@ import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
+import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
 import 'layout_screen.dart';
@@ -17,21 +18,21 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String? errorMessage;
   bool _isLoading = false;
 
   void initState() {
-    emailController.text = 'younessetalibi8@gmail.com';
-    passwordController.text = '123456';
+    _emailController.text = 'younessetalibi8@gmail.com';
+    _passwordController.text = '123456';
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -65,7 +66,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: Column(
                       children: [
                         CustomInputField(
-                          controller: emailController,
+                          controller: _emailController,
                           hintText: S.of(context).email,
                           fillColor: Colors.grey[200]!,
                           validator: (value) {
@@ -74,20 +75,22 @@ class _SignInScreenState extends State<SignInScreen> {
                             }
                             return null;
                           },
+                          icon: Icons.email,
+                          label: S.of(context).email,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: CustomInputField(
-                            controller: passwordController,
-                            hintText: S.of(context).password,
-                            obscureText: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return S.of(context).please_enter_password;
-                              }
-                              return null;
-                            },
-                          ),
+                        Dimensions.mdHeight,
+                        CustomInputField(
+                          controller: _passwordController,
+                          hintText: S.of(context).password,
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return S.of(context).please_enter_password;
+                            }
+                            return null;
+                          },
+                          icon: Icons.lock,
+                          label: S.of(context).password,
                         ),
                         if (errorMessage != null)
                           Container(
@@ -105,10 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ),
                           ),
-                        const SizedBox(
-                          width: 10,
-                          height: 10,
-                        ),
+                        Dimensions.mdHeight,
                         ElevatedButton(
                           onPressed: _isLoading
                               ? null
@@ -123,8 +123,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                         await Provider.of<AuthProvider>(context,
                                                 listen: false)
                                             .login(
-                                      emailController.text,
-                                      passwordController.text,
+                                      _emailController.text,
+                                      _passwordController.text,
                                     );
 
                                     if (result == null) {
@@ -156,7 +156,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 )
                               : Text(S.of(context).sign_in),
                         ),
-                        const SizedBox(height: 16.0),
+                        Dimensions.mdHeight,
                         TextButton(
                           onPressed: () {
                             _showForgotPasswordDialog(context);
@@ -197,14 +197,14 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _showForgotPasswordDialog(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(S.of(context).reset_password),
           content: TextField(
-            controller: emailController,
+            controller: _emailController,
             decoration: InputDecoration(hintText: S.of(context).enter_email),
             keyboardType: TextInputType.emailAddress,
           ),
@@ -213,7 +213,7 @@ class _SignInScreenState extends State<SignInScreen> {
               onPressed: () async {
                 String? result =
                     await Provider.of<AuthProvider>(context, listen: false)
-                        .resetPassword(emailController.text);
+                        .resetPassword(_emailController.text);
                 if (result == null) {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(

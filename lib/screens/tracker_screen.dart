@@ -26,7 +26,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   int recoveryTime = 0;
   int longest = 0;
   Timer? _timer;
-  Future<Map<String, dynamic>>? _data;
+  Future<Map<String, dynamic>?>? _data;
 
   @override
   void initState() {
@@ -44,23 +44,17 @@ class _TrackerScreenState extends State<TrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: FutureBuilder<Map<String, dynamic>>(
+        child: FutureBuilder<Map<String, dynamic>?>(
       future: _data,
-      builder:
-          (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+      builder: (BuildContext context,
+          AsyncSnapshot<Map<String, dynamic>?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return _buildLoadingIndicator();
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData) {
-          final data = snapshot.data;
-          if (data == null) {
-            habitStartDate = DateTime.now();
-            lastRelapse = null;
-            relapse = 0;
-            recoveryTime = 0;
-            longest = 0;
-          } else {
+          final data = snapshot.data!;
+          if (data != null) {
             habitStartDate = DateTime.parse(data['habit_start_date']);
             lastRelapse = data['last_relapse'] != null
                 ? DateTime.parse(data['last_relapse'])
@@ -68,8 +62,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
             relapse = data['relapse'] ?? 0;
             recoveryTime = data['recovery_time'] ?? 0;
             longest = data['longest'] ?? 0;
+            return _buildTrackerContent(context);
+          } else {
+            return Text('Something went wrong');
           }
-          return _buildTrackerContent(context);
         } else {
           return Center(child: Text('No data available'));
         }
@@ -173,12 +169,12 @@ class _TrackerScreenState extends State<TrackerScreen> {
     );
   }
 
-  Future<Map<String, dynamic>> _fetch() async {
+  Future<Map<String, dynamic>?> _fetch() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final trackerProvider =
         Provider.of<TrackerProvider>(context, listen: false);
     String userId = authProvider.user?.uid ?? '';
-    Map<String, dynamic> data = await trackerProvider.getTrackerData(userId);
+    Map<String, dynamic>? data = await trackerProvider.getTrackerData(userId);
     return data;
   }
 

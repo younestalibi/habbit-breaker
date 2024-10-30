@@ -5,6 +5,23 @@ class TrackerProvider with ChangeNotifier {
   final CollectionReference trackerCollection =
       FirebaseFirestore.instance.collection('trackers');
 
+  Future<String?> createTracker(String userId) async {
+    try {
+      await trackerCollection.doc(userId).set({
+        'habit_start_date': DateTime.now().toIso8601String(),
+        'last_relapse': null,
+        'relapse': 0,
+        'recovery_time': 0,
+        'longest': 0,
+        'created_at': DateTime.now().toIso8601String(),
+        'updated_at': DateTime.now().toIso8601String(),
+      });
+      return null;
+    } catch (e) {
+      return "Failed to create tracker. Please try again.";
+    }
+  }
+
   // Function to add a relapse
   Future<String?> addRelapse(String userId, DateTime habitStartDate,
       DateTime? lastRelapse, int relapse, int recoveryTime, int longest) async {
@@ -41,16 +58,24 @@ class TrackerProvider with ChangeNotifier {
     }
   }
 
-  Future<Map<String, dynamic>> getTrackerData(String userId) async {
+  Future<Map<String, dynamic>?> getTrackerData(String userId) async {
     try {
       DocumentSnapshot doc = await trackerCollection.doc(userId).get();
       if (doc.exists) {
         return doc.data() as Map<String, dynamic>;
+      } else {
+        String? creationResult = await createTracker(userId);
+        if (creationResult != null) {
+          print("Failed to create tracker: $creationResult");
+          return null;
+        }
+        DocumentSnapshot newDoc = await trackerCollection.doc(userId).get();
+        return newDoc.data() as Map<String, dynamic>;
       }
-      return {};
     } catch (e) {
       print("Error fetching tracker data: $e");
-      return Future.error(e);
+      // return Future.error(e);
+      return null;
     }
   }
 }

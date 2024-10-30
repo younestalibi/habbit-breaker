@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/screens/profile_setting_screen.dart';
+import 'package:habbit_breaker/utils/dimensions.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(Dimensions.mdHeight);
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
@@ -31,16 +33,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                 // Navigator.of(context).pushNamed('/settings/profile');
               },
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  color: ColorConstants.dark,
-                  fontSize: 16,
-                ), // Match SwitchListTile text style
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  'Profile',
+                  style: TextStyle(
+                    color: ColorConstants.dark,
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
             Divider(),
-            // Notifications Toggle
             SwitchListTile(
               title: Text(
                 'Enable Notifications',
@@ -57,6 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             Divider(),
+            // Dimensions.mdHeight,
 
             // Dark Theme Toggle
             SwitchListTile(
@@ -77,7 +83,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Divider(),
 
-            // Reset Data
             ListTile(
               title: Text('Reset All Data'),
               subtitle: Text('Clear all habit tracking data'),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
+import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
@@ -44,43 +47,59 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GestureDetector(
-              onTap: () => _changeProfilePicture(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(_profileImagePath!),
-                  ),
-                  if (_isImageLoading) CircularProgressIndicator(),
-                  if (!_isImageLoading)
-                    Icon(Icons.camera_alt, color: Colors.white),
-                ],
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(16),
+              decoration: const BoxDecoration(boxShadow: [
+                BoxShadow(
+                    color: Color.fromARGB(255, 235, 235, 235),
+                    offset: Offset(0, 2),
+                    blurRadius: 2)
+              ], borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: GestureDetector(
+                onTap: () => _changeProfilePicture(),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: NetworkImage(_profileImagePath!),
+                    ),
+                    if (_isImageLoading) CircularProgressIndicator(),
+                    if (!_isImageLoading)
+                      Icon(Icons.camera_alt, color: Colors.white),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 16),
-            _buildTextField(
-                controller: _usernameController,
-                label: 'Username',
-                icon: Icons.person),
-            SizedBox(height: 16),
-            _buildTextField(
-                controller: _emailController,
-                label: 'Email',
-                icon: Icons.email),
-            SizedBox(height: 16),
-            _buildTextField(
-                controller: _passwordController,
-                label: 'Password',
-                icon: Icons.lock,
-                isObscured: true),
-            SizedBox(height: 16),
+            Dimensions.smHeight,
+            CustomInputField(
+              controller: _usernameController,
+              hintText: 'Username',
+              label: "username",
+              icon: Icons.person,
+            ),
+            Dimensions.smHeight,
+            CustomInputField(
+              controller: _emailController,
+              hintText: 'Email',
+              label: "Email",
+              icon: Icons.email,
+            ),
+            Dimensions.smHeight,
+            CustomInputField(
+              controller: _passwordController,
+              hintText: 'Password',
+              label: "Password",
+              obscureText: true,
+              icon: Icons.lock,
+            ),
+            Dimensions.smHeight,
             ElevatedButton(
               onPressed: _isLoading ? null : _updateUserProfile,
               child: _isLoading ? Text('Saving...') : Text('Save'),
             ),
-            SizedBox(height: 24),
+            Dimensions.smHeight,
             if (_successMessage != null)
               Text(_successMessage!, style: TextStyle(color: Colors.green)),
             TextButton(
@@ -90,22 +109,6 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String label,
-    required IconData icon,
-    bool isObscured = false,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: isObscured,
-      decoration: InputDecoration(
-        labelText: label,
-        prefixIcon: Icon(icon),
       ),
     );
   }

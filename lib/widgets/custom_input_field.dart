@@ -7,6 +7,8 @@ class CustomInputField extends StatelessWidget {
   final Color fillColor;
   final double borderRadius;
   final String? Function(String?)? validator;
+  final String? label;
+  final IconData? icon;
 
   const CustomInputField({
     Key? key,
@@ -16,6 +18,8 @@ class CustomInputField extends StatelessWidget {
     this.fillColor = const Color(0xFFF0F0F0),
     this.borderRadius = 50.0,
     this.validator,
+    this.label,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -24,6 +28,8 @@ class CustomInputField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon),
         hintText: hintText,
         filled: true,
         fillColor: fillColor,
