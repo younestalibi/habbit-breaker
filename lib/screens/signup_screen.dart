@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
+import 'package:habbit_breaker/widgets/custom_dropdown_field.dart';
 import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
 import 'layout_screen.dart';
@@ -102,30 +103,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                         SizedBox(height: 16.0),
-                        DropdownButtonFormField<String>(
+                        CustomDropdownField(
                           value: selectedGender,
+                          hintText: S.of(context).select_gender,
+                          items: ['Male', 'Female', 'Other'],
+                          fillColor: Colors.grey[200]!, // Custom fill color
                           onChanged: (String? newValue) {
                             setState(() {
                               selectedGender = newValue;
                             });
                           },
-                          decoration: const InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xFFF5FCF9),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                          ),
-                          hint: Text(S.of(context).select_gender),
-                          items: <String>['Male', 'Female', 'Other']
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
                           validator: (value) {
                             if (value == null) {
                               return S.of(context).please_select_gender;
