@@ -30,9 +30,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      Center(child: SettingsScreen()),
       Center(child: HomeScreen()),
       Center(child: TrackerScreen()),
+      Center(child: SettingsScreen()),
     ];
   }
 

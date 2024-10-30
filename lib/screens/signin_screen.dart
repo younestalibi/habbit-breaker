@@ -5,6 +5,7 @@ import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
+import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
 import 'layout_screen.dart';
 import '../providers/auth_provider.dart';
@@ -63,21 +64,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        TextFormField(
+                        CustomInputField(
                           controller: emailController,
-                          decoration: InputDecoration(
-                            hintText: S.of(context).email,
-                            filled: true,
-                            fillColor: ColorConstants.fillInput,
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16.0 * 1.5, vertical: 16.0),
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
+                          hintText: S.of(context).email,
+                          fillColor: Colors.grey[200]!,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return S.of(context).please_enter_email;
@@ -87,21 +77,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: TextFormField(
+                          child: CustomInputField(
                             controller: passwordController,
+                            hintText: S.of(context).password,
                             obscureText: true,
-                            decoration: InputDecoration(
-                              hintText: S.of(context).password,
-                              filled: true,
-                              fillColor: ColorConstants.fillInput,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0 * 1.5, vertical: 16.0),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                            ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return S.of(context).please_enter_password;

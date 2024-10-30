@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
+import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
 import 'layout_screen.dart';
 import '../providers/auth_provider.dart';
@@ -72,18 +73,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: TextFormField(
+                              child: CustomInputField(
                                 controller: firstNameController,
-                                decoration: InputDecoration(
-                                  hintText: S.of(context).first_name,
-                                  filled: true,
-                                  fillColor: Color(0xFFF5FCF9),
-                                  border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                  ),
-                                ),
+                                hintText: S.of(context).first_name,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return S
@@ -96,18 +88,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             const SizedBox(width: 16.0),
                             Expanded(
-                              child: TextFormField(
+                              child: CustomInputField(
                                 controller: lastNameController,
-                                decoration: InputDecoration(
-                                  hintText: S.of(context).last_name,
-                                  filled: true,
-                                  fillColor: Color(0xFFF5FCF9),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
-                                  ),
-                                ),
+                                hintText: S.of(context).last_name,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return S.of(context).please_enter_last_name;
@@ -151,19 +134,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                         ),
                         SizedBox(height: 16.0),
-                        TextFormField(
+                        CustomInputField(
                           controller: emailController,
-                          decoration: InputDecoration(
-                            hintText: S.of(context).email,
-                            filled: true,
-                            fillColor: Color(0xFFF5FCF9),
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
+                          hintText: S.of(context).email,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return S.of(context).please_enter_email;
@@ -171,28 +144,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             return null;
                           },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: TextFormField(
-                            controller: passwordController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              hintText: S.of(context).password,
-                              filled: true,
-                              fillColor: Color(0xFFF5FCF9),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return S.of(context).please_enter_password;
-                              }
-                              return null;
-                            },
-                          ),
+                        SizedBox(height: 16),
+                        CustomInputField(
+                          controller: passwordController,
+                          hintText: S.of(context).password,
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return S.of(context).please_enter_password;
+                            }
+                            return null;
+                          },
                         ),
                         if (errorMessage != null)
                           Container(
