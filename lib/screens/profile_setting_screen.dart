@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart'; // Import the image_picker package
-import 'dart:io'; // Import for using File
 
 class ProfileSettingsScreen extends StatefulWidget {
   @override
@@ -13,8 +13,12 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final ImagePicker _picker = ImagePicker(); // Initialize ImagePicker
-  String? _profileImagePath; // Variable to hold the image path
+  final ImagePicker _picker = ImagePicker();
+
+  String? _profileImagePath;
+  bool _isLoading = false;
+  bool _isImageLoading = false;
+  String? _successMessage;
 
   @override
   void initState() {
@@ -26,12 +30,11 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     _usernameController.text = authProvider.getUserName();
     _emailController.text = authProvider.getUserEmail();
+    _profileImagePath = authProvider.getUserPhoto();
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile Settings"),
@@ -41,80 +44,49 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Profile Picture
             GestureDetector(
-              onTap: () {
-                _changeProfilePicture();
-              },
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: _profileImagePath != null
-                    ? FileImage(File(_profileImagePath!))
-                    : NetworkImage(authProvider.getUserPhoto())
-                        as ImageProvider,
-                child: Icon(Icons.camera_alt, color: Colors.white),
+              onTap: () => _changeProfilePicture(),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(_profileImagePath!),
+                  ),
+                  if (_isImageLoading) CircularProgressIndicator(),
+                  if (!_isImageLoading)
+                    Icon(Icons.camera_alt, color: Colors.white),
+                ],
               ),
             ),
             SizedBox(height: 16),
-
-            // Username Field
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-                prefixIcon: Icon(Icons.person),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _updateUsername(authProvider);
-              },
-              child: Text('Save Username'),
-            ),
+            _buildTextField(
+                controller: _usernameController,
+                label: 'Username',
+                icon: Icons.person),
             SizedBox(height: 16),
-
-            // Email Field
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                _updateEmail(authProvider);
-              },
-              child: Text('Save Email'),
-            ),
+            _buildTextField(
+                controller: _emailController,
+                label: 'Email',
+                icon: Icons.email),
             SizedBox(height: 16),
-
-            // Password Field
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                prefixIcon: Icon(Icons.lock),
-              ),
-            ),
+            _buildTextField(
+                controller: _passwordController,
+                label: 'Password',
+                icon: Icons.lock,
+                isObscured: true),
+            SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                _updatePassword(authProvider);
-              },
-              child: Text('Save Password'),
+              onPressed: _isLoading ? null : _updateUserProfile,
+              child: _isLoading ? Text('Saving...') : Text('Save'),
             ),
             SizedBox(height: 24),
-
-            // Delete Account Button
+            if (_successMessage != null)
+              Text(_successMessage!, style: TextStyle(color: Colors.green)),
             TextButton(
-              onPressed: () {
-                _showDeleteConfirmation();
-              },
-              child: Text(
-                'Delete Accountt',
-                style: TextStyle(color: Colors.red),
-              ),
+              onPressed: _showDeleteConfirmation,
+              child:
+                  Text('Delete Account', style: TextStyle(color: Colors.red)),
             ),
           ],
         ),
@@ -122,62 +94,86 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     );
   }
 
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    bool isObscured = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: isObscured,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon),
+      ),
+    );
+  }
+
   void _changeProfilePicture() async {
-    final pickedFile = await _picker.pickImage(
-        source: ImageSource
-            .gallery, // Change this to ImageSource.camera to take a photo
-        imageQuality: 50,
-        maxWidth: 800,
-        maxHeight: 600);
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
-        _profileImagePath = pickedFile.path; // Update the profile image path
+        _isImageLoading = true;
       });
 
-      print(_profileImagePath);
-      // Ensure _profileImagePath is not null before passing it
-
-      if (_profileImagePath != null) {
-        print('yes1');
-        String? errorMessage =
-            await Provider.of<AuthProvider>(context, listen: false)
-                .uploadProfilePicture(
-                    _profileImagePath!); // Use ! to assert it's not null
-        print('yes2');
-
-        if (errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(errorMessage)),
-          );
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Profile picture updated successfully.')),
-          );
-        }
-      }
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      await authProvider.uploadProfilePicture(pickedFile.path);
+      setState(() {
+        _profileImagePath = authProvider.getUserPhoto();
+        _isImageLoading = false;
+      });
     }
   }
 
-  void _updateUsername(AuthProvider authProvider) {
-    // Update username logic
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Username updated successfully.')),
-    );
+  void _updateUserProfile() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    String username = _usernameController.text.trim();
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+    List<String> errorMessages = [];
+
+    // Check if username is different before updating
+    if (username != authProvider.getUserName()) {
+      String? error = await authProvider.updateUserName(username);
+      if (error != null) errorMessages.add(error);
+    }
+
+    // Check if email is different before updating
+    if (email != authProvider.getUserEmail()) {
+      String? error = await authProvider.updateEmail(email);
+      if (error != null) errorMessages.add(error);
+      _showSnackBar(
+          'A verification link has been sent to your new email. Please verify to complete the update.');
+    }
+
+    // Update password only if provided
+    if (password.isNotEmpty) {
+      String? error = await authProvider.updatePassword(password);
+      if (error != null) errorMessages.add(error);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (errorMessages.isNotEmpty) {
+      _showSnackBar(errorMessages.join('\n'));
+    } else {
+      setState(() {
+        _successMessage = 'Profile updated successfully!';
+      });
+    }
   }
 
-  void _updateEmail(AuthProvider authProvider) {
-    // Update email logic
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Email updated successfully.')),
-    );
-  }
-
-  void _updatePassword(AuthProvider authProvider) {
-    // Update password logic
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Password updated successfully.')),
-    );
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _showDeleteConfirmation() {
@@ -189,21 +185,17 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             'Are you sure you want to delete your account? This action is irreversible.'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel'),
-          ),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Cancel')),
           TextButton(
-            onPressed: () {
-              // Handle account deletion
+            onPressed: () async {
+              final authProvider =
+                  Provider.of<AuthProvider>(context, listen: false);
+              String? result = await authProvider.deleteAccount();
               Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Account deleted successfully.')),
-              );
+              _showSnackBar(result ?? 'Account deleted successfully.');
             },
-            child: Text(
-              'Delete',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: Text('Delete', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

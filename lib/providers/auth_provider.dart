@@ -59,6 +59,7 @@ class AuthProvider with ChangeNotifier {
         password: password,
       );
       _user = userCredential.user;
+
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
@@ -88,42 +89,107 @@ class AuthProvider with ChangeNotifier {
 
   Future<String?> uploadProfilePicture(String filePath) async {
     File file = File(filePath);
-
-    // Check if the file exists
     if (!await file.exists()) {
       return "File does not exist.";
     }
-    print(file);
 
     String filePathInStorage = 'user_profile_pictures/${_user?.uid}.png';
-    print(filePathInStorage);
 
     try {
-      // Upload the file to Firebase Storage
       TaskSnapshot snapshot =
           await _firebaseStorage.ref(filePathInStorage).putFile(file);
-      print('hii');
-      print(snapshot);
 
-      // Check if the upload was successful
       if (snapshot.state == TaskState.success) {
-        // Get the download URL
         String downloadUrl = await snapshot.ref.getDownloadURL();
-
-        // Update the user's profile photo URL
-        await _user?.updateProfile(photoURL: downloadUrl);
+        await _user?.updatePhotoURL(downloadUrl);
         await _user?.reload();
-        _user = _firebaseAuth.currentUser; // Refresh the user data
-
-        print(
-            'Profile picture uploaded successfully. Download URL: $downloadUrl');
-        return null; // Return null if the upload is successful
+        _user = _firebaseAuth.currentUser;
+        notifyListeners();
+        return null;
       } else {
         return "Failed to upload profile picture: ${snapshot.state}";
       }
     } catch (e) {
-      print('Error occurred during upload: $e');
-      return "Failed to upload profile picture: $e"; // Return error message if something goes wrong
+      return "Failed to upload profile picture: $e";
+    }
+  }
+
+  Future<String?> updateProfile({
+    String? username,
+    String? email,
+    String? password,
+  }) async {
+    try {
+      // Update username if provided
+      if (username != null && username.isNotEmpty) {
+        await _user!.updateDisplayName(username);
+      }
+
+      // Update password if provided
+      if (password != null && password.isNotEmpty) {
+        await _user!.updatePassword(password);
+      }
+
+      // Verify and update email if provided
+      if (email != null && email.isNotEmpty) {
+        await _user!.verifyBeforeUpdateEmail(email);
+        return "A verification link has been sent to your new email. Please verify to complete the update.";
+      }
+
+      // Reload user data and notify listeners of the changes
+      await _user!.reload();
+      _user = _firebaseAuth.currentUser;
+      notifyListeners();
+
+      return null; // Return null to indicate success
+    } catch (e) {
+      return "Failed to update profile: $e"; // Return error message
+    }
+  }
+
+  Future<String?> updateUserName(String username) async {
+    try {
+      await _user!.updateDisplayName(username);
+      await _user!.reload();
+      _user = _firebaseAuth.currentUser;
+      notifyListeners();
+      return null;
+    } catch (e) {
+      print(e);
+      return "Failed to update user name: $e";
+    }
+  }
+
+  Future<String?> deleteAccount() async {
+    try {
+      notifyListeners();
+      return null;
+    } catch (e) {
+      return "Failed to delete account: $e";
+    }
+  }
+
+  Future<String?> updateEmail(String email) async {
+    try {
+      await _user!.verifyBeforeUpdateEmail(email);
+      await _user!.reload();
+      _user = _firebaseAuth.currentUser;
+      notifyListeners();
+      return null;
+    } catch (e) {
+      return "Failed to update user name: $e";
+    }
+  }
+
+  Future<String?> updatePassword(String password) async {
+    try {
+      await _user!.updatePassword(password);
+      await _user!.reload();
+      _user = _firebaseAuth.currentUser;
+      notifyListeners();
+      return null;
+    } catch (e) {
+      return "Failed to update user name: $e";
     }
   }
 
@@ -140,7 +206,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   String getUserPhoto() {
-    return _user?.photoURL ?? "No photo";
+    return _user?.photoURL ?? "https://www.gravatar.com/avatar/placeholder";
   }
 
   bool isValidEmail(String email) {

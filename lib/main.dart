@@ -17,6 +17,7 @@ import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_provider.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs.instance.init();
@@ -27,6 +28,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   String languageCode = SharedPrefs.instance.getStringData('languageCode');
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -58,6 +60,7 @@ class MyApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
+        navigatorKey: navigatorKey,
       ),
     );
   }
