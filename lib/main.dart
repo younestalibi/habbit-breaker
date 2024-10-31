@@ -5,16 +5,6 @@ import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/router/router.dart';
-import 'package:habbit_breaker/screens/articles_list_screen.dart';
-import 'package:habbit_breaker/screens/layout_screen.dart';
-import 'package:habbit_breaker/screens/language_selection_screen.dart';
-import 'package:habbit_breaker/screens/onboarding_screen.dart';
-import 'package:habbit_breaker/screens/profile_setting_screen.dart';
-import 'package:habbit_breaker/screens/setting_screen.dart';
-import 'package:habbit_breaker/screens/signin_screen.dart';
-import 'package:habbit_breaker/screens/signup_screen.dart';
-import 'package:habbit_breaker/screens/splash_screen.dart';
-import 'package:habbit_breaker/screens/tracker_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
@@ -41,12 +31,11 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Habit Breaker',
-        // darkTheme: ThemeData.dark(),
         initialRoute: '/',
-        onGenerateRoute: CustomeRouter.generateRoute, // Use the router
+        onGenerateRoute: CustomeRouter.generateRoute,
         locale:
             languageCode.isEmpty ? const Locale('en') : Locale(languageCode),
-        localizationsDelegates: [
+        localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

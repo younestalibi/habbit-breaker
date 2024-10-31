@@ -34,8 +34,7 @@ class CustomeRouter {
       case '/articles':
         return MaterialPageRoute(builder: (_) => ArticlesListScreen());
       default:
-        return MaterialPageRoute(
-            builder: (_) => SplashScreen()); // or an error page
+        return MaterialPageRoute(builder: (_) => SplashScreen());
     }
   }
 }

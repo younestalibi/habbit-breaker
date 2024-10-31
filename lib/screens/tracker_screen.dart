@@ -7,6 +7,7 @@ import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
+import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 import 'package:provider/provider.dart';
 
 class TrackerScreen extends StatefulWidget {
@@ -123,45 +124,22 @@ class _TrackerScreenState extends State<TrackerScreen> {
           Row(
             children: [
               Expanded(
-                child: ElevatedButton(
-                    onPressed: () {
-                      _showConfirmationDialog(context, 'reset');
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        padding: EdgeInsets.all(15),
-                        backgroundColor:
-                            const Color.fromARGB(255, 139, 212, 255)),
-                    child: Text(
-                      S.of(context).reset_counter,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    )),
-              ),
+                  child: CustomElevatedButton(
+                backgroundColor: const Color.fromRGBO(105, 250, 238, 1),
+                text: S.of(context).reset_counter,
+                onPressed: () {
+                  _showConfirmationDialog(context, 'reset');
+                },
+              )),
               SizedBox(width: 8),
               Expanded(
-                child: ElevatedButton(
-                    onPressed: () {
-                      _showConfirmationDialog(context, 'relapse');
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        padding: EdgeInsets.all(15),
-                        backgroundColor: const Color.fromARGB(255, 39, 39, 39)),
-                    child: Text(
-                      S.of(context).add_relapse,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    )),
-              ),
+                  child: CustomElevatedButton(
+                backgroundColor: Colors.black,
+                text: S.of(context).add_relapse,
+                onPressed: () {
+                  _showConfirmationDialog(context, 'Add relpase');
+                },
+              ))
             ],
           )
         ],
