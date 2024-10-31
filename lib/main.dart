@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
+import 'package:habbit_breaker/router/router.dart';
 import 'package:habbit_breaker/screens/articles_list_screen.dart';
 import 'package:habbit_breaker/screens/layout_screen.dart';
 import 'package:habbit_breaker/screens/language_selection_screen.dart';
@@ -40,20 +41,9 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Habit Breaker',
-        theme: ThemeData(primarySwatch: Colors.blue),
+        // darkTheme: ThemeData.dark(),
         initialRoute: '/',
-        routes: {
-          '/': (context) => SplashScreen(),
-          '/signin': (context) => SignInScreen(),
-          '/signup': (context) => SignUpScreen(),
-          '/layout': (context) => LayoutScreen(),
-          '/language': (context) => LanguageSelectionScreen(),
-          '/onboarding': (context) => const OnboardingScreen(),
-          '/tracker': (context) => TrackerScreen(),
-          '/settings/profile': (context) => ProfileSettingsScreen(),
-          '/settings': (context) => SettingsScreen(),
-          '/articles': (context) => ArticlesListScreen(),
-        },
+        onGenerateRoute: CustomeRouter.generateRoute, // Use the router
         locale:
             languageCode.isEmpty ? const Locale('en') : Locale(languageCode),
         localizationsDelegates: [
