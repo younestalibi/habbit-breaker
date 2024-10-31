@@ -102,11 +102,6 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             Dimensions.smHeight,
             if (_successMessage != null)
               Text(_successMessage!, style: TextStyle(color: Colors.green)),
-            TextButton(
-              onPressed: _showDeleteConfirmation,
-              child:
-                  Text('Delete Account', style: TextStyle(color: Colors.red)),
-            ),
           ],
         ),
       ),
@@ -179,31 +174,6 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
         .showSnackBar(SnackBar(content: Text(message)));
   }
 
-  void _showDeleteConfirmation() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Delete Account'),
-        content: Text(
-            'Are you sure you want to delete your account? This action is irreversible.'),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text('Cancel')),
-          TextButton(
-            onPressed: () async {
-              final authProvider =
-                  Provider.of<AuthProvider>(context, listen: false);
-              String? result = await authProvider.deleteAccount();
-              Navigator.of(context).pop();
-              _showSnackBar(result ?? 'Account deleted successfully.');
-            },
-            child: Text('Delete', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   void dispose() {

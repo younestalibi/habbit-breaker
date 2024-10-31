@@ -24,4 +24,8 @@ class Dimensions {
   static const smHeight = SizedBox(height: 25);
   static final mdHeight = SizedBox(height: screenHeight! * 0.05);
   static final lgHeight = SizedBox(height: screenHeight! * 0.08);
+
+  static const smWidth = SizedBox(width: 25);
+  static final mdWidth = SizedBox(width: screenWidth! * 0.05);
+  static final lgWidth = SizedBox(width: screenWidth! * 0.08);
 }

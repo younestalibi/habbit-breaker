@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/articles.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
+import 'package:habbit_breaker/screens/articles_list_screen.dart';
+import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,20 +15,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Header(),
         Quote(),
-        SpecialOffers(),
+        Articles(),
       ],
     );
   }
 }
 
-class SpecialOffers extends StatelessWidget {
-  const SpecialOffers({
+class Articles extends StatelessWidget {
+  const Articles({
     Key? key,
   }) : super(key: key);
 
@@ -37,45 +40,42 @@ class SpecialOffers extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
             title: "Special for you",
-            press: () {},
+            press: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ArticlesListScreen()));
+            },
           ),
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [
-              SpecialOfferCard(
-                image: "https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png",
-                category: "Smartphone",
-                numOfBrands: 18,
-                press: () {},
-              ),
-              SpecialOfferCard(
-                image: "https://i.postimg.cc/BQjz4G1k/Image-Banner-3.png",
-                category: "Fashion",
-                numOfBrands: 24,
-                press: () {},
-              ),
-              const SizedBox(width: 20),
-            ],
-          ),
+              children: articles.take(4).map((article) {
+            return ArticleCard(
+              image: article['image'],
+              category: article['category'],
+              title: article['title'],
+              press: () {},
+            );
+          }).toList()),
         ),
       ],
     );
   }
 }
 
-class SpecialOfferCard extends StatelessWidget {
-  const SpecialOfferCard({
+class ArticleCard extends StatelessWidget {
+  const ArticleCard({
     Key? key,
     required this.category,
     required this.image,
-    required this.numOfBrands,
+    required this.title,
     required this.press,
   }) : super(key: key);
 
   final String category, image;
-  final int numOfBrands;
+  final String title;
   final GestureTapCallback press;
 
   @override
@@ -125,7 +125,7 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Brands")
+                        TextSpan(text: title)
                       ],
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
+import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
@@ -78,37 +79,39 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   Widget _buildTrackerContent(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Image.asset(
-          ImageConstants.logo,
-          height: 100,
-        ),
-        SizedBox(height: 16),
-        Text(
-          S.of(context).days,
-          style: TextStyle(fontSize: 18),
-        ),
-        Text(_formatDays(days),
-            style: TextStyle(
-                fontSize: 55,
-                fontWeight: FontWeight.bold,
-                color: ColorConstants.secondary)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _timeLabelColumn(hours, "hour"),
-            _timeLabelColumn(minutes, "minute"),
-            _timeLabelColumn(seconds, "second"),
-          ],
-        ),
-        isAtLeast24HoursApart(lastRelapse, DateTime.now())
-            ? Text(S.of(context).you_have_relapsed_today)
-            : SizedBox.shrink(),
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            ImageConstants.logo,
+            height: 100,
+          ),
+          Dimensions.smHeight,
+          Text(
+            S.of(context).days,
+            style: TextStyle(fontSize: 18),
+          ),
+          Text(_formatDays(days),
+              style: TextStyle(
+                  fontSize: 55,
+                  fontWeight: FontWeight.bold,
+                  color: ColorConstants.secondary)),
+          Dimensions.smHeight,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _timeLabelColumn(hours, "hour"),
+              _timeLabelColumn(minutes, "minute"),
+              _timeLabelColumn(seconds, "second"),
+            ],
+          ),
+          isAtLeast24HoursApart(lastRelapse, DateTime.now())
+              ? Text(S.of(context).you_have_relapsed_today)
+              : SizedBox.shrink(),
+          Dimensions.smHeight,
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _statsCard(relapse, 'Relapse', Icons.sentiment_dissatisfied),
@@ -116,11 +119,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
               _statsCard(longest, 'Longest', Icons.timer),
             ],
           ),
-        ),
-        SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Row(
+          Dimensions.mdHeight,
+          Row(
             children: [
               Expanded(
                 child: ElevatedButton(
@@ -163,9 +163,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
                     )),
               ),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
@@ -335,7 +335,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   Text(
                     number.toString(),
                     style: const TextStyle(
-                      fontSize: 30,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500,
                       color: Color.fromARGB(255, 61, 224, 66),
                     ),
@@ -343,7 +343,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                   const SizedBox(width: 4),
                   Icon(
                     icon,
-                    size: 30.0,
+                    size: 20.0,
                     color: const Color.fromARGB(255, 61, 224, 66),
                   ),
                 ],

@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
+import 'package:habbit_breaker/screens/articles_list_screen.dart';
 import 'package:habbit_breaker/screens/layout_screen.dart';
 import 'package:habbit_breaker/screens/language_selection_screen.dart';
 import 'package:habbit_breaker/screens/onboarding_screen.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           '/tracker': (context) => TrackerScreen(),
           '/settings/profile': (context) => ProfileSettingsScreen(),
           '/settings': (context) => SettingsScreen(),
+          '/articles': (context) => ArticlesListScreen(),
         },
         locale:
             languageCode.isEmpty ? const Locale('en') : Locale(languageCode),
