@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefs {
   static final SharedPrefs _instance = SharedPrefs._internal();
   late SharedPreferences _sharedPrefs;
-  // Private constructor for Singleton pattern
+
   SharedPrefs._internal();
   static SharedPrefs get instance => _instance;
 
@@ -17,4 +17,6 @@ class SharedPrefs {
   String getStringData(String key) {
     return _sharedPrefs.getString(key) ?? "";
   }
+
+  
 }

@@ -126,6 +126,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               Expanded(
                   child: CustomElevatedButton(
                 backgroundColor: const Color.fromRGBO(105, 250, 238, 1),
+                padding: 20,
                 text: S.of(context).reset_counter,
                 onPressed: () {
                   _showConfirmationDialog(context, 'reset');
@@ -135,6 +136,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               Expanded(
                   child: CustomElevatedButton(
                 backgroundColor: Colors.black,
+                padding: 20,
                 text: S.of(context).add_relapse,
                 onPressed: () {
                   _showConfirmationDialog(context, 'Add relpase');

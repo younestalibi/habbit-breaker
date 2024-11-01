@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
@@ -8,14 +9,20 @@ import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 import '../providers/auth_provider.dart';
 
-class LanguageSelectionScreen extends StatefulWidget {
+class LanguageSettingScreen extends StatefulWidget {
   @override
-  _LanguageSelectionScreenState createState() =>
-      _LanguageSelectionScreenState();
+  _LanguageSettingScreenState createState() => _LanguageSettingScreenState();
 }
 
-class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
-  String _selectedLanguage = 'en'; // Initial selected language
+class _LanguageSettingScreenState extends State<LanguageSettingScreen> {
+  String? _selectedLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    String languageCode = SharedPrefs.instance.getStringData('languageCode');
+    _selectedLanguage = languageCode.isEmpty ? 'en' : languageCode;
+  }
 
   Future<void> _setLocale(BuildContext context, String languageCode) async {
     SharedPrefs.instance.setStringData('languageCode', languageCode);
@@ -23,19 +30,18 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   }
 
   void _onSelectLanguage(BuildContext context) async {
-    await _setLocale(context,
-        _selectedLanguage); // Set the locale based on selected language
-
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    if (authProvider.isAuthenticated()) {
-      Navigator.pushReplacementNamed(context, '/layout');
-    } else {
-      Navigator.pushReplacementNamed(context, '/onboarding');
-    }
+    await _setLocale(context, _selectedLanguage!);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Language changed successfully to $_selectedLanguage.'),
+        duration: Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    print(Intl.getCurrentLocale());
     return Scaffold(
       appBar: AppBar(
         title: Text('Language setting'),
@@ -46,9 +52,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              _buildLanguageTile(context, 'English', 'en', 'assets/logo.png'),
+              _buildLanguageTile(
+                  context, 'English', 'en', ImageConstants.enFlag),
               Dimensions.smHeight,
-              _buildLanguageTile(context, 'Arabic', 'ar', 'assets/logo.png'),
+              _buildLanguageTile(
+                  context, 'Arabic', 'ar', ImageConstants.enFlag),
               Dimensions.smHeight,
               CustomElevatedButton(
                 text: S.of(context).selectLanguage,
