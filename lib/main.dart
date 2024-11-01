@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Habit Breaker',
-        initialRoute: '/',
+        initialRoute: '/language',
         onGenerateRoute: CustomeRouter.generateRoute,
         locale:
             languageCode.isEmpty ? const Locale('en') : Locale(languageCode),

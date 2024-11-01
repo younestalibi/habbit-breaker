@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Reset the counter"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
         "second": MessageLookupByLibrary.simpleMessage(":Second"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select Language"),

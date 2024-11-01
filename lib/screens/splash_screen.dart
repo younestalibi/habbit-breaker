@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (authProvider.isAuthenticated()) {
         Navigator.pushReplacementNamed(context, '/layout');
       } else {
-        if (languageCode.isNotEmpty) {
+        if (!languageCode.isNotEmpty) {
           Navigator.pushReplacementNamed(context, '/onboarding');
         } else {
           Navigator.pushReplacementNamed(context, '/language');
