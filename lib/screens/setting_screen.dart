@@ -21,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text('Settings', style: Theme.of(context).textTheme.titleLarge),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -36,16 +36,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 );
               },
               child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  'Profile',
-                  style: TextStyle(
-                    color: ColorConstants.dark,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Text('Profile',
+                      style: Theme.of(context).textTheme.titleSmall)),
             ),
             Divider(),
             TextButton(
@@ -58,24 +52,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: Container(
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  'Language',
-                  style: TextStyle(
-                    color: ColorConstants.dark,
-                    fontSize: 16,
-                  ),
-                ),
+                child: Text('Language',
+                    style: Theme.of(context).textTheme.titleSmall),
               ),
             ),
             Divider(),
             SwitchListTile(
-              title: Text(
-                'Enable Notifications',
-                style: TextStyle(
-                  color: ColorConstants.dark,
-                  fontSize: 16,
-                ),
-              ),
+              title: Text('Enable Notifications',
+                  style: Theme.of(context).textTheme.titleSmall),
               value: notificationsEnabled,
               onChanged: (value) {
                 setState(() {
@@ -85,13 +69,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Divider(),
             SwitchListTile(
-              title: Text(
-                'Enable Dark Theme',
-                style: TextStyle(
-                  color: ColorConstants.dark,
-                  fontSize: 16,
-                ),
-              ),
+              title: Text('Enable Dark Theme',
+                  style: Theme.of(context).textTheme.titleSmall),
               value: darkThemeEnabled,
               onChanged: (value) {
                 settingsProvider.changeTheme();

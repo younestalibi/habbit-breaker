@@ -104,7 +104,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     value: selectedGender,
                     hintText: S.of(context).select_gender,
                     items: ['Male', 'Female', 'Other'],
-                    fillColor: Colors.grey[200]!, // Custom fill color
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedGender = newValue;

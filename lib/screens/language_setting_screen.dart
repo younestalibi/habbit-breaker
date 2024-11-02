@@ -61,7 +61,8 @@ class _LanguageSettingScreenState extends State<LanguageSettingScreen> {
               CustomElevatedButton(
                 text: S.of(context).selectLanguage,
                 onPressed: () => _onSelectLanguage(context),
-                backgroundColor: Colors.black,
+                color: Theme.of(context).primaryColor,
+                backgroundColor: Theme.of(context).primaryColorLight,
                 padding: 20,
                 borderRadius: 15,
               ),

@@ -100,7 +100,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             CustomElevatedButton(
               text: _isLoading ? 'Saving...' : 'Save',
               onPressed: _isLoading ? () {} : _updateUserProfile,
-              backgroundColor: ColorConstants.dark,
+              color: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).primaryColorLight,
             ),
             Dimensions.smHeight,
             if (_successMessage != null)

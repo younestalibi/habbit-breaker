@@ -67,7 +67,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         CustomInputField(
                           controller: _emailController,
                           hintText: S.of(context).email,
-                          fillColor: Colors.grey[200]!,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return S.of(context).please_enter_email;

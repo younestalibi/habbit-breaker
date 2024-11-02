@@ -5,6 +5,7 @@ import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
 import 'package:habbit_breaker/screens/setting_screen.dart';
 import 'package:habbit_breaker/screens/tracker_screen.dart';
+import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -71,10 +72,20 @@ class _LayoutScreenState extends State<LayoutScreen> {
         title: Row(
           children: [
             CircleAvatar(backgroundImage: NetworkImage(userImage)),
-            SizedBox(width: 10),
-            Text(
-              S.of(context).pageHomeWelcomeFullName(userName),
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            Dimensions.xsWidth,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  S.of(context).pageHomeWelcomeFullName(userName),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Text(
+                  userEmail,
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ],
             ),
           ],
         ),
@@ -95,6 +106,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         screens: _buildScreens(),
         items: _navBarsItems(),
         navBarStyle: NavBarStyle.style9,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }

@@ -4,7 +4,7 @@ class CustomInputField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
-  final Color fillColor;
+  final Color? fillColor;
   final double borderRadius;
   final String? Function(String?)? validator;
   final String? label;
@@ -15,7 +15,7 @@ class CustomInputField extends StatelessWidget {
     required this.controller,
     required this.hintText,
     this.obscureText = false,
-    this.fillColor = const Color(0xFFF0F0F0),
+    this.fillColor,
     this.borderRadius = 50.0,
     this.validator,
     this.label,

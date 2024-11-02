@@ -48,6 +48,7 @@ class Articles extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
             title: "Special for you",
+            color: Theme.of(context).primaryColorLight,
             press: () {
               Navigator.push(
                   context,
@@ -152,9 +153,11 @@ class SectionTitle extends StatelessWidget {
     Key? key,
     required this.title,
     required this.press,
+    required this.color,
   }) : super(key: key);
 
   final String title;
+  final Color color;
   final GestureTapCallback press;
 
   @override
@@ -164,11 +167,8 @@ class SectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w600, color: color),
         ),
         TextButton(
           onPressed: press,
@@ -192,15 +192,10 @@ class Quote extends StatelessWidget {
             margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.fromLTRB(16, 35, 16, 20),
             decoration: BoxDecoration(
-              color: ColorConstants.white,
+              color: Theme.of(context).primaryColor,
+              border: Border.all(
+                  width: 1, color: Theme.of(context).primaryColorLight),
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color.fromARGB(181, 236, 236, 236),
-                  blurRadius: 8,
-                  spreadRadius: 1,
-                ),
-              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,18 +205,14 @@ class Quote extends StatelessWidget {
                   ImageConstants.logo,
                   width: 46,
                   height: 46,
+                  fit: BoxFit.contain,
                 ),
-                SizedBox(
-                  width: 16,
-                ),
+                Dimensions.xsWidth,
                 Expanded(
                   flex: 2,
                   child: Text(
-                    'hello world hello world hello worldhello worldhello worldhello worldhello worldhello world',
-                    style: TextStyle(
-                      fontSize: 13,
-                    ),
-                  ),
+                      'hello world hello world hello worldhello worldhello worldhello worldhello worldhello world',
+                      style: Theme.of(context).textTheme.bodySmall),
                 )
               ],
             )),
@@ -253,7 +244,6 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       margin: EdgeInsets.all(16.0),
       elevation: 4.0,
@@ -290,7 +280,8 @@ class Header extends StatelessWidget {
                   ),
                   SizedBox(height: 8.0),
                   CustomElevatedButton(
-                    backgroundColor: Colors.black,
+                    color: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).primaryColorLight,
                     padding: 10,
                     onPressed: () {
                       print('Button pressed');

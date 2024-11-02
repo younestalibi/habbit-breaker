@@ -10,17 +10,17 @@ class SettingsProvider extends ChangeNotifier {
 
   late SharedPreferences storage;
 
-  // Custom dark theme
-  final darkTheme = ThemeData(
+  final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: Colors.black12,
-    
+    primaryColor: Colors.black,
+    primaryColorLight: Colors.white,
   );
 
   // Custom light theme
-  final lightTheme = ThemeData(
+  final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: Colors.white,
+    primaryColorLight: Colors.black,
   );
 
   // Initialize provider

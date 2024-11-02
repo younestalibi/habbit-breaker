@@ -31,13 +31,13 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => AuthProvider()),
           ChangeNotifierProvider(create: (context) => TrackerProvider()),
-          // ChangeNotifierProvider(create: (context) => UiProvider()..init()),
           ChangeNotifierProvider(
               create: (context) => SettingsProvider()..init()),
         ],
         child: Consumer<SettingsProvider>(builder: (context, settings, child) {
           return MaterialApp(
             theme: settings.isDark ? settings.darkTheme : settings.lightTheme,
+            
             title: 'Habit Breaker',
             initialRoute: '/home',
             onGenerateRoute: CustomeRouter.generateRoute,
