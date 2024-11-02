@@ -62,8 +62,7 @@
     "today_quote": "Today's quote",
     "language_setting": "Language setting",
     "get_started": "Get Started",
-    "special_for_you": "Special for you"
-    
-
-    
+    "special_for_you": "Special for you",
+    "saving": "Saving",
+    "view_progress":"View The Progress"
 }

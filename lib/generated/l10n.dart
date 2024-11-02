@@ -589,6 +589,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Saving`
+  String get saving {
+    return Intl.message(
+      'Saving',
+      name: 'saving',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View The Progress`
+  String get view_progress {
+    return Intl.message(
+      'View The Progress',
+      name: 'view_progress',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

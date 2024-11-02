@@ -51,7 +51,7 @@
     "profile_setting": "إعدادات الملف الشخصي",
     "profile": "الملف الشخصي",
     "language": "اللغة",
-    "article_about": "مقال عن {category}",
+    "article_about": "مقال حول {category}",
     "@article_about": {
         "placeholders": {
             "category": {}
@@ -62,6 +62,7 @@
     "today_quote": "اقتباس اليوم",
     "language_setting": "إعدادات اللغة",
     "get_started": "ابدأ",
-    "special_for_you": "مميز لك"
-
+    "special_for_you": "مميز لك",
+    "saving": "جاري الحفظ...",
+    "view_progress": "عرض التقدم"
 }

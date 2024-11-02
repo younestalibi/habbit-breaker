@@ -27,16 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         padding: const EdgeInsets.all(16.00),
         constraints: BoxConstraints(
-          minHeight: Dimensions.screenHeight! * 0.80,
+          minHeight: Dimensions.screenHeight! * 0.90,
         ),
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Header(),
-            Dimensions.smHeight,
             Quote(),
-            Dimensions.smHeight,
             Articles(),
           ],
         ),
@@ -240,7 +238,7 @@ class Header extends StatelessWidget {
                     onPressed: () {
                       print('Button pressed');
                     },
-                    text: 'View The Progress',
+                    text: S.of(context).view_progress,
                   ),
                 ],
               ),

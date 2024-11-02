@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "saving": MessageLookupByLibrary.simpleMessage("Saving"),
         "second": MessageLookupByLibrary.simpleMessage(":Second"),
         "see_more": MessageLookupByLibrary.simpleMessage("See more"),
         "selectLanguage":
@@ -100,6 +101,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "special_for_you":
             MessageLookupByLibrary.simpleMessage("Special for you"),
         "today_quote": MessageLookupByLibrary.simpleMessage("Today\'s quote"),
+        "view_progress":
+            MessageLookupByLibrary.simpleMessage("View The Progress"),
         "you_have_relapsed_today":
             MessageLookupByLibrary.simpleMessage("You have relapsed today! 🤡")
       };

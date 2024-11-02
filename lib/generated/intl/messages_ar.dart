@@ -20,7 +20,7 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ar';
 
-  static String m0(category) => "مقال عن ${category}";
+  static String m0(category) => "مقال حول ${category}";
 
   static String m1(userName) => "مرحباً ${userName}";
 
@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "saving": MessageLookupByLibrary.simpleMessage("جاري الحفظ..."),
         "second": MessageLookupByLibrary.simpleMessage(":ثانية"),
         "see_more": MessageLookupByLibrary.simpleMessage("رؤية المزيد"),
         "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
@@ -98,6 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "special_for_you": MessageLookupByLibrary.simpleMessage("مميز لك"),
         "today_quote": MessageLookupByLibrary.simpleMessage("اقتباس اليوم"),
+        "view_progress": MessageLookupByLibrary.simpleMessage("عرض التقدم"),
         "you_have_relapsed_today":
             MessageLookupByLibrary.simpleMessage("لقد انتكست اليوم! 🤡")
       };
