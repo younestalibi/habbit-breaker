@@ -20,9 +20,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  String languageCode = SharedPrefs.instance.getStringData('languageCode');
-  bool isDark = SharedPrefs.instance.getBoolData('isDark');
-
   @override
   Widget build(BuildContext context) {
     Dimensions().init(context);
@@ -36,7 +33,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<SettingsProvider>(builder: (context, settings, child) {
           return MaterialApp(
             title: 'Habit Breaker',
-            initialRoute: '/articles',
+            initialRoute: '/',
             onGenerateRoute: CustomeRouter.generateRoute,
             theme: settings.isDark ? settings.darkTheme : settings.lightTheme,
             debugShowCheckedModeBanner: false,

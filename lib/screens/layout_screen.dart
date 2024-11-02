@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
@@ -31,7 +30,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      Center(child: HomeScreen()),
+      const Center(child: HomeScreen()),
       Center(child: TrackerScreen()),
       Center(child: SettingsScreen()),
     ];
@@ -40,20 +39,20 @@ class _LayoutScreenState extends State<LayoutScreen> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
-        title: "Home",
+        icon: const Icon(Icons.home),
+        title: S.of(context).home,
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.timer),
-        title: "Progress",
+        icon: const Icon(Icons.timer),
+        title: S.of(context).progress,
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.settings),
-        title: "Settings",
+        icon: const Icon(Icons.settings),
+        title: S.of(context).settings,
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
       ),

@@ -42,7 +42,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile Settings"),
+        title: Text(S.of(context).profile_setting),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -51,7 +51,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               decoration: const BoxDecoration(boxShadow: [
                 BoxShadow(
                     color: Color.fromARGB(255, 235, 235, 235),
@@ -67,9 +67,9 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                       radius: 50,
                       backgroundImage: NetworkImage(_profileImagePath!),
                     ),
-                    if (_isImageLoading) CircularProgressIndicator(),
+                    if (_isImageLoading) const CircularProgressIndicator(),
                     if (!_isImageLoading)
-                      Icon(Icons.camera_alt, color: Colors.white),
+                      const Icon(Icons.camera_alt, color: Colors.white),
                   ],
                 ),
               ),
@@ -105,7 +105,8 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             ),
             Dimensions.smHeight,
             if (_successMessage != null)
-              Text(_successMessage!, style: TextStyle(color: Colors.green)),
+              Text(_successMessage!,
+                  style: const TextStyle(color: Colors.green)),
           ],
         ),
       ),

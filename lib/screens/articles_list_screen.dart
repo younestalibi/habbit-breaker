@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/articles.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/article_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/widgets/article_card.dart';
@@ -16,7 +17,7 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Articles for you'),
+        title: Text(S.of(context).articles_for_you),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

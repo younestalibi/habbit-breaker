@@ -8,7 +8,6 @@ import 'package:habbit_breaker/screens/setting_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:habbit_breaker/screens/splash_screen.dart';
-import 'package:habbit_breaker/screens/test.dart';
 import 'package:habbit_breaker/screens/tracker_screen.dart';
 
 class CustomeRouter {
@@ -25,7 +24,7 @@ class CustomeRouter {
       case '/language':
         return MaterialPageRoute(builder: (_) => LanguageSelectionScreen());
       case '/onboarding':
-        return MaterialPageRoute(builder: (_) => OnboardingScreen());
+        return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case '/tracker':
         return MaterialPageRoute(builder: (_) => TrackerScreen());
       case '/settings/profile':
@@ -33,9 +32,7 @@ class CustomeRouter {
       case '/settings':
         return MaterialPageRoute(builder: (_) => SettingsScreen());
       case '/articles':
-        return MaterialPageRoute(builder: (_) => ArticlesListScreen());
-      case '/test':
-        return MaterialPageRoute(builder: (_) => CatalogScreen());
+        return MaterialPageRoute(builder: (_) => const ArticlesListScreen());
       default:
         return MaterialPageRoute(builder: (_) => SplashScreen());
     }

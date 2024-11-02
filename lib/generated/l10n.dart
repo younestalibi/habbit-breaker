@@ -389,6 +389,206 @@ class S {
       args: [],
     );
   }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Progress`
+  String get progress {
+    return Intl.message(
+      'Progress',
+      name: 'progress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home Page`
+  String get home {
+    return Intl.message(
+      'Home Page',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arabic`
+  String get arabic {
+    return Intl.message(
+      'Arabic',
+      name: 'arabic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Relapse`
+  String get relapse {
+    return Intl.message(
+      'Relapse',
+      name: 'relapse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recovery time`
+  String get recovery_time {
+    return Intl.message(
+      'Recovery time',
+      name: 'recovery_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Longest`
+  String get longest {
+    return Intl.message(
+      'Longest',
+      name: 'longest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Dark Theme`
+  String get enable_dark_theme {
+    return Intl.message(
+      'Enable Dark Theme',
+      name: 'enable_dark_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enable Notifications`
+  String get enable_notifications {
+    return Intl.message(
+      'Enable Notifications',
+      name: 'enable_notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile settings`
+  String get profile_setting {
+    return Intl.message(
+      'Profile settings',
+      name: 'profile_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message(
+      'Profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Article about {category}`
+  String article_about(Object category) {
+    return Intl.message(
+      'Article about $category',
+      name: 'article_about',
+      desc: '',
+      args: [category],
+    );
+  }
+
+  /// `Articles for you`
+  String get articles_for_you {
+    return Intl.message(
+      'Articles for you',
+      name: 'articles_for_you',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Special for you`
+  String get special_for_you {
+    return Intl.message(
+      'Special for you',
+      name: 'special_for_you',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See more`
+  String get see_more {
+    return Intl.message(
+      'See more',
+      name: 'see_more',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today's quote`
+  String get today_quote {
+    return Intl.message(
+      'Today\'s quote',
+      name: 'today_quote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language setting`
+  String get language_setting {
+    return Intl.message(
+      'Language setting',
+      name: 'language_setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get Started`
+  String get get_started {
+    return Intl.message(
+      'Get Started',
+      name: 'get_started',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

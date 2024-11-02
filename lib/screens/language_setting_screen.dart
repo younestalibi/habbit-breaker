@@ -3,7 +3,6 @@ import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 
@@ -46,10 +45,10 @@ class _LanguageSettingScreenState extends State<LanguageSettingScreen> {
             shrinkWrap: true,
             children: [
               _buildLanguageTile(
-                  context, 'English', 'en', ImageConstants.enFlag),
+                  context, S.of(context).english, 'en', ImageConstants.enFlag),
               Dimensions.smHeight,
               _buildLanguageTile(
-                  context, 'Arabic', 'ar', ImageConstants.arFlag),
+                  context, S.of(context).arabic, 'ar', ImageConstants.arFlag),
               Dimensions.smHeight,
               CustomElevatedButton(
                 text: S.of(context).selectLanguage,

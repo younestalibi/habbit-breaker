@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/articles.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/screens/article_screen.dart';
 import 'package:habbit_breaker/screens/articles_list_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
@@ -45,7 +46,7 @@ class Articles extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
-            title: "Special for you",
+            title: S.of(context).special_for_you,
             color: Theme.of(context).primaryColorLight,
             press: () {
               Navigator.push(
@@ -106,7 +107,7 @@ class SectionTitle extends StatelessWidget {
         TextButton(
           onPressed: press,
           style: TextButton.styleFrom(foregroundColor: Colors.grey),
-          child: const Text("See more"),
+          child: Text(S.of(context).see_more),
         ),
       ],
     );
@@ -155,7 +156,7 @@ class Quote extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Text(
-                'Today\'s quote',
+                S.of(context).today_quote,
                 style: TextStyle(
                     color: ColorConstants.white,
                     fontWeight: FontWeight.w400,
@@ -204,7 +205,7 @@ class Header extends StatelessWidget {
                       ),
                       Dimensions.xsWidth,
                       Text(
-                        "Days",
+                        S.of(context).days,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: ColorConstants.primary),

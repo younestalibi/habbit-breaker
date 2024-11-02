@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
-import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 import '../providers/auth_provider.dart';
@@ -42,7 +39,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Language setting'),
+        title: Text(S.of(context).language_setting),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

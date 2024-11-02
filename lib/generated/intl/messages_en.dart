@@ -20,12 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(userName) => "Welcome ${userName}";
+  static String m0(category) => "Article about ${category}";
+
+  static String m1(userName) => "Welcome ${userName}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_relapse": MessageLookupByLibrary.simpleMessage("Add relapse"),
         "appName": MessageLookupByLibrary.simpleMessage("Habit Breaker"),
+        "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
+        "article_about": m0,
+        "articles_for_you":
+            MessageLookupByLibrary.simpleMessage("Articles for you"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirm_add_relapse": MessageLookupByLibrary.simpleMessage(
@@ -34,18 +40,29 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to reset the counter?"),
         "days": MessageLookupByLibrary.simpleMessage("Days"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "enable_dark_theme":
+            MessageLookupByLibrary.simpleMessage("Enable Dark Theme"),
+        "enable_notifications":
+            MessageLookupByLibrary.simpleMessage("Enable Notifications"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
         "enter_email": MessageLookupByLibrary.simpleMessage("Enter your email"),
         "first_name": MessageLookupByLibrary.simpleMessage("First Name"),
         "forget_password":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "get_started": MessageLookupByLibrary.simpleMessage("Get Started"),
         "have_account":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "have_no_account":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "home": MessageLookupByLibrary.simpleMessage("Home Page"),
         "hour": MessageLookupByLibrary.simpleMessage(":Hour"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "language_setting":
+            MessageLookupByLibrary.simpleMessage("Language setting"),
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
+        "longest": MessageLookupByLibrary.simpleMessage("Longest"),
         "minute": MessageLookupByLibrary.simpleMessage(":Minute"),
-        "pageHomeWelcomeFullName": m0,
+        "pageHomeWelcomeFullName": m1,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_reset_sent":
             MessageLookupByLibrary.simpleMessage("Password reset email sent!"),
@@ -59,19 +76,30 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter your password"),
         "please_select_gender":
             MessageLookupByLibrary.simpleMessage("Please select your gender."),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "profile_setting":
+            MessageLookupByLibrary.simpleMessage("Profile settings"),
+        "progress": MessageLookupByLibrary.simpleMessage("Progress"),
+        "recovery_time": MessageLookupByLibrary.simpleMessage("Recovery time"),
+        "relapse": MessageLookupByLibrary.simpleMessage("Relapse"),
         "reset_counter":
             MessageLookupByLibrary.simpleMessage("Reset the counter"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "second": MessageLookupByLibrary.simpleMessage(":Second"),
+        "see_more": MessageLookupByLibrary.simpleMessage("See more"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select Language"),
         "select_gender": MessageLookupByLibrary.simpleMessage("Select Gender"),
         "send_reset_link":
             MessageLookupByLibrary.simpleMessage("Send Reset Link"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "special_for_you":
+            MessageLookupByLibrary.simpleMessage("Special for you"),
+        "today_quote": MessageLookupByLibrary.simpleMessage("Today\'s quote"),
         "you_have_relapsed_today":
             MessageLookupByLibrary.simpleMessage("You have relapsed today! 🤡")
       };

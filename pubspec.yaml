@@ -32,6 +32,6 @@ flutter:
   assets:
     - assets/logo.png
     - assets/flags/en.png
-    - assets/flags/fr.png
+    - assets/flags/ar.png
 flutter_intl:
   enabled: true

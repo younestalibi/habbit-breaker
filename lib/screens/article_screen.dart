@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 
 class ArticleScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class ArticleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Article about " + article['category']),
+        title: Text(S.of(context).article_about(article['category'])),
       ),
       body: SingleChildScrollView(
         child: Padding(

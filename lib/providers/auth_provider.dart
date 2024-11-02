@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
@@ -8,7 +7,6 @@ import 'dart:io';
 class AuthProvider with ChangeNotifier {
   User? _user;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
 
   User? get user => _user;
@@ -63,7 +61,6 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
       return null;
     } on FirebaseAuthException catch (e) {
-      print(e.code);
       return _handleAuthError(e);
     } catch (e) {
       return "An unknown error occurred. Please try again.";
@@ -155,7 +152,6 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
       return null;
     } catch (e) {
-      print(e);
       return "Failed to update user name: $e";
     }
   }

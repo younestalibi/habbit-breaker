@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
+import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -15,6 +17,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final settingsProvider = Provider.of<SettingsProvider>(context);
+    final String languageCode = settingsProvider.languageCode;
+    final demoData = languageCode == 'en' ? demoDataEn : demoDataAr;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -59,7 +64,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text("Get Started".toUpperCase()),
+                child: Text(S.of(context).get_started.toUpperCase()),
               ),
             ),
             const Spacer(),
@@ -138,24 +143,42 @@ class DotIndicator extends StatelessWidget {
   }
 }
 
-// Demo data for our Onboarding screen
-List<Map<String, dynamic>> demoData = [
+List<Map<String, dynamic>> demoDataEn = [
   {
     "illustration": "https://i.postimg.cc/L43CKddq/Illustrations.png",
-    "title": "All your favorites",
+    "title": "Track Your Progress",
     "text":
-        "Order from the best local restaurants \nwith easy, on-demand delivery.",
+        "Monitor your journey and keep track of your days\nstaying strong and habit-free.",
   },
   {
     "illustration": "https://i.postimg.cc/xTjs9sY6/Illustrations-1.png",
-    "title": "Free delivery offers",
+    "title": "Stay Motivated",
     "text":
-        "Free delivery for new customers via Apple Pay\nand others payment methods.",
+        "Access motivational articles and tips to help\nyou stay on track and overcome challenges.",
   },
   {
     "illustration": "https://i.postimg.cc/6qcYdZVV/Illustrations-2.png",
-    "title": "Choose your food",
+    "title": "Build Healthy Habits",
     "text":
-        "Easily find your type of food craving and\nyou’ll get delivery in wide range.",
+        "Develop positive routines with our step-by-step\nguide to creating sustainable habits.",
+  },
+];
+
+List<Map<String, dynamic>> demoDataAr = [
+  {
+    "illustration": "https://i.postimg.cc/L43CKddq/Illustrations.png",
+    "title": "تتبع تقدمك",
+    "text": "راقب رحلتك واحتفظ بسجل أيامك للبقاء قويًا وخاليًا من العادات.",
+  },
+  {
+    "illustration": "https://i.postimg.cc/xTjs9sY6/Illustrations-1.png",
+    "title": "حافظ على حماسك",
+    "text":
+        "احصل على مقالات تحفيزية ونصائح لمساعدتك في البقاء على المسار وتجاوز التحديات.",
+  },
+  {
+    "illustration": "https://i.postimg.cc/6qcYdZVV/Illustrations-2.png",
+    "title": "ابنِ عادات صحية",
+    "text": "طور عادات إيجابية مع دليلنا خطوة بخطوة لخلق عادات مستدامة.",
   },
 ];

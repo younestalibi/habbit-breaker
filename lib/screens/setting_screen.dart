@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_breaker/constants/color_constants.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/language_setting_screen.dart';
 import 'package:habbit_breaker/screens/profile_setting_screen.dart';
-import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings', style: Theme.of(context).textTheme.titleLarge),
+        title: Text(S.of(context).settings, style: Theme.of(context).textTheme.titleLarge),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,11 +36,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
               child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Text('Profile',
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(S.of(context).profile,
                       style: Theme.of(context).textTheme.titleSmall)),
             ),
-            Divider(),
+            const Divider(),
             TextButton(
               onPressed: () {
                 Navigator.of(context).push(
@@ -51,14 +50,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Text('Language',
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Text(S.of(context).language,
                     style: Theme.of(context).textTheme.titleSmall),
               ),
             ),
-            Divider(),
+            const Divider(),
             SwitchListTile(
-              title: Text('Enable Notifications',
+              title: Text(S.of(context).enable_notifications,
                   style: Theme.of(context).textTheme.titleSmall),
               value: notificationsEnabled,
               onChanged: (value) {
@@ -67,16 +66,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 });
               },
             ),
-            Divider(),
+            const Divider(),
             SwitchListTile(
-              title: Text('Enable Dark Theme',
+              title: Text(S.of(context).enable_dark_theme,
                   style: Theme.of(context).textTheme.titleSmall),
               value: darkThemeEnabled,
               onChanged: (value) {
                 settingsProvider.changeTheme();
-                // Call setState() if you need to rebuild the UI,
-                // but it's optional since the Provider will notify listeners.
-                setState(() {});
+                // setState(() {});
               },
             ),
           ],

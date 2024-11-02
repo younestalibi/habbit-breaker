@@ -37,5 +37,31 @@
             "userName": {}
         }
     },
-    "save": "Save"
+    "save": "Save",
+    "settings": "Settings",
+    "progress": "Progress",
+    "home": "Home Page",
+    "english": "English",
+    "arabic": "Arabic",
+    "relapse": "Relapse",
+    "recovery_time": "Recovery time",
+    "longest": "Longest",
+    "enable_dark_theme": "Enable Dark Theme",
+    "enable_notifications": "Enable Notifications",
+    "profile_setting": "Profile settings",
+    "profile": "Profile",
+    "language": "Language",
+    "article_about": "Article about {category}",
+    "@article_about": {
+        "placeholders": {
+            "category": {}
+        }
+    },
+    "articles_for_you": "Articles for you",
+    "special_for_you": "Special for you",
+    "see_more": "See more",
+    "today_quote": "Today's quote",
+    "language_setting": "Language setting",
+    "get_started": "Get Started",
+    
 }

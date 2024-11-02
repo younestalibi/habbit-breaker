@@ -115,9 +115,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _statsCard(relapse, 'Relapse', Icons.sentiment_dissatisfied),
-              _statsCard(days, 'Recovery time', Icons.emoji_events),
-              _statsCard(longest, 'Longest', Icons.timer),
+              _statsCard(
+                  relapse, S.of(context).relapse, Icons.sentiment_dissatisfied),
+              _statsCard(days, S.of(context).recovery_time, Icons.emoji_events),
+              _statsCard(longest, S.of(context).longest, Icons.timer),
             ],
           ),
           Dimensions.mdHeight,

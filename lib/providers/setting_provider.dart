@@ -4,7 +4,7 @@ import 'package:habbit_breaker/utils/shared_prefs.dart';
 
 class SettingsProvider extends ChangeNotifier {
   bool _isDark = false;
-  String _languageCode = 'en'; // Default language
+  String _languageCode = 'en';
 
   bool get isDark => _isDark;
   String get languageCode => _languageCode;
@@ -25,7 +25,10 @@ class SettingsProvider extends ChangeNotifier {
   // Initialize provider
   Future<void> init() async {
     _isDark = SharedPrefs.instance.getBoolData('isDark') ?? false;
-    _languageCode = SharedPrefs.instance.getStringData('languageCode') ?? 'en';
+    _languageCode =
+        SharedPrefs.instance.getStringData('languageCode').isNotEmpty
+            ? SharedPrefs.instance.getStringData('languageCode')
+            : 'en';
     notifyListeners();
   }
 
