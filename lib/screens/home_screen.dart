@@ -1,13 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/articles.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
+import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/article_screen.dart';
 import 'package:habbit_breaker/screens/articles_list_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/widgets/article_card.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,7 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Header(),
+            Dimensions.smHeight,
             Quote(),
+            Dimensions.smHeight,
             Articles(),
           ],
         ),
@@ -43,37 +49,35 @@ class Articles extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SectionTitle(
-            title: S.of(context).special_for_you,
-            color: Theme.of(context).primaryColorLight,
-            press: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ArticlesListScreen()));
-            },
-          ),
+        SectionTitle(
+          title: S.of(context).special_for_you,
+          color: Theme.of(context).primaryColorLight,
+          press: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ArticlesListScreen()));
+          },
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
               children: articles.take(4).map((article) {
-            return ArticleCard(
-              image: article['image'],
-              category: article['category'],
-              title: article['title'],
-              height: 100,
-              width: 242,
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ArticleScreen(article: article),
-                  ),
-                );
-              },
+            return Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: ArticleCard(
+                image: article['image'],
+                category: article['category'],
+                title: article['title'],
+                height: 100,
+                width: 242,
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ArticleScreen(article: article),
+                    ),
+                  );
+                },
+              ),
             );
           }).toList()),
         ),
@@ -114,16 +118,29 @@ class SectionTitle extends StatelessWidget {
   }
 }
 
-class Quote extends StatelessWidget {
+class Quote extends StatefulWidget {
   const Quote({super.key});
 
   @override
+  State<Quote> createState() => _QuoteState();
+}
+
+class _QuoteState extends State<Quote> {
+  @override
   Widget build(BuildContext context) {
+    final String _selectedLanguage =
+        Provider.of<SettingsProvider>(context).languageCode;
+    final List<String> englishQuotes =
+        quotes[_selectedLanguage] ?? quotes['en']!;
+    final random = Random();
+    final randomIndex = random.nextInt(englishQuotes.length);
+    final randomQuote = englishQuotes[randomIndex];
+
     return Stack(
+      clipBehavior: Clip.none,
       children: [
         Container(
             width: double.infinity,
-            margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.fromLTRB(16, 35, 16, 20),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
@@ -144,29 +161,28 @@ class Quote extends StatelessWidget {
                 Dimensions.xsWidth,
                 Expanded(
                   flex: 2,
-                  child: Text(
-                      'hello world hello world hello worldhello worldhello worldhello worldhello worldhello world',
+                  child: Text(randomQuote,
                       style: Theme.of(context).textTheme.bodySmall),
                 )
               ],
             )),
         Positioned(
-            left: 30,
-            top: 8,
+            left: 12,
+            top: -12,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                S.of(context).today_quote,
-                style: TextStyle(
-                    color: ColorConstants.white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12),
-              ),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: const BoxDecoration(
                   color: ColorConstants.primary,
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(10),
                       bottomLeft: Radius.circular(10))),
+              child: Text(
+                S.of(context).today_quote,
+                style: const TextStyle(
+                    color: ColorConstants.white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12),
+              ),
             ))
       ],
     );
@@ -179,7 +195,6 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(16.0),
       elevation: 4.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
@@ -196,7 +211,7 @@ class Header extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         '7/90',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -206,7 +221,7 @@ class Header extends StatelessWidget {
                       Dimensions.xsWidth,
                       Text(
                         S.of(context).days,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: ColorConstants.primary),
                       )
@@ -242,3 +257,50 @@ class Header extends StatelessWidget {
     );
   }
 }
+
+final Map<String, List<String>> quotes = {
+  'en': [
+    "The only way to do great work is to love what you do. — Steve Jobs",
+    "Success is not final, failure is not fatal: It is the courage to continue that counts. — Winston Churchill",
+    "The journey of a thousand miles begins with one step. — Lao Tzu",
+    "Believe you can and you're halfway there. — Theodore Roosevelt",
+    "Don't watch the clock; do what it does. Keep going. — Sam Levenson",
+    "Life is what happens when you're busy making other plans. — John Lennon",
+    "You miss 100% of the shots you don't take. — Wayne Gretzky",
+    "Act as if what you do makes a difference. It does. — William James",
+    "It is never too late to be what you might have been. — George Eliot",
+    "Do not wait to strike till the iron is hot, but make it hot by striking. — William Butler Yeats",
+    "Success usually comes to those who are too busy to be looking for it. — Henry David Thoreau",
+    "Don't be afraid to give up the good to go for the great. — John D. Rockefeller",
+    "I find that the harder I work, the more luck I seem to have. — Thomas Jefferson",
+    "Opportunities don't happen. You create them. — Chris Grosser",
+    "The future depends on what you do today. — Mahatma Gandhi",
+    "If you want to achieve greatness stop asking for permission. — Anonymous",
+    "Everything you can imagine is real. — Pablo Picasso",
+    "What lies behind us and what lies before us are tiny matters compared to what lies within us. — Ralph Waldo Emerson",
+    "You are never too old to set another goal or to dream a new dream. — C.S. Lewis",
+    "Do what you can, with what you have, where you are. — Theodore Roosevelt",
+  ],
+  'ar': [
+    "الطريقة الوحيدة للقيام بعمل رائع هي أن تحب ما تفعله. — ستيف جوبز",
+    "النجاح ليس نهائيًا، والفشل ليس قاتلًا: إنها الشجاعة لمواصلة الطريق. — ونستون تشرشل",
+    "رحلة الألف ميل تبدأ بخطوة واحدة. — لاو تزو",
+    "إذا كنت تؤمن بنفسك، فأنت في منتصف الطريق. — ثيودور روزفلت",
+    "لا تراقب الساعة، بل افعل ما تفعله. استمر. — سام ليفنسون",
+    "الحياة هي ما يحدث عندما تكون مشغولاً بوضع خطط أخرى. — جون لينون",
+    "تفتقد 100% من الفرص التي لا تأخذها. — واين جريتسكي",
+    "تصرف كما لو أن ما تفعله يحدث فرقًا. إنه كذلك. — ويليام جيمس",
+    "ليس من المتأخر أبدًا أن تكون ما قد كنت عليه. — جورج إليوت",
+    "لا تنتظر حتى تضرب الحديد ساخنًا، بل اجعل الحديد ساخنًا بالضرب. — ويليام بتلر ييتس",
+    "عادةً ما يأتي النجاح لأولئك الذين يكونون مشغولين جدًا للبحث عنه. — هنري ديفيد ثورو",
+    "لا تخف من التخلي عن الجيد للذهاب إلى العظيم. — جون د. روكفلر",
+    "أجد أنني كلما عملت بجد، زادت حظوظي. — توماس جيفرسون",
+    "الفرص لا تحدث. أنت تخلقها. — كريس جروسر",
+    "المستقبل يعتمد على ما تفعله اليوم. — مهاتما غاندي",
+    "إذا كنت تريد أن تحقق العظمة، فتوقف عن طلب الإذن. — مجهول",
+    "كل ما يمكنك تخيله هو حقيقي. — بابلو بيكاسو",
+    "ما يكمن وراءنا وما يكمن أمامنا أمور صغيرة مقارنة بما يكمن داخلنا. — رالف والدو إيمرسون",
+    "لا تكون أبدًا كبيرًا جدًا لتحديد هدف آخر أو لحلم حلم جديد. — ك.س. لويس",
+    "افعل ما تستطيع، بما لديك، حيث أنت. — ثيودور روزفلت",
+  ],
+};

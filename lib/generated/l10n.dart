@@ -540,16 +540,6 @@ class S {
     );
   }
 
-  /// `Special for you`
-  String get special_for_you {
-    return Intl.message(
-      'Special for you',
-      name: 'special_for_you',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `See more`
   String get see_more {
     return Intl.message(
@@ -585,6 +575,16 @@ class S {
     return Intl.message(
       'Get Started',
       name: 'get_started',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Special for you`
+  String get special_for_you {
+    return Intl.message(
+      'Special for you',
+      name: 'special_for_you',
       desc: '',
       args: [],
     );

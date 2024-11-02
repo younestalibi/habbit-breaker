@@ -33,5 +33,9 @@ flutter:
     - assets/logo.png
     - assets/flags/en.png
     - assets/flags/ar.png
+    - assets/onboarding/healthy.png
+    - assets/onboarding/monitor.png
+    - assets/onboarding/reading.png
+    
 flutter_intl:
   enabled: true

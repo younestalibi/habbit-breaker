@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
+import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
@@ -90,9 +91,8 @@ class OnboardContent extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Image.network(
+          child: ClipOval(
+            child: Image.asset(
               illustration!,
               fit: BoxFit.contain,
             ),
@@ -145,19 +145,19 @@ class DotIndicator extends StatelessWidget {
 
 List<Map<String, dynamic>> demoDataEn = [
   {
-    "illustration": "https://i.postimg.cc/L43CKddq/Illustrations.png",
+    "illustration": ImageConstants.onboardingMonitor,
     "title": "Track Your Progress",
     "text":
         "Monitor your journey and keep track of your days\nstaying strong and habit-free.",
   },
   {
-    "illustration": "https://i.postimg.cc/xTjs9sY6/Illustrations-1.png",
+    "illustration": ImageConstants.onboardingReading,
     "title": "Stay Motivated",
     "text":
         "Access motivational articles and tips to help\nyou stay on track and overcome challenges.",
   },
   {
-    "illustration": "https://i.postimg.cc/6qcYdZVV/Illustrations-2.png",
+    "illustration": ImageConstants.onboardingHealthy,
     "title": "Build Healthy Habits",
     "text":
         "Develop positive routines with our step-by-step\nguide to creating sustainable habits.",
@@ -166,18 +166,18 @@ List<Map<String, dynamic>> demoDataEn = [
 
 List<Map<String, dynamic>> demoDataAr = [
   {
-    "illustration": "https://i.postimg.cc/L43CKddq/Illustrations.png",
+    "illustration": ImageConstants.onboardingMonitor,
     "title": "تتبع تقدمك",
     "text": "راقب رحلتك واحتفظ بسجل أيامك للبقاء قويًا وخاليًا من العادات.",
   },
   {
-    "illustration": "https://i.postimg.cc/xTjs9sY6/Illustrations-1.png",
+    "illustration": ImageConstants.onboardingReading,
     "title": "حافظ على حماسك",
     "text":
         "احصل على مقالات تحفيزية ونصائح لمساعدتك في البقاء على المسار وتجاوز التحديات.",
   },
   {
-    "illustration": "https://i.postimg.cc/6qcYdZVV/Illustrations-2.png",
+    "illustration": ImageConstants.onboardingHealthy,
     "title": "ابنِ عادات صحية",
     "text": "طور عادات إيجابية مع دليلنا خطوة بخطوة لخلق عادات مستدامة.",
   },

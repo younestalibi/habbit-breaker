@@ -58,10 +58,12 @@
         }
     },
     "articles_for_you": "Articles for you",
-    "special_for_you": "Special for you",
     "see_more": "See more",
     "today_quote": "Today's quote",
     "language_setting": "Language setting",
     "get_started": "Get Started",
+    "special_for_you": "Special for you"
+    
+
     
 }
