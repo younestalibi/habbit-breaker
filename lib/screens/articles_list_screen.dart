@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/articles.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
+import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/article_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/widgets/article_card.dart';
+import 'package:provider/provider.dart';
 
 class ArticlesListScreen extends StatefulWidget {
   const ArticlesListScreen({super.key});
@@ -15,6 +17,10 @@ class ArticlesListScreen extends StatefulWidget {
 class _ArticlesListScreenState extends State<ArticlesListScreen> {
   @override
   Widget build(BuildContext context) {
+    final String _selectedLanguage =
+        Provider.of<SettingsProvider>(context).languageCode;
+    final List<Map<String, dynamic>> listArticles =
+        articles[_selectedLanguage] ?? articles['en']!;
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).articles_for_you),
@@ -22,9 +28,9 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
-          itemCount: articles.length,
+          itemCount: listArticles.length,
           itemBuilder: (context, index) {
-            final article = articles[index];
+            final article = listArticles[index];
             return Column(
               children: [
                 ArticleCard(

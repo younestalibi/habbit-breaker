@@ -50,6 +50,11 @@ class Articles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String _selectedLanguage =
+        Provider.of<SettingsProvider>(context).languageCode;
+    final List<Map<String, dynamic>> listArticles =
+        articles[_selectedLanguage] ?? articles['en']!;
+    print(listArticles);
     return Column(
       children: [
         SectionTitle(
@@ -63,7 +68,7 @@ class Articles extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-              children: articles.take(4).map((article) {
+              children: listArticles.take(4).map((article) {
             return Padding(
               padding: const EdgeInsets.only(right: 20),
               child: ArticleCard(
