@@ -18,5 +18,13 @@ class SharedPrefs {
     return _sharedPrefs.getString(key) ?? "";
   }
 
+  Future<void> setBoolData(String key, bool value) async {
+    await _sharedPrefs.setBool(key, value);
+  }
+
+  bool getBoolData(String key) {
+    return _sharedPrefs.getBool(key) ?? false;
+  }
+
   
 }

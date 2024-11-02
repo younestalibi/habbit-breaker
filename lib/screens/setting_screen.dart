@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
+import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/language_setting_screen.dart';
 import 'package:habbit_breaker/screens/profile_setting_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -10,12 +12,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool notificationsEnabled = true; 
-  bool darkThemeEnabled = false; 
+  bool notificationsEnabled = true;
 
   @override
   Widget build(BuildContext context) {
-    print(Dimensions.mdHeight);
+    final settingsProvider = Provider.of<SettingsProvider>(context);
+    bool darkThemeEnabled = settingsProvider.isDark;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
@@ -56,7 +59,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  'Langauge',
+                  'Language',
                   style: TextStyle(
                     color: ColorConstants.dark,
                     fontSize: 16,
@@ -91,9 +94,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               value: darkThemeEnabled,
               onChanged: (value) {
-                setState(() {
-                  darkThemeEnabled = value;
-                });
+                settingsProvider.changeTheme();
+                // Call setState() if you need to rebuild the UI,
+                // but it's optional since the Provider will notify listeners.
+                setState(() {});
               },
             ),
           ],
