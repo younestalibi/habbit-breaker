@@ -76,7 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           icon: Icons.email,
                           label: S.of(context).email,
                         ),
-                        Dimensions.mdHeight,
+                        Dimensions.smHeight,
                         CustomInputField(
                           controller: _passwordController,
                           hintText: S.of(context).password,
@@ -161,7 +161,6 @@ class _SignInScreenState extends State<SignInScreen> {
                           },
                           child: Text(S.of(context).forget_password,
                               style: TextStyle(
-                                color: ColorConstants.dark,
                                 fontWeight: FontWeight.bold,
                               )),
                         ),

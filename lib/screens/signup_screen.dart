@@ -47,11 +47,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: null,
-        backgroundColor: Colors.white,
-      ),
-      backgroundColor: Colors.white,
       body: SafeArea(
           child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -62,7 +57,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
                 )),
             Dimensions.lgHeight,
             Form(
@@ -99,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ],
                   ),
-                  Dimensions.mdHeight,
+                  Dimensions.smHeight,
                   CustomDropdownField(
                     value: selectedGender,
                     hintText: S.of(context).select_gender,
@@ -116,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
-                  Dimensions.mdHeight,
+                  Dimensions.smHeight,
                   CustomInputField(
                     controller: emailController,
                     hintText: S.of(context).email,
@@ -127,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
-                  Dimensions.mdHeight,
+                  Dimensions.smHeight,
                   CustomInputField(
                     controller: passwordController,
                     hintText: S.of(context).password,

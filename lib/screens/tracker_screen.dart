@@ -125,7 +125,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
             children: [
               Expanded(
                 child: CustomElevatedButton(
-                  backgroundColor: const Color.fromRGBO(105, 250, 238, 1),
+                  backgroundColor: ColorConstants.primary,
+                  color: ColorConstants.white,
                   padding: 15,
                   text: S.of(context).reset_counter,
                   onPressed: () {
@@ -136,7 +137,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
               Dimensions.xsWidth,
               Expanded(
                 child: CustomElevatedButton(
-                  backgroundColor: Colors.black,
+                  backgroundColor: Theme.of(context).primaryColorLight,
+                  color: Theme.of(context).primaryColor,
                   padding: 15,
                   text: S.of(context).add_relapse,
                   onPressed: () {

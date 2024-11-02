@@ -4,7 +4,7 @@ class CustomDropdownField extends StatelessWidget {
   final String? value;
   final List<String> items;
   final String hintText;
-  final Color fillColor;
+  final Color? fillColor;
   final double borderRadius;
   final ValueChanged<String?>? onChanged;
   final String? Function(String?)? validator;
@@ -14,7 +14,7 @@ class CustomDropdownField extends StatelessWidget {
     required this.value,
     required this.items,
     required this.hintText,
-    this.fillColor = const Color(0xFFF5FCF9),
+    this.fillColor,
     this.borderRadius = 50.0,
     this.onChanged,
     this.validator,

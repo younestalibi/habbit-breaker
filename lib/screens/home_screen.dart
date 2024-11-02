@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/articles.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
+import 'package:habbit_breaker/screens/article_screen.dart';
 import 'package:habbit_breaker/screens/articles_list_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:habbit_breaker/widgets/article_card.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -61,85 +63,20 @@ class Articles extends StatelessWidget {
               image: article['image'],
               category: article['category'],
               title: article['title'],
-              press: () {},
+              height: 100,
+              width: 242,
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ArticleScreen(article: article),
+                  ),
+                );
+              },
             );
           }).toList()),
         ),
       ],
-    );
-  }
-}
-
-class ArticleCard extends StatelessWidget {
-  const ArticleCard({
-    Key? key,
-    required this.category,
-    required this.image,
-    required this.title,
-    required this.press,
-  }) : super(key: key);
-
-  final String category, image;
-  final String title;
-  final GestureTapCallback press;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: GestureDetector(
-        onTap: press,
-        child: SizedBox(
-          width: 242,
-          height: 100,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Stack(
-              children: [
-                Image.network(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black54,
-                        Colors.black38,
-                        Colors.black26,
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  child: Text.rich(
-                    TextSpan(
-                      style: const TextStyle(color: Colors.white),
-                      children: [
-                        TextSpan(
-                          text: "$category\n",
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        TextSpan(text: title)
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

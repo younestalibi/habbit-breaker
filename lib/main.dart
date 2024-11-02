@@ -34,12 +34,12 @@ class MyApp extends StatelessWidget {
               create: (context) => SettingsProvider()..init()),
         ],
         child: Consumer<SettingsProvider>(builder: (context, settings, child) {
-          print(settings.languageCode+"hiii");
           return MaterialApp(
-            theme: settings.isDark ? settings.darkTheme : settings.lightTheme,
             title: 'Habit Breaker',
-            initialRoute: '/',
+            initialRoute: '/articles',
             onGenerateRoute: CustomeRouter.generateRoute,
+            theme: settings.isDark ? settings.darkTheme : settings.lightTheme,
+            debugShowCheckedModeBanner: false,
             locale: Locale(settings.languageCode),
             localizationsDelegates: const [
               S.delegate,
