@@ -7,9 +7,7 @@ class Dimensions {
 
   void init(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
-    print(mediaQueryData);
     screenWidth = mediaQueryData!.size.width;
-    print(screenWidth);
     screenHeight = mediaQueryData!.size.height;
   }
 

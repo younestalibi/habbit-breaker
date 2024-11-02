@@ -23,10 +23,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(16.00),
+        constraints: BoxConstraints(
+          minHeight: Dimensions.screenHeight! * 0.80,
+        ),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Header(),
             Dimensions.smHeight,
