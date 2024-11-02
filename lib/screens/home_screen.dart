@@ -3,6 +3,8 @@ import 'package:habbit_breaker/articles.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/screens/articles_list_screen.dart';
+import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,15 +17,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Header(),
-          Quote(),
-          Articles(),
-        ],
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Header(),
+            Quote(),
+            Articles(),
+          ],
+        ),
       ),
     );
   }
@@ -247,69 +250,66 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: 150,
-        margin: const EdgeInsets.all(20),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: ColorConstants.white,
-          border: Border.all(
-            color: ColorConstants.shadow,
-            width: 2.0,
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-                color: ColorConstants.shadow,
-                blurRadius: 2,
-                offset: Offset(0, 1)),
-          ],
-        ),
-        child: InkWell(
-          onTap: () {
-            print('go to tracking page');
-          },
-          child: Row(
-            children: [
-              Column(
+    return Card(
+      margin: EdgeInsets.all(16.0),
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                      child: Image.asset(
-                    ImageConstants.logo,
-                    fit: BoxFit.contain,
-                  )),
+                  Row(
+                    children: [
+                      Text(
+                        '7/90',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 40,
+                            color: ColorConstants.primary),
+                      ),
+                      Dimensions.xsWidth,
+                      Text(
+                        "Days",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: ColorConstants.primary),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 8.0),
+                  CustomElevatedButton(
+                    backgroundColor: Colors.black,
+                    padding: 10,
+                    onPressed: () {
+                      print('Button pressed');
+                    },
+                    text: 'View The Progress',
+                  ),
                 ],
               ),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Days",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: ColorConstants.primary),
-                        ),
-                        Text(
-                          '7/90',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40,
-                              color: ColorConstants.primary),
-                        )
-                      ],
-                    ),
-                  ],
+            ),
+            Expanded(
+              flex: 1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  ImageConstants.logo,
+                  fit: BoxFit.contain,
+                  height: 100,
                 ),
-              )
-            ],
-          ),
-        ));
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

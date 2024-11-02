@@ -8,12 +8,13 @@ import 'package:habbit_breaker/screens/setting_screen.dart';
 import 'package:habbit_breaker/screens/signin_screen.dart';
 import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:habbit_breaker/screens/splash_screen.dart';
+import 'package:habbit_breaker/screens/test.dart';
 import 'package:habbit_breaker/screens/tracker_screen.dart';
 
 class CustomeRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/':
+      case '/dd':
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
@@ -33,6 +34,8 @@ class CustomeRouter {
         return MaterialPageRoute(builder: (_) => SettingsScreen());
       case '/articles':
         return MaterialPageRoute(builder: (_) => ArticlesListScreen());
+      case '/test':
+        return MaterialPageRoute(builder: (_) => CatalogScreen());
       default:
         return MaterialPageRoute(builder: (_) => SplashScreen());
     }

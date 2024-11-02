@@ -123,22 +123,26 @@ class _TrackerScreenState extends State<TrackerScreen> {
           Dimensions.mdHeight,
           Row(
             children: [
-              CustomElevatedButton(
-                backgroundColor: const Color.fromRGBO(105, 250, 238, 1),
-                padding: 15,
-                text: S.of(context).reset_counter,
-                onPressed: () {
-                  _showConfirmationDialog(context, 'reset');
-                },
+              Expanded(
+                child: CustomElevatedButton(
+                  backgroundColor: const Color.fromRGBO(105, 250, 238, 1),
+                  padding: 15,
+                  text: S.of(context).reset_counter,
+                  onPressed: () {
+                    _showConfirmationDialog(context, 'reset');
+                  },
+                ),
               ),
-              SizedBox(width: 8),
-              CustomElevatedButton(
-                backgroundColor: Colors.black,
-                padding: 15,
-                text: S.of(context).add_relapse,
-                onPressed: () {
-                  _showConfirmationDialog(context, 'Add relpase');
-                },
+              Dimensions.xsWidth,
+              Expanded(
+                child: CustomElevatedButton(
+                  backgroundColor: Colors.black,
+                  padding: 15,
+                  text: S.of(context).add_relapse,
+                  onPressed: () {
+                    _showConfirmationDialog(context, 'Add relpase');
+                  },
+                ),
               )
             ],
           )

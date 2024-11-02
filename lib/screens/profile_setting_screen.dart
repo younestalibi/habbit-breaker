@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -95,9 +97,10 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
               icon: Icons.lock,
             ),
             Dimensions.smHeight,
-            ElevatedButton(
-              onPressed: _isLoading ? null : _updateUserProfile,
-              child: _isLoading ? Text('Saving...') : Text('Save'),
+            CustomElevatedButton(
+              text: _isLoading ? 'Saving...' : 'Save',
+              onPressed: _isLoading ? () {} : _updateUserProfile,
+              backgroundColor: ColorConstants.dark,
             ),
             Dimensions.smHeight,
             if (_successMessage != null)
@@ -173,7 +176,6 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
   }
-
 
   @override
   void dispose() {
