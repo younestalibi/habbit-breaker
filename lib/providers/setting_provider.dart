@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:habbit_breaker/generated/l10n.dart';
+import 'package:habbit_breaker/utils/shared_prefs.dart';
 
 class SettingsProvider extends ChangeNotifier {
   bool _isDark = false;
@@ -7,8 +8,6 @@ class SettingsProvider extends ChangeNotifier {
 
   bool get isDark => _isDark;
   String get languageCode => _languageCode;
-
-  late SharedPreferences storage;
 
   final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
@@ -25,23 +24,24 @@ class SettingsProvider extends ChangeNotifier {
 
   // Initialize provider
   Future<void> init() async {
-    storage = await SharedPreferences.getInstance();
-    _isDark = storage.getBool("isDark") ?? false;
-    _languageCode = storage.getString("languageCode") ?? 'en';
+    _isDark = SharedPrefs.instance.getBoolData('isDark') ?? false;
+    _languageCode = SharedPrefs.instance.getStringData('languageCode') ?? 'en';
     notifyListeners();
   }
 
   // Change theme
   void changeTheme() {
     _isDark = !_isDark;
-    storage.setBool("isDark", _isDark);
+    SharedPrefs.instance.setBoolData("isDark", _isDark);
     notifyListeners();
   }
 
   // Change language
-  void changeLanguage(String language) {
+  void changeLanguage(String language) async {
     _languageCode = language;
-    storage.setString("languageCode", _languageCode);
+    SharedPrefs.instance.setStringData("languageCode", _languageCode);
+    await S.load(Locale(languageCode));
+
     notifyListeners();
   }
 }

@@ -5,7 +5,6 @@ import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
-import 'package:habbit_breaker/providers/ui_provider.dart';
 import 'package:habbit_breaker/router/router.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
@@ -35,15 +34,13 @@ class MyApp extends StatelessWidget {
               create: (context) => SettingsProvider()..init()),
         ],
         child: Consumer<SettingsProvider>(builder: (context, settings, child) {
+          print(settings.languageCode+"hiii");
           return MaterialApp(
             theme: settings.isDark ? settings.darkTheme : settings.lightTheme,
-            
             title: 'Habit Breaker',
-            initialRoute: '/home',
+            initialRoute: '/',
             onGenerateRoute: CustomeRouter.generateRoute,
-            locale: languageCode.isEmpty
-                ? const Locale('en')
-                : Locale(languageCode),
+            locale: Locale(settings.languageCode),
             localizationsDelegates: const [
               S.delegate,
               GlobalMaterialLocalizations.delegate,

@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/articles.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
-import 'package:habbit_breaker/providers/setting_provider.dart';
-import 'package:habbit_breaker/providers/ui_provider.dart';
 import 'package:habbit_breaker/screens/articles_list_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
-import 'package:provider/provider.dart';
-import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

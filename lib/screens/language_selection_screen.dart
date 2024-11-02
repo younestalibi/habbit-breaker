@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/image_constants.dart';
+import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
@@ -15,16 +17,18 @@ class LanguageSelectionScreen extends StatefulWidget {
 }
 
 class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
-  String _selectedLanguage = 'en'; // Initial selected language
+  late String _selectedLanguage;
 
-  Future<void> _setLocale(BuildContext context, String languageCode) async {
-    SharedPrefs.instance.setStringData('languageCode', languageCode);
-    await S.load(Locale(languageCode));
+  @override
+  void initState() {
+    super.initState();
+    _selectedLanguage =
+        Provider.of<SettingsProvider>(context, listen: false).languageCode;
   }
 
   void _onSelectLanguage(BuildContext context) async {
-    await _setLocale(context,
-        _selectedLanguage); // Set the locale based on selected language
+    Provider.of<SettingsProvider>(context, listen: false)
+        .changeLanguage(_selectedLanguage);
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     if (authProvider.isAuthenticated()) {
@@ -46,14 +50,17 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              _buildLanguageTile(context, 'English', 'en', 'assets/logo.png'),
+              _buildLanguageTile(
+                  context, 'English', 'en', ImageConstants.enFlag),
               Dimensions.smHeight,
-              _buildLanguageTile(context, 'Arabic', 'ar', 'assets/logo.png'),
+              _buildLanguageTile(
+                  context, 'Arabic', 'ar', ImageConstants.arFlag),
               Dimensions.smHeight,
               CustomElevatedButton(
                 text: S.of(context).selectLanguage,
                 onPressed: () => _onSelectLanguage(context),
-                backgroundColor: Colors.black,
+                color: Theme.of(context).primaryColor,
+                backgroundColor: Theme.of(context).primaryColorLight,
                 padding: 20,
                 borderRadius: 15,
               ),
