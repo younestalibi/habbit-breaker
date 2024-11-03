@@ -5,8 +5,8 @@ import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
+import 'package:habbit_breaker/utils/date_helper.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
-import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class TrackerScreen extends StatefulWidget {
 class _TrackerScreenState extends State<TrackerScreen> {
   DateTime? habitStartDate;
   DateTime? lastRelapse;
-  Duration timeDifference = Duration();
+  Duration timeDifference = const Duration();
 
   int days = 0;
   int hours = 0;
@@ -76,7 +76,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   Widget _buildLoadingIndicator() {
-    return CircularProgressIndicator();
+    return const CircularProgressIndicator();
   }
 
   Widget _buildTrackerContent(BuildContext context) {
@@ -92,10 +92,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
           Dimensions.smHeight,
           Text(
             S.of(context).days,
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           ),
-          Text(_formatDays(days),
-              style: TextStyle(
+          Text(DateHelper.formatDays(days),
+              style: const TextStyle(
                   fontSize: 55,
                   fontWeight: FontWeight.bold,
                   color: ColorConstants.secondary)),
@@ -108,9 +108,9 @@ class _TrackerScreenState extends State<TrackerScreen> {
               _timeLabelColumn(seconds, "second"),
             ],
           ),
-          isAtLeast24HoursApart(lastRelapse, DateTime.now())
-              ? Text(S.of(context).you_have_relapsed_today)
-              : SizedBox.shrink(),
+          DateHelper.isAtLeast24HoursApart(lastRelapse, DateTime.now())
+              ? const SizedBox.shrink()
+              : Text(S.of(context).you_have_relapsed_today),
           Dimensions.smHeight,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -179,7 +179,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _showConfirmationDialog(BuildContext context, String type) {
-    showDialog(
+    showDialog(b
       context: context,
       builder: (BuildContext context) {
         return Dialog(
@@ -187,21 +187,21 @@ class _TrackerScreenState extends State<TrackerScreen> {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             height: 250,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
+                const Icon(
                   Icons.info,
                   size: 30.0,
-                  color: const Color.fromARGB(255, 57, 166, 255),
+                  color: Color.fromARGB(255, 57, 166, 255),
                 ),
                 Text(
                   type == 'reset'
                       ? S.of(context).reset_counter
                       : S.of(context).add_relapse,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -211,7 +211,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                       ? S.of(context).confirm_reset_counter
                       : S.of(context).confirm_add_relapse,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                   ),
                 ),
@@ -225,7 +225,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
                         },
                         child: Text(
                           S.of(context).cancel,
-                          style: TextStyle(color: ColorConstants.danger),
+                          style: const TextStyle(color: ColorConstants.danger),
                         ),
                       ),
                     ),
@@ -255,13 +255,14 @@ class _TrackerScreenState extends State<TrackerScreen> {
                             DateTime now = DateTime.now();
                             setState(() {
                               if (lastRelapse == null ||
-                                  isAtLeast24HoursApart(lastRelapse, now)) {
+                                  DateHelper.isAtLeast24HoursApart(
+                                      lastRelapse, now)) {
                                 relapse++;
 
-                                if (isAtLeast24HoursApart(
+                                if (DateHelper.isAtLeast24HoursApart(
                                     habitStartDate, now)) {
-                                  habitStartDate =
-                                      habitStartDate!.add(Duration(days: 1));
+                                  habitStartDate = habitStartDate!
+                                      .add(const Duration(days: 1));
                                 }
                               } else {
                                 relapse++;
@@ -293,14 +294,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
         );
       },
     );
-  }
-
-  bool isAtLeast24HoursApart(DateTime? firstDate, DateTime? secondDate) {
-    if (firstDate == null || secondDate == null) {
-      return false;
-    }
-    Duration difference = secondDate.difference(firstDate);
-    return difference.inHours >= 24;
   }
 
   Widget _statsCard(int number, String label, IconData icon) {
@@ -354,12 +347,12 @@ class _TrackerScreenState extends State<TrackerScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              _formatTime(time),
+              DateHelper.formatTime(time),
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
             const SizedBox(width: 2),
             Text(
-              _getLocalizedLabel(label),
+              DateHelper.getLocalizedLabel(context, label),
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 12,
@@ -370,48 +363,5 @@ class _TrackerScreenState extends State<TrackerScreen> {
         ),
       ],
     );
-  }
-
-  String _formatTime(int time) {
-    return time.toString().padLeft(2, '0');
-  }
-
-  String _formatDays(int days) {
-    if (days >= 500) {
-      return "$days/1000";
-    } else if (days >= 400) {
-      return "$days/500";
-    } else if (days >= 300) {
-      return "$days/400";
-    } else if (days >= 200) {
-      return "$days/300";
-    } else if (days >= 120) {
-      return "$days/200";
-    } else if (days >= 90) {
-      return "$days/120";
-    } else if (days >= 30) {
-      return "$days/90";
-    } else if (days >= 15) {
-      return "$days/30";
-    } else if (days >= 7) {
-      return "$days/15";
-    } else if (days < 7) {
-      return "$days/7";
-    } else {
-      return days.toString();
-    }
-  }
-
-  String _getLocalizedLabel(String label) {
-    switch (label) {
-      case 'hour':
-        return S.of(context).hour;
-      case 'minute':
-        return S.of(context).minute;
-      case 'second':
-        return S.of(context).second;
-      default:
-        return '';
-    }
   }
 }
