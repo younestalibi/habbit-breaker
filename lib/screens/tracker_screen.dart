@@ -7,6 +7,7 @@ import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/utils/date_helper.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:habbit_breaker/widgets/custom_dialog.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 import 'package:provider/provider.dart';
 
@@ -80,76 +81,79 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   Widget _buildTrackerContent(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(
-            ImageConstants.logo,
-            height: 100,
-          ),
-          Dimensions.smHeight,
-          Text(
-            S.of(context).days,
-            style: const TextStyle(fontSize: 18),
-          ),
-          Text(DateHelper.formatDays(days),
-              style: const TextStyle(
-                  fontSize: 55,
-                  fontWeight: FontWeight.bold,
-                  color: ColorConstants.secondary)),
-          Dimensions.smHeight,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _timeLabelColumn(hours, "hour"),
-              _timeLabelColumn(minutes, "minute"),
-              _timeLabelColumn(seconds, "second"),
-            ],
-          ),
-          DateHelper.isAtLeast24HoursApart(lastRelapse, DateTime.now())
-              ? const SizedBox.shrink()
-              : Text(S.of(context).you_have_relapsed_today),
-          Dimensions.smHeight,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _statsCard(
-                  relapse, S.of(context).relapse, Icons.sentiment_dissatisfied),
-              _statsCard(days, S.of(context).recovery_time, Icons.emoji_events),
-              _statsCard(longest, S.of(context).longest, Icons.timer),
-            ],
-          ),
-          Dimensions.mdHeight,
-          Row(
-            children: [
-              Expanded(
-                child: CustomElevatedButton(
-                  backgroundColor: ColorConstants.primary,
-                  color: ColorConstants.white,
-                  padding: 15,
-                  text: S.of(context).reset_counter,
-                  onPressed: () {
-                    _showConfirmationDialog(context, 'reset');
-                  },
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              ImageConstants.logo,
+              height: 100,
+            ),
+            Dimensions.smHeight,
+            Text(
+              S.of(context).days,
+              style: const TextStyle(fontSize: 18),
+            ),
+            Text(DateHelper.formatDays(days),
+                style: const TextStyle(
+                    fontSize: 55,
+                    fontWeight: FontWeight.bold,
+                    color: ColorConstants.secondary)),
+            Dimensions.smHeight,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _timeLabelColumn(hours, "hour"),
+                _timeLabelColumn(minutes, "minute"),
+                _timeLabelColumn(seconds, "second"),
+              ],
+            ),
+            DateHelper.isAtLeast24HoursApart(lastRelapse, DateTime.now())
+                ? const SizedBox.shrink()
+                : Text(S.of(context).you_have_relapsed_today),
+            Dimensions.smHeight,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _statsCard(relapse, S.of(context).relapse,
+                    Icons.sentiment_dissatisfied),
+                _statsCard(
+                    days, S.of(context).recovery_time, Icons.emoji_events),
+                _statsCard(longest, S.of(context).longest, Icons.timer),
+              ],
+            ),
+            Dimensions.mdHeight,
+            Row(
+              children: [
+                Expanded(
+                  child: CustomElevatedButton(
+                    backgroundColor: ColorConstants.primary,
+                    color: ColorConstants.white,
+                    padding: 15,
+                    text: S.of(context).reset_counter,
+                    onPressed: () {
+                      _showConfirmationDialog(context, 'reset');
+                    },
+                  ),
                 ),
-              ),
-              Dimensions.xsWidth,
-              Expanded(
-                child: CustomElevatedButton(
-                  backgroundColor: Theme.of(context).primaryColorLight,
-                  color: Theme.of(context).primaryColor,
-                  padding: 15,
-                  text: S.of(context).add_relapse,
-                  onPressed: () {
-                    _showConfirmationDialog(context, 'Add relpase');
-                  },
-                ),
-              )
-            ],
-          )
-        ],
+                Dimensions.xsWidth,
+                Expanded(
+                  child: CustomElevatedButton(
+                    backgroundColor: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).primaryColor,
+                    padding: 15,
+                    text: S.of(context).add_relapse,
+                    onPressed: () {
+                      _showConfirmationDialog(context, 'Add relpase');
+                    },
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -179,121 +183,59 @@ class _TrackerScreenState extends State<TrackerScreen> {
   }
 
   void _showConfirmationDialog(BuildContext context, String type) {
-    showDialog(b
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            height: 250,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Icon(
-                  Icons.info,
-                  size: 30.0,
-                  color: Color.fromARGB(255, 57, 166, 255),
-                ),
-                Text(
-                  type == 'reset'
-                      ? S.of(context).reset_counter
-                      : S.of(context).add_relapse,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  type == 'reset'
-                      ? S.of(context).confirm_reset_counter
-                      : S.of(context).confirm_add_relapse,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          S.of(context).cancel,
-                          style: const TextStyle(color: ColorConstants.danger),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          final authProvider =
-                              Provider.of<AuthProvider>(context, listen: false);
-                          final trackerProvider = Provider.of<TrackerProvider>(
-                              context,
-                              listen: false);
+    String title;
+    String message;
+    if (type == 'reset') {
+      title = S.of(context).reset_counter;
+      message = S.of(context).confirm_reset_counter;
+    } else {
+      title = S.of(context).add_relapse;
+      message = S.of(context).confirm_add_relapse;
+    }
+    CustomDialog.show(context,
+        title: title,
+        content: Text(message),
+        dialogType: DialogType.confirmation, onConfirm: () {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final trackerProvider =
+          Provider.of<TrackerProvider>(context, listen: false);
 
-                          String userId = authProvider.user?.uid ?? '';
-                          if (type == 'reset') {
-                            setState(() {
-                              habitStartDate = DateTime.now();
-                              relapse = 0;
-                              recoveryTime = 0;
-                              longest = 0;
-                              lastRelapse = null;
-                            });
-                            if (userId.isNotEmpty) {
-                              trackerProvider.resetCounter(userId);
-                            }
-                          } else {
-                            DateTime now = DateTime.now();
-                            setState(() {
-                              if (lastRelapse == null ||
-                                  DateHelper.isAtLeast24HoursApart(
-                                      lastRelapse, now)) {
-                                relapse++;
+      String userId = authProvider.user?.uid ?? '';
+      if (type == 'reset') {
+        setState(() {
+          habitStartDate = DateTime.now();
+          relapse = 0;
+          recoveryTime = 0;
+          longest = 0;
+          lastRelapse = null;
+        });
+        if (userId.isNotEmpty) {
+          trackerProvider.resetCounter(userId);
+        }
+      } else {
+        DateTime now = DateTime.now();
+        setState(() {
+          if (lastRelapse == null ||
+              DateHelper.isAtLeast24HoursApart(lastRelapse, now)) {
+            relapse++;
 
-                                if (DateHelper.isAtLeast24HoursApart(
-                                    habitStartDate, now)) {
-                                  habitStartDate = habitStartDate!
-                                      .add(const Duration(days: 1));
-                                }
-                              } else {
-                                relapse++;
-                              }
-                              lastRelapse = now;
-                            });
-                            if (userId.isNotEmpty) {
-                              trackerProvider.addRelapse(
-                                  userId,
-                                  habitStartDate!,
-                                  lastRelapse,
-                                  relapse,
-                                  recoveryTime,
-                                  longest);
-                            }
-                          }
-                          setState(() {
-                            _data = _fetch();
-                          });
-                        },
-                        child: Text(S.of(context).confirm),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+            if (DateHelper.isAtLeast24HoursApart(habitStartDate, now)) {
+              habitStartDate = habitStartDate!.add(const Duration(days: 1));
+            }
+          } else {
+            relapse++;
+          }
+          lastRelapse = now;
+        });
+        if (userId.isNotEmpty) {
+          trackerProvider.addRelapse(userId, habitStartDate!, lastRelapse,
+              relapse, recoveryTime, longest);
+        }
+      }
+      setState(() {
+        _data = _fetch();
+      });
+    });
   }
 
   Widget _statsCard(int number, String label, IconData icon) {

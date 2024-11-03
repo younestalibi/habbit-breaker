@@ -1,14 +1,12 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
-import 'package:habbit_breaker/screens/signup_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:habbit_breaker/widgets/custom_dialog.dart';
 import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
-import 'layout_screen.dart';
 import '../providers/auth_provider.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -24,7 +22,9 @@ class _SignInScreenState extends State<SignInScreen> {
   String? errorMessage;
   bool _isLoading = false;
 
+  @override
   void initState() {
+    super.initState();
     _emailController.text = 'younessetalibi8@gmail.com';
     _passwordController.text = '123456';
   }
@@ -195,43 +195,28 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _showForgotPasswordDialog(BuildContext context) {
     final TextEditingController _emailController = TextEditingController();
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(S.of(context).reset_password),
-          content: TextField(
-            controller: _emailController,
-            decoration: InputDecoration(hintText: S.of(context).enter_email),
-            keyboardType: TextInputType.emailAddress,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                String? result =
-                    await Provider.of<AuthProvider>(context, listen: false)
-                        .resetPassword(_emailController.text);
-                if (result == null) {
-                  Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(S.of(context).password_reset_sent)),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(result)),
-                  );
-                }
-              },
-              child: Text(S.of(context).send_reset_link),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(S.of(context).cancel),
-            ),
-          ],
-        );
+    CustomDialog.show(
+      context,
+      title: S.of(context).reset_password,
+      textConfirm: S.of(context).send_reset_link,
+      content: TextField(
+        controller: _emailController,
+        decoration: InputDecoration(hintText: S.of(context).enter_email),
+        keyboardType: TextInputType.emailAddress,
+      ),
+      dialogType: DialogType.confirmation,
+      onConfirm: () async {
+        String? result = await Provider.of<AuthProvider>(context, listen: false)
+            .resetPassword(_emailController.text);
+        if (result == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(S.of(context).password_reset_sent)),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(result)),
+          );
+        }
       },
     );
   }

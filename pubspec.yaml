@@ -1,6 +1,6 @@
 name: habbit_breaker
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -15,12 +15,11 @@ dependencies:
   persistent_bottom_nav_bar: ^6.2.1
   cloud_firestore: ^5.4.4
   flutter_localizations:
-        sdk: flutter
+    sdk: flutter
   shared_preferences: ^2.3.2
   intl: ^0.19.0
   image_picker: ^1.1.2
   firebase_storage: ^12.3.4
-  
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +35,6 @@ flutter:
     - assets/onboarding/healthy.png
     - assets/onboarding/monitor.png
     - assets/onboarding/reading.png
-    
+
 flutter_intl:
   enabled: true

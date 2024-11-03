@@ -64,5 +64,6 @@
     "get_started": "Get Started",
     "special_for_you": "Special for you",
     "saving": "Saving",
-    "view_progress":"View The Progress"
+    "view_progress": "View The Progress",
+    "ok": "OK"
 }
