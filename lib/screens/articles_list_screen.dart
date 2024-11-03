@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_breaker/articles.dart';
+import 'package:habbit_breaker/data/articles.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/article_screen.dart';

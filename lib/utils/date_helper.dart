@@ -46,13 +46,10 @@ class DateHelper {
   }
 
   static bool isAtLeast24HoursApart(DateTime? firstDate, DateTime? secondDate) {
-    print(firstDate);
-    print(secondDate);
     if (firstDate == null || secondDate == null) {
       return false;
     }
     Duration difference = secondDate.difference(firstDate);
-    print(difference.inHours);
     return difference.inHours >= 24;
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
+import 'package:habbit_breaker/widgets/custom_dialog.dart';
 import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
@@ -21,15 +22,15 @@ class _LanguageSettingScreenState extends State<LanguageSettingScreen> {
         Provider.of<SettingsProvider>(context, listen: false).languageCode;
   }
 
-  void _onSelectLanguage() {
+  void _onSelectLanguage(BuildContext context) {
     Provider.of<SettingsProvider>(context, listen: false)
         .changeLanguage(_selectedLanguage);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+    CustomDialog.show(context,
+        title: "Success",
+        textCancel: S.of(context).ok,
+        textConfirm: "",
         content: Text('Language changed successfully to $_selectedLanguage.'),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+        dialogType: DialogType.info);
   }
 
   @override
@@ -52,7 +53,7 @@ class _LanguageSettingScreenState extends State<LanguageSettingScreen> {
               Dimensions.smHeight,
               CustomElevatedButton(
                 text: S.of(context).selectLanguage,
-                onPressed: _onSelectLanguage,
+                onPressed: () => _onSelectLanguage(context),
                 color: Theme.of(context).primaryColor,
                 backgroundColor: Theme.of(context).primaryColorLight,
                 padding: 20,

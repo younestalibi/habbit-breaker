@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:habbit_breaker/articles.dart';
+import 'package:habbit_breaker/data/articles.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
@@ -54,7 +54,6 @@ class Articles extends StatelessWidget {
         Provider.of<SettingsProvider>(context).languageCode;
     final List<Map<String, dynamic>> listArticles =
         articles[_selectedLanguage] ?? articles['en']!;
-    print(listArticles);
     return Column(
       children: [
         SectionTitle(

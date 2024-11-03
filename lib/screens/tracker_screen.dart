@@ -194,6 +194,8 @@ class _TrackerScreenState extends State<TrackerScreen> {
     }
     CustomDialog.show(context,
         title: title,
+        textCancel: S.of(context).cancel,
+        textConfirm: S.of(context).confirm,
         content: Text(message),
         dialogType: DialogType.confirmation, onConfirm: () {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -270,7 +272,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               ),
               Text(
                 label,
-                style:  const TextStyle(
+                style: const TextStyle(
                   fontSize: 10,
                 ),
               ),

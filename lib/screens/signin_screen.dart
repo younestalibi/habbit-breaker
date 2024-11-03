@@ -113,7 +113,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               : () async {
                                   if (_formKey.currentState!.validate()) {
                                     setState(() {
-                                      errorMessage = '';
+                                      errorMessage = null;
                                       _isLoading = true;
                                     });
 
@@ -200,6 +200,7 @@ class _SignInScreenState extends State<SignInScreen> {
       context,
       title: S.of(context).reset_password,
       textConfirm: S.of(context).send_reset_link,
+      textCancel: S.of(context).cancel,
       content: TextField(
         controller: _emailController,
         decoration: InputDecoration(hintText: S.of(context).enter_email),
