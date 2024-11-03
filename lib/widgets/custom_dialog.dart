@@ -65,7 +65,7 @@ class CustomDialog extends StatelessWidget {
                   Navigator.of(context).pop();
                   onCancel?.call();
                 },
-                child: Text(S.of(context).cancel),
+                child: Text(S.of(context).ok),
               ),
             ]
           : [

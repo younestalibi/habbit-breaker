@@ -62,10 +62,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "longest": MessageLookupByLibrary.simpleMessage("Longest"),
         "minute": MessageLookupByLibrary.simpleMessage(":Minute"),
+        "ok": MessageLookupByLibrary.simpleMessage("OK"),
         "pageHomeWelcomeFullName": m1,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
-        "password_reset_sent":
-            MessageLookupByLibrary.simpleMessage("Password reset email sent!"),
+        "password_reset_sent": MessageLookupByLibrary.simpleMessage(
+            "Password reset email is sent!"),
         "please_enter_email":
             MessageLookupByLibrary.simpleMessage("Please enter your email."),
         "please_enter_first_name": MessageLookupByLibrary.simpleMessage(

@@ -62,6 +62,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "last_name": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
         "longest": MessageLookupByLibrary.simpleMessage("الأطول"),
         "minute": MessageLookupByLibrary.simpleMessage(":دقيقة"),
+        "ok": MessageLookupByLibrary.simpleMessage("حسنا"),
         "pageHomeWelcomeFullName": m1,
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "password_reset_sent": MessageLookupByLibrary.simpleMessage(

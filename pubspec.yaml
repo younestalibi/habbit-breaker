@@ -35,6 +35,5 @@ flutter:
     - assets/onboarding/healthy.png
     - assets/onboarding/monitor.png
     - assets/onboarding/reading.png
-
 flutter_intl:
   enabled: true

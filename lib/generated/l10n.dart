@@ -220,10 +220,10 @@ class S {
     );
   }
 
-  /// `Password reset email sent!`
+  /// `Password reset email is sent!`
   String get password_reset_sent {
     return Intl.message(
-      'Password reset email sent!',
+      'Password reset email is sent!',
       name: 'password_reset_sent',
       desc: '',
       args: [],
@@ -605,6 +605,16 @@ class S {
     return Intl.message(
       'View The Progress',
       name: 'view_progress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `OK`
+  String get ok {
+    return Intl.message(
+      'OK',
+      name: 'ok',
       desc: '',
       args: [],
     );

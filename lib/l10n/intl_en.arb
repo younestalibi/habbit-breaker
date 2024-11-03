@@ -16,7 +16,7 @@
     "forget_password": "Forgot Password?",
     "reset_password": "Reset Password",
     "enter_email": "Enter your email",
-    "password_reset_sent": "Password reset email sent!",
+    "password_reset_sent": "Password reset email is sent!",
     "send_reset_link": "Send Reset Link",
     "have_no_account": "Don't have an account?",
     "sign_up": "Sign Up",

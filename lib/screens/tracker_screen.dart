@@ -270,7 +270,7 @@ class _TrackerScreenState extends State<TrackerScreen> {
               ),
               Text(
                 label,
-                style: TextStyle(
+                style:  const TextStyle(
                   fontSize: 10,
                 ),
               ),

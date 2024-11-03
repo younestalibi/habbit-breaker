@@ -99,7 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               child: Text(
                                 errorMessage!,
                                 textAlign: TextAlign.left,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: ColorConstants.danger,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400),
@@ -144,7 +144,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             shape: const StadiumBorder(),
                           ),
                           child: _isLoading
-                              ? SizedBox(
+                              ? const SizedBox(
                                   height: 20,
                                   width: 20,
                                   child: CircularProgressIndicator(
@@ -160,7 +160,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             _showForgotPasswordDialog(context);
                           },
                           child: Text(S.of(context).forget_password,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               )),
                         ),
@@ -174,12 +174,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                 children: [
                                   TextSpan(
                                     text: S.of(context).sign_up,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: ColorConstants.secondary),
                                   ),
                                 ],
                               ),
-                              style: TextStyle(color: ColorConstants.grey)),
+                              style:
+                                  const TextStyle(color: ColorConstants.grey)),
                         ),
                       ],
                     ),
