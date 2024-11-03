@@ -20,45 +20,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.of(context).settings, style: Theme.of(context).textTheme.titleLarge),
+        title: Text(S.of(context).settings,
+            style: Theme.of(context).textTheme.titleLarge),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextButton(
-              onPressed: () {
+            ListTile(
+              title: Text(S.of(context).profile),
+              onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => ProfileSettingsScreen()),
                 );
               },
-              child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: Text(S.of(context).profile,
-                      style: Theme.of(context).textTheme.titleSmall)),
             ),
             const Divider(),
-            TextButton(
-              onPressed: () {
+            ListTile(
+              title: Text(S.of(context).language),
+              onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => LanguageSettingScreen()),
                 );
               },
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Text(S.of(context).language,
-                    style: Theme.of(context).textTheme.titleSmall),
-              ),
             ),
             const Divider(),
             SwitchListTile(
-              title: Text(S.of(context).enable_notifications,
-                  style: Theme.of(context).textTheme.titleSmall),
+              title: Text(S.of(context).enable_notifications),
               value: notificationsEnabled,
               onChanged: (value) {
                 setState(() {
@@ -68,12 +59,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const Divider(),
             SwitchListTile(
-              title: Text(S.of(context).enable_dark_theme,
-                  style: Theme.of(context).textTheme.titleSmall),
+              title: Text(S.of(context).enable_dark_theme),
               value: darkThemeEnabled,
               onChanged: (value) {
                 settingsProvider.changeTheme();
-                // setState(() {});
               },
             ),
           ],
