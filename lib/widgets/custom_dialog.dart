@@ -32,7 +32,7 @@ class CustomDialog {
         return AlertDialog(
           actionsAlignment: MainAxisAlignment.center,
           title: Text(title, textAlign: TextAlign.center),
-          content: Wrap(children: [content]),
+          content: Expanded(child: content),
           actions:
               dialogType == DialogType.info || dialogType == DialogType.warning
                   ? [

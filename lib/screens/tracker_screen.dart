@@ -194,7 +194,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
     }
     CustomDialog.show(context,
         title: title,
-        content: Text(message),
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+        ),
         dialogType: DialogType.confirmation, onConfirm: () {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       final trackerProvider =

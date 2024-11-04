@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<SettingsProvider>(builder: (context, settings, child) {
           return MaterialApp(
             title: 'Habit Breaker',
-            initialRoute: '/home',
+            initialRoute: '/',
             onGenerateRoute: CustomeRouter.generateRoute,
             theme: settings.isDark ? settings.darkTheme : settings.lightTheme,
             debugShowCheckedModeBanner: false,
