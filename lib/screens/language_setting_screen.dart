@@ -26,10 +26,14 @@ class _LanguageSettingScreenState extends State<LanguageSettingScreen> {
     Provider.of<SettingsProvider>(context, listen: false)
         .changeLanguage(_selectedLanguage);
     CustomDialog.show(context,
-        title: "Success",
-        textCancel: S.of(context).ok,
-        textConfirm: "",
-        content: Text('Language changed successfully to $_selectedLanguage.'),
+        title: S.of(context).success,
+        textConfirm: S.of(context).ok,
+        content: Text(
+          S
+              .of(context)
+              .changed_language_success(_getLanguageName(_selectedLanguage)),
+          textAlign: TextAlign.center,
+        ),
         dialogType: DialogType.info);
   }
 
@@ -64,6 +68,17 @@ class _LanguageSettingScreenState extends State<LanguageSettingScreen> {
         ),
       ),
     );
+  }
+
+  String _getLanguageName(String code) {
+    switch (code) {
+      case 'en':
+        return 'English';
+      case 'ar':
+        return 'العربية';
+      default:
+        return 'Unknown Language';
+    }
   }
 
   Widget _buildLanguageTile(BuildContext context, String languageName,

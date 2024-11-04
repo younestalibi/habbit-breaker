@@ -24,7 +24,11 @@ class ArticleScreen extends StatelessWidget {
               ),
               AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Image.network(article['image'], width: double.infinity),
+                child: Image.asset(
+                  article['image'],
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                ),
               ),
               Text(
                 article['category'],

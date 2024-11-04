@@ -30,10 +30,21 @@ flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
-    - assets/flags/en.png
+    - assets/articles/action_plans.png
+    - assets/articles/habbit_formation.png
+    - assets/articles/inspiration.png
+    - assets/articles/life_style.png
+    - assets/articles/motivation.png
+    - assets/articles/productivity.png
+    - assets/articles/psychology.png
+    - assets/articles/self_improvement.png
+    - assets/articles/success_stories.png
+    - assets/articles/visual_cues.png
     - assets/flags/ar.png
+    - assets/flags/en.png
     - assets/onboarding/healthy.png
     - assets/onboarding/monitor.png
     - assets/onboarding/reading.png
+
 flutter_intl:
   enabled: true

@@ -20,7 +20,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController lastNameController = TextEditingController();
   String? errorMessage;
   bool _isLoading = false;
-  String? selectedGender;
 
   @override
   void initState() {
@@ -52,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             Dimensions.lgHeight,
             Text(S.of(context).sign_up,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
@@ -92,23 +91,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ],
                   ),
                   Dimensions.smHeight,
-                  CustomDropdownField(
-                    value: selectedGender,
-                    hintText: S.of(context).select_gender,
-                    items: ['Male', 'Female', 'Other'],
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        selectedGender = newValue;
-                      });
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return S.of(context).please_select_gender;
-                      }
-                      return null;
-                    },
-                  ),
-                  Dimensions.smHeight,
                   CustomInputField(
                     controller: emailController,
                     hintText: S.of(context).email,
@@ -139,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Text(
                           errorMessage!,
                           textAlign: TextAlign.left,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: ColorConstants.danger,
                               fontSize: 12,
                               fontWeight: FontWeight.w400),
@@ -164,7 +146,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 passwordController.text,
                                 firstNameController.text,
                                 lastNameController.text,
-                                selectedGender ?? 'Other',
                               );
                               if (result == null) {
                                 Navigator.pushReplacementNamed(
@@ -185,7 +166,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       shape: const StadiumBorder(),
                     ),
                     child: _isLoading
-                        ? SizedBox(
+                        ? const SizedBox(
                             height: 20,
                             width: 20,
                             child: CircularProgressIndicator(
@@ -206,11 +187,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         children: [
                           TextSpan(
                             text: S.of(context).sign_in,
-                            style: TextStyle(color: ColorConstants.secondary),
+                            style: const TextStyle(
+                                color: ColorConstants.secondary),
                           ),
                         ],
                       ),
-                      style: TextStyle(color: ColorConstants.grey),
+                      style: const TextStyle(color: ColorConstants.grey),
                     ),
                   ),
                 ],

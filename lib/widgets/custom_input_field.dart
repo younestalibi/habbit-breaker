@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habbit_breaker/constants/color_constants.dart';
 
 class CustomInputField extends StatelessWidget {
   final TextEditingController controller;
@@ -30,6 +31,7 @@ class CustomInputField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         prefixIcon: Icon(icon),
+        errorStyle: const TextStyle(color: ColorConstants.danger),
         hintText: hintText,
         filled: true,
         fillColor: fillColor,

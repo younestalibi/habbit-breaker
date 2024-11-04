@@ -22,23 +22,29 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(category) => "مقال حول ${category}";
 
-  static String m1(userName) => "مرحباً ${userName}";
+  static String m1(selectedLanguage) =>
+      "تم تغيير اللغة بنجاح إلى ${selectedLanguage}";
+
+  static String m2(userName) => "مرحباً ${userName}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "add_relapse": MessageLookupByLibrary.simpleMessage("إضافة انتكاسة"),
-        "appName": MessageLookupByLibrary.simpleMessage("كاسر العادات"),
+        "appName": MessageLookupByLibrary.simpleMessage("كسر العادة"),
         "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
         "article_about": m0,
         "articles_for_you": MessageLookupByLibrary.simpleMessage("مقالات لك"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "changed_language_success": m1,
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirm_add_relapse": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد إضافة انتكاسة؟"),
         "confirm_reset_counter": MessageLookupByLibrary.simpleMessage(
-            "هل أنت متأكد أنك تريد إعادة ضبط العداد؟"),
+            "هل أنت متأكد أنك تريد إعادة تعيين العداد؟"),
         "days": MessageLookupByLibrary.simpleMessage("أيام"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+        "email_link_sent": MessageLookupByLibrary.simpleMessage(
+            "تم إرسال رابط التحقق إلى بريدك الإلكتروني الجديد. يرجى التحقق لإكمال التحديث."),
         "enable_dark_theme":
             MessageLookupByLibrary.simpleMessage("تفعيل الوضع الداكن"),
         "enable_notifications":
@@ -53,17 +59,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "have_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟"),
         "have_no_account":
-            MessageLookupByLibrary.simpleMessage("ليس لديك حساب؟"),
+            MessageLookupByLibrary.simpleMessage("لا تملك حساباً؟"),
         "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
         "hour": MessageLookupByLibrary.simpleMessage(":ساعة"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
-        "language_setting":
-            MessageLookupByLibrary.simpleMessage("إعدادات اللغة"),
+        "language_setting": MessageLookupByLibrary.simpleMessage("إعداد اللغة"),
         "last_name": MessageLookupByLibrary.simpleMessage("اسم العائلة"),
         "longest": MessageLookupByLibrary.simpleMessage("الأطول"),
         "minute": MessageLookupByLibrary.simpleMessage(":دقيقة"),
-        "ok": MessageLookupByLibrary.simpleMessage("حسنا"),
-        "pageHomeWelcomeFullName": m1,
+        "no_data_available":
+            MessageLookupByLibrary.simpleMessage("لا تتوفر بيانات"),
+        "ok": MessageLookupByLibrary.simpleMessage("حسناً"),
+        "pageHomeWelcomeFullName": m2,
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "password_reset_sent": MessageLookupByLibrary.simpleMessage(
             "تم إرسال بريد إعادة تعيين كلمة المرور!"),
@@ -73,33 +80,36 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يرجى إدخال الاسم الأول."),
         "please_enter_last_name":
             MessageLookupByLibrary.simpleMessage("يرجى إدخال اسم العائلة."),
-        "please_enter_password":
-            MessageLookupByLibrary.simpleMessage("يرجى إدخال كلمة المرور"),
-        "please_select_gender":
-            MessageLookupByLibrary.simpleMessage("يرجى اختيار الجنس."),
+        "please_enter_password": MessageLookupByLibrary.simpleMessage(
+            "يرجى إدخال كلمة المرور الخاصة بك"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "profile_setting":
             MessageLookupByLibrary.simpleMessage("إعدادات الملف الشخصي"),
+        "profile_updated_successfully": MessageLookupByLibrary.simpleMessage(
+            "تم تحديث الملف الشخصي بنجاح!"),
         "progress": MessageLookupByLibrary.simpleMessage("التقدم"),
-        "recovery_time": MessageLookupByLibrary.simpleMessage("وقت التعافي"),
+        "recovery_time": MessageLookupByLibrary.simpleMessage("مدة الشفاء"),
         "relapse": MessageLookupByLibrary.simpleMessage("انتكاسة"),
         "reset_counter":
-            MessageLookupByLibrary.simpleMessage("إعادة ضبط العداد"),
+            MessageLookupByLibrary.simpleMessage("إعادة تعيين العداد"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
-        "saving": MessageLookupByLibrary.simpleMessage("جاري الحفظ..."),
+        "saving": MessageLookupByLibrary.simpleMessage("حفظ"),
         "second": MessageLookupByLibrary.simpleMessage(":ثانية"),
-        "see_more": MessageLookupByLibrary.simpleMessage("رؤية المزيد"),
+        "see_more": MessageLookupByLibrary.simpleMessage("شاهد المزيد"),
         "selectLanguage": MessageLookupByLibrary.simpleMessage("اختر اللغة"),
-        "select_gender": MessageLookupByLibrary.simpleMessage("اختر الجنس"),
         "send_reset_link":
             MessageLookupByLibrary.simpleMessage("إرسال رابط إعادة التعيين"),
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
-        "special_for_you": MessageLookupByLibrary.simpleMessage("مميز لك"),
+        "something_went_wrong":
+            MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
+        "special_for_you": MessageLookupByLibrary.simpleMessage("خاص لك"),
+        "success": MessageLookupByLibrary.simpleMessage("نجاح"),
         "today_quote": MessageLookupByLibrary.simpleMessage("اقتباس اليوم"),
+        "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
         "view_progress": MessageLookupByLibrary.simpleMessage("عرض التقدم"),
         "you_have_relapsed_today":
             MessageLookupByLibrary.simpleMessage("لقد انتكست اليوم! 🤡")

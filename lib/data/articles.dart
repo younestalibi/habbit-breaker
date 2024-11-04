@@ -1,8 +1,10 @@
+import 'package:habbit_breaker/constants/image_constants.dart';
+
 final Map<String, List<Map<String, dynamic>>> articles = {
   'en': [
     {
       'title': '5 Strategies to Build New Habits That Stick',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleHabbitFormation,
       'category': 'Habits',
       'content': 'Building new habits that last requires strategies that support long-term change. Here are five essential strategies to get you started:\n\n'
           '1. Start Small: Begin with tiny, manageable changes to your routine. Instead of trying to overhaul your life overnight, focus on one small habit at a time. For instance, if you want to exercise more, start by committing to just five minutes a day.\n\n'
@@ -13,18 +15,18 @@ final Map<String, List<Map<String, dynamic>>> articles = {
     },
     {
       'title': 'How to Overcome Relapse and Get Back on Track',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleMotivation,
       'category': 'Motivation',
       'content': 'Relapse is part of the journey. Overcoming it involves understanding your triggers and implementing steps to regain control. Here are some steps to help you get back on track:\n\n'
           '1. Acknowledge the Setback: The first step is to accept that a relapse has occurred. Instead of feeling defeated, view it as a learning opportunity. Understanding what led to the relapse can help you avoid similar situations in the future.\n\n'
           '2. Reflect on Your Triggers: Take time to analyze what circumstances or emotions triggered your relapse. Keeping a journal can help you identify patterns and develop strategies to cope with these triggers in the future.\n\n'
           '3. Re-establish Your Goals: Revisit your original goals and remind yourself of why you wanted to change in the first place. Re-establishing your goals can rekindle your motivation and focus.\n\n'
-          '4. Seek Support: Don’t hesitate to reach out to friends, family, or support groups. Sharing your experiences with others who understand your journey can provide encouragement and accountability.\n\n'
+          '4. Seek Support: Don\'t hesitate to reach out to friends, family, or support groups. Sharing your experiences with others who understand your journey can provide encouragement and accountability.\n\n'
           '5. Create an Action Plan: Develop a concrete action plan for how to get back on track. Include specific steps you can take daily to reinforce your commitment and prevent future relapses. This might include scheduling regular check-ins with yourself or others.',
     },
     {
       'title': 'The Science Behind Habit Formation',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articlePsychology,
       'category': 'Psychology',
       'content': 'The science of habit formation delves into the neurological patterns that occur in the brain. This article explores those mechanisms and how they affect our daily lives:\n\n'
           '1. Understanding the Habit Loop: Habits are formed through a process called the habit loop, which consists of three components: cue, routine, and reward. A cue triggers the habit, the routine is the behavior itself, and the reward is what reinforces the behavior.\n\n'
@@ -35,7 +37,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
     },
     {
       'title': '10 Inspiring Stories of Habit-Breakers Who Succeeded',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleSuccessStories,
       'category': 'Success Stories',
       'content': 'Discover 10 real-life stories of people who managed to break their habits and achieve great success. These inspiring journeys showcase the power of perseverance and determination:\n\n'
           '1. James Clear: Author of the bestselling book "Atomic Habits," Clear struggled with building effective habits. After years of trial and error, he developed a systematic approach to habit formation that led to his success and helped millions of readers.\n\n'
@@ -43,7 +45,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
           '3. Tony Robbins: A well-known motivational speaker, Robbins overcame personal struggles with weight and self-doubt. Through consistent effort and habit changes, he transformed his life and now helps others achieve their goals.\n\n'
           '4. Mel Robbins: Robbins is famous for her "5-Second Rule," which encourages people to take action immediately to break bad habits. Her approach has empowered countless individuals to take control of their lives.\n\n'
           '5. Charles Duhigg: Author of "The Power of Habit," Duhigg studied habits extensively. His research reveals how understanding the habit loop can lead to significant personal change.\n\n'
-          '6. B.J. Fogg: Fogg’s work on behavior design emphasizes the importance of making habits easy to start. His "Tiny Habits" method has helped thousands build new habits by starting with small, manageable actions.\n\n'
+          '6. B.J. Fogg: Fogg\'s work on behavior design emphasizes the importance of making habits easy to start. His "Tiny Habits" method has helped thousands build new habits by starting with small, manageable actions.\n\n'
           '7. Marie Kondo: The decluttering expert transformed her life through the habits of tidiness. Her "KonMari Method" emphasizes the joy of keeping only what you love, inspiring many to adopt more mindful habits.\n\n'
           '8. Rick Warren: Pastor and author, Warren changed his approach to daily routines. By incorporating spiritual practices into his life, he found greater purpose and fulfillment.\n\n'
           '9. Dwayne "The Rock" Johnson: Johnson is known for his incredible work ethic and discipline. Through his dedication to fitness and nutrition, he transformed his body and career, inspiring fans worldwide.\n\n'
@@ -51,7 +53,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
     },
     {
       'title': 'Daily Routines for Maximum Productivity',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleProductivity,
       'category': 'Productivity',
       'content': 'Maximizing productivity is all about structuring your daily routine effectively. In this article, we share practical tips to boost your daily output:\n\n'
           '1. Plan Your Day the Night Before: Take a few minutes each evening to outline your goals and tasks for the following day. This preparation helps you start your day with clarity and focus.\n\n'
@@ -64,7 +66,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
   'ar': [
     {
       'title': '5 استراتيجيات لبناء عادات جديدة تدوم',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleHabbitFormation,
       'category': 'العادات',
       'content': 'يتطلب بناء عادات جديدة تدوم استراتيجيات تدعم التغيير على المدى الطويل. إليك خمس استراتيجيات أساسية للبدء:\n\n'
           '1. ابدأ صغيرًا: ابدأ بتغييرات صغيرة وقابلة للإدارة في روتينك. بدلاً من محاولة تغيير حياتك بين عشية وضحاها، ركز على عادة صغيرة واحدة في كل مرة. على سبيل المثال، إذا كنت ترغب في ممارسة المزيد من الرياضة، ابدأ بالتزام لمدة خمس دقائق فقط يوميًا.\n\n'
@@ -75,7 +77,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
     },
     {
       'title': 'كيف تتغلب على الانتكاسة وتعود إلى المسار الصحيح',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleMotivation,
       'category': 'تحفيز',
       'content': 'الانتكاسة هي جزء من الرحلة. يتطلب التغلب عليها فهم المحفزات الخاصة بك وتنفيذ خطوات لاستعادة السيطرة. إليك بعض الخطوات لمساعدتك على العودة إلى المسار الصحيح:\n\n'
           '1. اعترف بالتراجع: الخطوة الأولى هي قبول أن انتكاسة قد حدثت. بدلاً من الشعور بالهزيمة، انظر إليها كفرصة للتعلم. يمكن أن تساعدك فهم ما أدى إلى الانتكاسة في تجنب حالات مشابهة في المستقبل.\n\n'
@@ -86,7 +88,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
     },
     {
       'title': 'علم تشكيل العادات',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articlePsychology,
       'category': 'علم النفس',
       'content': 'يتناول علم تشكيل العادات الأنماط العصبية التي تحدث في الدماغ. يستكشف هذا المقال تلك الآليات وكيف تؤثر على حياتنا اليومية:\n\n'
           '1. فهم حلقة العادة: تتشكل العادات من خلال عملية تُعرف باسم حلقة العادة، التي تتكون من ثلاثة مكونات: المحفز، الروتين، والمكافأة. يُحفز المحفز العادة، والروتين هو السلوك نفسه، والمكافأة هي ما يعزز السلوك.\n\n'
@@ -97,7 +99,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
     },
     {
       'title': '10 قصص ملهمة للأشخاص الذين تمكنوا من كسر عاداتهم',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleSuccessStories,
       'category': 'قصص نجاح',
       'content': 'اكتشف 10 قصص واقعية لأشخاص تمكنوا من كسر عاداتهم وتحقيق نجاح كبير. تُظهر هذه الرحلات الملهمة قوة الإصرار والعزيمة:\n\n'
           '1. جيمس كلير: مؤلف الكتاب الأكثر مبيعًا "عادات ذرية"، عانى كلير من بناء عادات فعالة. بعد سنوات من التجارب والخطأ، طور نهجًا منهجيًا لتشكيل العادات التي أدت إلى نجاحه وساعدت الملايين من القراء.\n\n'
@@ -113,7 +115,7 @@ final Map<String, List<Map<String, dynamic>>> articles = {
     },
     {
       'title': 'روتين يومي لتحقيق أقصى إنتاجية',
-      'image': 'https://i.postimg.cc/yY2bNrmd/Image-Banner-2.png',
+      'image': ImageConstants.articleProductivity,
       'category': 'الإنتاجية',
       'content': 'تحقيق أقصى إنتاجية يعتمد على هيكلة روتينك اليومي بشكل فعال. في هذه المقالة، نشارك نصائح عملية لتعزيز إنتاجيتك اليومية:\n\n'
           '1. خطط ليومك الليلة السابقة: خذ بضع دقائق كل مساء لتحديد أهدافك ومهامك لليوم التالي. هذه التحضيرات تساعدك على بدء يومك بوضوح وتركيز.\n\n'

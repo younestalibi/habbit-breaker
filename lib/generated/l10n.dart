@@ -340,26 +340,6 @@ class S {
     );
   }
 
-  /// `Select Gender`
-  String get select_gender {
-    return Intl.message(
-      'Select Gender',
-      name: 'select_gender',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please select your gender.`
-  String get please_select_gender {
-    return Intl.message(
-      'Please select your gender.',
-      name: 'please_select_gender',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Already have an account?`
   String get have_account {
     return Intl.message(
@@ -615,6 +595,76 @@ class S {
     return Intl.message(
       'OK',
       name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get username {
+    return Intl.message(
+      'Username',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get success {
+    return Intl.message(
+      'Success',
+      name: 'success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language changed successfully to {selectedLanguage}`
+  String changed_language_success(Object selectedLanguage) {
+    return Intl.message(
+      'Language changed successfully to $selectedLanguage',
+      name: 'changed_language_success',
+      desc: '',
+      args: [selectedLanguage],
+    );
+  }
+
+  /// `A verification link has been sent to your new email. Please verify to complete the update.`
+  String get email_link_sent {
+    return Intl.message(
+      'A verification link has been sent to your new email. Please verify to complete the update.',
+      name: 'email_link_sent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile updated successfully!`
+  String get profile_updated_successfully {
+    return Intl.message(
+      'Profile updated successfully!',
+      name: 'profile_updated_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong`
+  String get something_went_wrong {
+    return Intl.message(
+      'Something went wrong',
+      name: 'something_went_wrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No data available`
+  String get no_data_available {
+    return Intl.message(
+      'No data available',
+      name: 'no_data_available',
       desc: '',
       args: [],
     );

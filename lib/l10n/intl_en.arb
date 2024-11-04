@@ -28,8 +28,6 @@
     "please_enter_first_name": "Please enter your first name.",
     "last_name": "Last Name",
     "please_enter_last_name": "Please enter your last name.",
-    "select_gender": "Select Gender",
-    "please_select_gender": "Please select your gender.",
     "have_account": "Already have an account?",
     "pageHomeWelcomeFullName": "Welcome {userName}",
     "@pageHomeWelcomeFullName": {
@@ -65,5 +63,17 @@
     "special_for_you": "Special for you",
     "saving": "Saving",
     "view_progress": "View The Progress",
-    "ok": "OK"
+    "ok": "OK",
+    "username": "Username",
+    "success": "Success",
+    "changed_language_success": "Language changed successfully to {selectedLanguage}",
+    "@changed_language_success": {
+        "placeholders": {
+            "selectedLanguage": {}
+        }
+    },
+    "email_link_sent": "A verification link has been sent to your new email. Please verify to complete the update.",
+    "profile_updated_successfully": "Profile updated successfully!",
+    "something_went_wrong": "Something went wrong",
+    "no_data_available": "No data available"
 }

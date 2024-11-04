@@ -22,7 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(category) => "Article about ${category}";
 
-  static String m1(userName) => "Welcome ${userName}";
+  static String m1(selectedLanguage) =>
+      "Language changed successfully to ${selectedLanguage}";
+
+  static String m2(userName) => "Welcome ${userName}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -33,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "articles_for_you":
             MessageLookupByLibrary.simpleMessage("Articles for you"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "changed_language_success": m1,
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirm_add_relapse": MessageLookupByLibrary.simpleMessage(
             "Are you sure you want to add relapse?"),
@@ -40,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to reset the counter?"),
         "days": MessageLookupByLibrary.simpleMessage("Days"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "email_link_sent": MessageLookupByLibrary.simpleMessage(
+            "A verification link has been sent to your new email. Please verify to complete the update."),
         "enable_dark_theme":
             MessageLookupByLibrary.simpleMessage("Enable Dark Theme"),
         "enable_notifications":
@@ -62,8 +68,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "last_name": MessageLookupByLibrary.simpleMessage("Last Name"),
         "longest": MessageLookupByLibrary.simpleMessage("Longest"),
         "minute": MessageLookupByLibrary.simpleMessage(":Minute"),
+        "no_data_available":
+            MessageLookupByLibrary.simpleMessage("No data available"),
         "ok": MessageLookupByLibrary.simpleMessage("OK"),
-        "pageHomeWelcomeFullName": m1,
+        "pageHomeWelcomeFullName": m2,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_reset_sent": MessageLookupByLibrary.simpleMessage(
             "Password reset email is sent!"),
@@ -75,11 +83,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please enter your last name."),
         "please_enter_password":
             MessageLookupByLibrary.simpleMessage("Please enter your password"),
-        "please_select_gender":
-            MessageLookupByLibrary.simpleMessage("Please select your gender."),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profile_setting":
             MessageLookupByLibrary.simpleMessage("Profile settings"),
+        "profile_updated_successfully": MessageLookupByLibrary.simpleMessage(
+            "Profile updated successfully!"),
         "progress": MessageLookupByLibrary.simpleMessage("Progress"),
         "recovery_time": MessageLookupByLibrary.simpleMessage("Recovery time"),
         "relapse": MessageLookupByLibrary.simpleMessage("Relapse"),
@@ -93,15 +101,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "see_more": MessageLookupByLibrary.simpleMessage("See more"),
         "selectLanguage":
             MessageLookupByLibrary.simpleMessage("Select Language"),
-        "select_gender": MessageLookupByLibrary.simpleMessage("Select Gender"),
         "send_reset_link":
             MessageLookupByLibrary.simpleMessage("Send Reset Link"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+        "something_went_wrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "special_for_you":
             MessageLookupByLibrary.simpleMessage("Special for you"),
+        "success": MessageLookupByLibrary.simpleMessage("Success"),
         "today_quote": MessageLookupByLibrary.simpleMessage("Today\'s quote"),
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
         "view_progress":
             MessageLookupByLibrary.simpleMessage("View The Progress"),
         "you_have_relapsed_today":

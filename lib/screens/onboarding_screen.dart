@@ -4,6 +4,7 @@ import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
+import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -23,37 +24,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final demoData = languageCode == 'en' ? demoDataEn : demoDataAr;
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const Spacer(flex: 2),
-            Expanded(
-              flex: 10,
-              child: PageView.builder(
-                itemCount: demoData.length,
-                onPageChanged: (value) {
-                  setState(() {
-                    currentPage = value;
-                  });
-                },
-                itemBuilder: (context, index) => OnboardContent(
-                  illustration: demoData[index]["illustration"],
-                  title: demoData[index]["title"],
-                  text: demoData[index]["text"],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const Spacer(flex: 2),
+              Expanded(
+                flex: 10,
+                child: PageView.builder(
+                  itemCount: demoData.length,
+                  onPageChanged: (value) {
+                    setState(() {
+                      currentPage = value;
+                    });
+                  },
+                  itemBuilder: (context, index) => OnboardContent(
+                    illustration: demoData[index]["illustration"],
+                    title: demoData[index]["title"],
+                    text: demoData[index]["text"],
+                  ),
                 ),
               ),
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                demoData.length,
-                (index) => DotIndicator(isActive: index == currentPage),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  demoData.length,
+                  (index) => DotIndicator(isActive: index == currentPage),
+                ),
               ),
-            ),
-            const Spacer(flex: 2),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ElevatedButton(
+              const Spacer(flex: 2),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/signin');
                 },
@@ -67,9 +68,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 child: Text(S.of(context).get_started.toUpperCase()),
               ),
-            ),
-            const Spacer(),
-          ],
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );
@@ -98,7 +99,7 @@ class OnboardContent extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 16),
+        Dimensions.xsHeight,
         Text(
           title!,
           style: Theme.of(context)
@@ -106,7 +107,7 @@ class OnboardContent extends StatelessWidget {
               .titleLarge!
               .copyWith(fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 8),
+        Dimensions.xxsHeight,
         Text(
           text!,
           style: Theme.of(context).textTheme.bodyMedium,

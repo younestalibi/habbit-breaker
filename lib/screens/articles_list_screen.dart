@@ -38,7 +38,7 @@ class _ArticlesListScreenState extends State<ArticlesListScreen> {
                   category: article['category'],
                   title: article['title'],
                   width: double.infinity,
-                  height: 120,
+                  height: 140,
                   press: () {
                     Navigator.push(
                       context,

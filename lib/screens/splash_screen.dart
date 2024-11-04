@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
+import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:habbit_breaker/screens/language_selection_screen.dart';
-import 'package:habbit_breaker/screens/onboarding_screen.dart';
-import 'package:habbit_breaker/screens/layout_screen.dart';
-import '../providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -24,7 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _initializeApp() async {
     String languageCode = SharedPrefs.instance.getStringData('languageCode');
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
+    print(authProvider.isAuthenticated());
+    print("hi");
     Future.delayed(const Duration(seconds: 2), () {
       if (authProvider.isAuthenticated()) {
         Navigator.pushReplacementNamed(context, '/layout');
@@ -49,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 10),
             Text(
               S.of(context).appName,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
           ],

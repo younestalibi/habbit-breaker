@@ -1,13 +1,12 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
+import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/widgets/custom_dialog.dart';
 import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -91,7 +90,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           label: S.of(context).password,
                         ),
                         if (errorMessage != null)
-                          Container(
+                          SizedBox(
                             width: double.infinity,
                             child: Padding(
                               padding:
@@ -200,7 +199,6 @@ class _SignInScreenState extends State<SignInScreen> {
       context,
       title: S.of(context).reset_password,
       textConfirm: S.of(context).send_reset_link,
-      textCancel: S.of(context).cancel,
       content: TextField(
         controller: _emailController,
         decoration: InputDecoration(hintText: S.of(context).enter_email),

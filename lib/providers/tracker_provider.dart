@@ -34,8 +34,8 @@ class TrackerProvider with ChangeNotifier {
         'longest': longest,
         'created_at': DateTime.now().toIso8601String(),
         'updated_at': DateTime.now().toIso8601String(),
-      }, SetOptions(merge: true)); // Merge to update existing document
-      return null; // Indicate success
+      }, SetOptions(merge: true)); 
+      return null; 
     } catch (e) {
       return "Failed to add relapse. Please try again.";
     }

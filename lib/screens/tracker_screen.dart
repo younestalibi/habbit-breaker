@@ -67,10 +67,10 @@ class _TrackerScreenState extends State<TrackerScreen> {
             longest = data['longest'] ?? 0;
             return _buildTrackerContent(context);
           } else {
-            return Text('Something went wrong');
+            return Text(S.of(context).something_went_wrong);
           }
         } else {
-          return Center(child: Text('No data available'));
+          return Center(child: Text(S.of(context).no_data_available));
         }
       },
     ));
@@ -194,8 +194,6 @@ class _TrackerScreenState extends State<TrackerScreen> {
     }
     CustomDialog.show(context,
         title: title,
-        textCancel: S.of(context).cancel,
-        textConfirm: S.of(context).confirm,
         content: Text(message),
         dialogType: DialogType.confirmation, onConfirm: () {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);

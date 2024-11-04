@@ -27,9 +27,9 @@ class ArticleCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: [
-              Image.network(
+              Image.asset(
                 image,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 width: double.infinity,
               ),
               Container(

@@ -75,22 +75,22 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
             Dimensions.smHeight,
             CustomInputField(
               controller: _usernameController,
-              hintText: 'Username',
-              label: "username",
+              hintText: S.of(context).username,
+              label: S.of(context).username,
               icon: Icons.person,
             ),
             Dimensions.smHeight,
             CustomInputField(
               controller: _emailController,
-              hintText: 'Email',
-              label: "Email",
+              hintText: S.of(context).email,
+              label: S.of(context).email,
               icon: Icons.email,
             ),
             Dimensions.smHeight,
             CustomInputField(
               controller: _passwordController,
-              hintText: 'Password',
-              label: "Password",
+              hintText: S.of(context).password,
+              label: S.of(context).password,
               obscureText: true,
               icon: Icons.lock,
             ),
@@ -149,8 +149,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     if (email != authProvider.getUserEmail()) {
       String? error = await authProvider.updateEmail(email);
       if (error != null) errorMessages.add(error);
-      _showSnackBar(
-          'A verification link has been sent to your new email. Please verify to complete the update.');
+      _showSnackBar(S.of(context).email_link_sent);
     }
 
     // Update password only if provided
@@ -167,7 +166,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
       _showSnackBar(errorMessages.join('\n'));
     } else {
       setState(() {
-        _successMessage = 'Profile updated successfully!';
+        _successMessage = S.of(context).profile_updated_successfully;
       });
     }
   }
