@@ -13,4 +13,3 @@ class ColorConstants {
   static const Color background = Color.fromARGB(255, 253, 245, 255);
   static const Color shadow = Color.fromARGB(61, 99, 0, 238);
 }
-// Color(0xFF4A3298)

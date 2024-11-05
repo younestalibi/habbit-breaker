@@ -12,7 +12,6 @@ class AuthProvider with ChangeNotifier {
   User? get user => _user;
 
   AuthProvider() {
-    // Listen for changes in authentication state
     _firebaseAuth.authStateChanges().listen((User? user) {
       _user = user;
       notifyListeners();
@@ -117,30 +116,23 @@ class AuthProvider with ChangeNotifier {
     String? password,
   }) async {
     try {
-      // Update username if provided
       if (username != null && username.isNotEmpty) {
         await _user!.updateDisplayName(username);
       }
-
-      // Update password if provided
       if (password != null && password.isNotEmpty) {
         await _user!.updatePassword(password);
       }
-
-      // Verify and update email if provided
       if (email != null && email.isNotEmpty) {
         await _user!.verifyBeforeUpdateEmail(email);
         return "A verification link has been sent to your new email. Please verify to complete the update.";
       }
-
-      // Reload user data and notify listeners of the changes
       await _user!.reload();
       _user = _firebaseAuth.currentUser;
       notifyListeners();
 
-      return null; // Return null to indicate success
+      return null; 
     } catch (e) {
-      return "Failed to update profile: $e"; // Return error message
+      return "Failed to update profile: $e";
     }
   }
 

@@ -22,7 +22,6 @@ class TrackerProvider with ChangeNotifier {
     }
   }
 
-  // Function to add a relapse
   Future<String?> addRelapse(String userId, DateTime habitStartDate,
       DateTime? lastRelapse, int relapse, int recoveryTime, int longest) async {
     try {
@@ -41,7 +40,6 @@ class TrackerProvider with ChangeNotifier {
     }
   }
 
-  // Function to reset the counter
   Future<String?> resetCounter(String userId) async {
     try {
       await trackerCollection.doc(userId).update({
@@ -52,7 +50,7 @@ class TrackerProvider with ChangeNotifier {
         'longest': 0,
         'updated_at': DateTime.now().toIso8601String(),
       });
-      return null; // Indicate success
+      return null; 
     } catch (e) {
       return "Failed to reset counter. Please try again.";
     }
@@ -74,7 +72,6 @@ class TrackerProvider with ChangeNotifier {
       }
     } catch (e) {
       print("Error fetching tracker data: $e");
-      // return Future.error(e);
       return null;
     }
   }

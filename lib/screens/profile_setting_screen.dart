@@ -139,20 +139,17 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
     String password = _passwordController.text.trim();
     List<String> errorMessages = [];
 
-    // Check if username is different before updating
     if (username != authProvider.getUserName()) {
       String? error = await authProvider.updateUserName(username);
       if (error != null) errorMessages.add(error);
     }
 
-    // Check if email is different before updating
     if (email != authProvider.getUserEmail()) {
       String? error = await authProvider.updateEmail(email);
       if (error != null) errorMessages.add(error);
       _showSnackBar(S.of(context).email_link_sent);
     }
 
-    // Update password only if provided
     if (password.isNotEmpty) {
       String? error = await authProvider.updatePassword(password);
       if (error != null) errorMessages.add(error);

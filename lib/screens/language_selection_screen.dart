@@ -79,7 +79,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         ),
         title: Text(
           languageName,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         trailing: Radio<String>(
           value: languageCode,

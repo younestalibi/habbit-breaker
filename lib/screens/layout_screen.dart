@@ -90,7 +90,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.logout),
+            icon:const Icon(Icons.logout),
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
               Navigator.pushReplacementNamed(context, '/');

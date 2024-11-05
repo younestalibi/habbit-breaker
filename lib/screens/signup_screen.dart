@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                   ),
                   if (errorMessage != null)
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -135,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         : () async {
                             if (_formKey.currentState!.validate()) {
                               setState(() {
-                                errorMessage = '';
+                                errorMessage = null;
                                 _isLoading = true;
                               });
                               String? result = await Provider.of<AuthProvider>(

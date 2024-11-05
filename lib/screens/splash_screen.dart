@@ -20,8 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _initializeApp() async {
     String languageCode = SharedPrefs.instance.getStringData('languageCode');
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    print(authProvider.isAuthenticated());
-    print("hi");
+
     Future.delayed(const Duration(seconds: 2), () {
       if (authProvider.isAuthenticated()) {
         Navigator.pushReplacementNamed(context, '/layout');
