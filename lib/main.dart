@@ -16,14 +16,22 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPrefs.instance.init();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await NotificationService.askForNotificationPermission();
-  await NotificationService.init();
-  runApp(MyApp());
+  try {
+    await SharedPrefs.instance.init();
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    await NotificationService.init();
+    await NotificationService.askForNotificationPermission();
+    runApp(const MyApp());
+  }
+  catch (e) {
+    print("Error during app initialization: $e");
+  }
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     Dimensions().init(context);

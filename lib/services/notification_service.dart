@@ -9,9 +9,6 @@ class NotificationService {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  // GlobalKey for navigation
-  static GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
-
   // Notification details
   static NotificationDetails notificationDetails = const NotificationDetails(
     android: AndroidNotificationDetails(
@@ -42,7 +39,6 @@ class NotificationService {
   // Method to request notification permission
   static Future<void> askForNotificationPermission() async {
     PermissionStatus status = await Permission.notification.request();
-
     if (status.isGranted) {
       print('Notification permission granted.');
     } else if (status.isDenied) {
@@ -50,15 +46,7 @@ class NotificationService {
     } else if (status.isPermanentlyDenied) {
       print(
           'Notification permission permanently denied. Please go to settings.');
-      // await openAppSettings(); // Opens app settings if the permission is permanently denied
     }
-    // Permission.notification.request().then((permissionStatus) {
-    //   if (permissionStatus != PermissionStatus.granted) {
-    //     // AppSettings.openAppSettings(type: AppSettingsType.notification);
-    //     print('persmission not gartuent');
-    //   }
-    //   print('persmission is gartuent');
-    // });
   }
 
   // Method to send instant notification
@@ -76,8 +64,9 @@ class NotificationService {
   // Method to send periodic notification
   static void sendPeriodicNotification(
       {required String title, required String body, required String payload}) {
+    print("runn preios");
     flutterLocalNotificationsPlugin.periodicallyShow(
-      1,
+      2,
       title,
       body,
       RepeatInterval.everyMinute,
@@ -95,7 +84,7 @@ class NotificationService {
   // Method to handle notification response
   static void onDidReceiveNotificationResponse(NotificationResponse response) {
     debugPrint("onDidReceiveNotificationResponse");
-    globalKey.currentState?.pushReplacement(
+    navigatorKey.currentState?.pushReplacement(
       MaterialPageRoute(
         builder: (context) => DisplayPayload(
           payloadData: response.payload,
@@ -108,7 +97,7 @@ class NotificationService {
   static void onDidReceiveBackgroundNotificationResponse(
       NotificationResponse response) {
     debugPrint("onDidReceiveBackgroundNotificationResponse");
-    globalKey.currentState?.pushReplacement(
+    navigatorKey.currentState?.pushReplacement(
       MaterialPageRoute(
         builder: (context) => DisplayPayload(
           payloadData: response.payload,

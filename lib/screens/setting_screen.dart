@@ -3,6 +3,7 @@ import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/language_setting_screen.dart';
 import 'package:habbit_breaker/screens/profile_setting_screen.dart';
+import 'package:habbit_breaker/services/notification_service.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -11,12 +12,11 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool notificationsEnabled = true;
-
   @override
   Widget build(BuildContext context) {
     final settingsProvider = Provider.of<SettingsProvider>(context);
     bool darkThemeEnabled = settingsProvider.isDark;
+    bool isDailyNotificationsEnabled = settingsProvider.dailyNotifications;
 
     return Scaffold(
       appBar: AppBar(
@@ -50,11 +50,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
             const Divider(),
             SwitchListTile(
               title: Text(S.of(context).enable_notifications),
-              value: notificationsEnabled,
+              value: isDailyNotificationsEnabled,
               onChanged: (value) {
-                setState(() {
-                  notificationsEnabled = value;
-                });
+                if (value) {
+                  NotificationService.sendPeriodicNotification(
+                    title: "Test title 2",
+                    body: "Test body 2",
+                    payload: "Test payload 2",
+                  );
+                } else {
+                  NotificationService.cancelPeriodicNotification();
+                }
+                settingsProvider.enableDailyNotification();
               },
             ),
             const Divider(),
