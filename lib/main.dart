@@ -7,6 +7,8 @@ import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/router/router.dart';
+import 'package:habbit_breaker/services/not_test.dart';
+import 'package:habbit_breaker/services/notification_service.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
@@ -20,22 +22,28 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs.instance.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotificationServices.init(); // Initialize notification services
 
-// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-  final DarwinInitializationSettings initializationSettingsDarwin =
-      DarwinInitializationSettings();
+  // Initialize the notification service
+//   final notificationService =
+//       NotificationService(flutterLocalNotificationsPlugin);
+//   await notificationService.init();
 
-  final InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsDarwin,
-    macOS: initializationSettingsDarwin,
-  );
-  // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-  //     onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+// // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+//   const AndroidInitializationSettings initializationSettingsAndroid =
+//       AndroidInitializationSettings('@mipmap/ic_launcher');
+//   final DarwinInitializationSettings initializationSettingsDarwin =
+//       DarwinInitializationSettings();
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+//   final InitializationSettings initializationSettings = InitializationSettings(
+//     android: initializationSettingsAndroid,
+//     iOS: initializationSettingsDarwin,
+//     macOS: initializationSettingsDarwin,
+//   );
+//   // await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+//   //     onDidReceiveNotificationResponse: onDidReceiveNotificationResponse);
+
+//   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   runApp(MyApp());
 }
 
@@ -78,7 +86,9 @@ class MyApp extends StatelessWidget {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
-            navigatorKey: navigatorKey,
+            // navigatorKey: navigatorKey,
+                  navigatorKey: NotificationServices.globalKey, // Set global navigator key
+
           );
         }));
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/screens/home_screen.dart';
+import 'package:habbit_breaker/screens/notification_screen.dart';
 import 'package:habbit_breaker/screens/setting_screen.dart';
 import 'package:habbit_breaker/screens/tracker_screen.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
@@ -30,7 +31,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      const Center(child: HomeScreen()),
+      const Center(child: NotificationScreen()),
       Center(child: TrackerScreen()),
       Center(child: SettingsScreen()),
     ];
@@ -90,7 +91,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         ),
         actions: [
           IconButton(
-            icon:const Icon(Icons.logout),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
               Navigator.pushReplacementNamed(context, '/');

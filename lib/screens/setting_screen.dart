@@ -53,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ElevatedButton(
                 onPressed: () {
                   NotificationService(flutterLocalNotificationsPlugin)
-                      .scheduleNotificationInTwoMinutes();
+                      .scheduleNotificationIn10Seconds();
                 },
                 child: Text('notiviat')),
             SwitchListTile(
