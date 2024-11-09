@@ -1,62 +1,119 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tzData;
+import 'package:habbit_breaker/main.dart';
+import 'package:habbit_breaker/screens/display_payload_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class NotificationService {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  // Initialize FlutterLocalNotificationsPlugin
+  static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
-  NotificationService(this.flutterLocalNotificationsPlugin);
+  // GlobalKey for navigation
+  static GlobalKey<NavigatorState> globalKey = GlobalKey<NavigatorState>();
 
-  // Initialize the timezone
-  Future<void> init() async {
-    tzData.initializeTimeZones();
+  // Notification details
+  static NotificationDetails notificationDetails = const NotificationDetails(
+    android: AndroidNotificationDetails(
+      "channelId",
+      "channelName",
+      priority: Priority.high,
+      importance: Importance.high,
+      icon: "@mipmap/ic_launcher",
+    ),
+  );
+
+  // Initialize method
+  static Future<void> init() async {
+    AndroidInitializationSettings androidInitializationSettings =
+        const AndroidInitializationSettings("@mipmap/ic_launcher");
+    InitializationSettings initializationSettings = InitializationSettings(
+      android: androidInitializationSettings,
+      // iOS: iosInitializationSettings,
+    );
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+      onDidReceiveBackgroundNotificationResponse:
+          onDidReceiveBackgroundNotificationResponse,
+    );
   }
 
-  // Schedule notification in 10 seconds
-  Future<void> scheduleNotificationIn10Seconds() async {
-    // Initialize the timezone data
-    tzData.initializeTimeZones();
+  // Method to request notification permission
+  static Future<void> askForNotificationPermission() async {
+    PermissionStatus status = await Permission.notification.request();
 
-    // Get the current time and add 10 seconds to it
-    DateTime now = DateTime.now();
-    DateTime scheduleTime = now.add(Duration(seconds: 10)); // 10 seconds later
+    if (status.isGranted) {
+      print('Notification permission granted.');
+    } else if (status.isDenied) {
+      print('Notification permission denied.');
+    } else if (status.isPermanentlyDenied) {
+      print(
+          'Notification permission permanently denied. Please go to settings.');
+      // await openAppSettings(); // Opens app settings if the permission is permanently denied
+    }
+    // Permission.notification.request().then((permissionStatus) {
+    //   if (permissionStatus != PermissionStatus.granted) {
+    //     // AppSettings.openAppSettings(type: AppSettingsType.notification);
+    //     print('persmission not gartuent');
+    //   }
+    //   print('persmission is gartuent');
+    // });
+  }
 
-    // Convert to timezone-aware DateTime
-    tz.TZDateTime scheduledDate = tz.TZDateTime.from(scheduleTime, tz.local);
-
-    // Define Android notification details
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      '10_second_channel_id',
-      '10 Second Notifications',
-      channelDescription: 'Channel for notifications every 10 seconds',
-      importance: Importance.max,
-      priority: Priority.high,
-    );
-
-    const NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
-
-    // Schedule the notification for 10 seconds from now
-    // await flutterLocalNotificationsPlugin.zonedSchedule(
-    //   0,
-    //   'Reminder',
-    //   'This notification was scheduled 10 seconds from now.',
-    //   scheduledDate,
-    //   platformChannelSpecifics,
-    //   androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    //   uiLocalNotificationDateInterpretation:
-    //       UILocalNotificationDateInterpretation.absoluteTime,
-    //   matchDateTimeComponents: DateTimeComponents.time,
-    // );
-    print('hell owrld');
-    await flutterLocalNotificationsPlugin.periodicallyShow(
+  // Method to send instant notification
+  static void sendInstantNotification(
+      {required String title, required String body, required String payload}) {
+    flutterLocalNotificationsPlugin.show(
       0,
-      'السلام عليكم',
-      'This notification was scheduled 10 seconds from now.',
+      title,
+      body,
+      notificationDetails,
+      payload: payload,
+    );
+  }
+
+  // Method to send periodic notification
+  static void sendPeriodicNotification(
+      {required String title, required String body, required String payload}) {
+    flutterLocalNotificationsPlugin.periodicallyShow(
+      1,
+      title,
+      body,
       RepeatInterval.everyMinute,
-      platformChannelSpecifics,
+      notificationDetails,
+      payload: payload,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+    );
+  }
+
+  // Method to cancel periodic notification
+  static Future<void> cancelPeriodicNotification() async {
+    await flutterLocalNotificationsPlugin.cancel(1);
+  }
+
+  // Method to handle notification response
+  static void onDidReceiveNotificationResponse(NotificationResponse response) {
+    debugPrint("onDidReceiveNotificationResponse");
+    globalKey.currentState?.pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => DisplayPayload(
+          payloadData: response.payload,
+        ),
+      ),
+    );
+  }
+
+  // Method to handle background notification response
+  static void onDidReceiveBackgroundNotificationResponse(
+      NotificationResponse response) {
+    debugPrint("onDidReceiveBackgroundNotificationResponse");
+    globalKey.currentState?.pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => DisplayPayload(
+          payloadData: response.payload,
+        ),
+      ),
     );
   }
 }

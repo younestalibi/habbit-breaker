@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habbit_breaker/services/not_test.dart';
+import 'package:habbit_breaker/services/notification_service.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -13,7 +13,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   void initState() {
-    NotificationServices.askForNotificationPermission();
     super.initState();
   }
 
@@ -34,7 +33,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           children: [
             ElevatedButton(
               onPressed: () {
-                NotificationServices.sendInstantNotification(
+                NotificationService.sendInstantNotification(
                   title: "Test title",
                   body: "Test body ",
                   payload: "Test payload",
@@ -55,13 +54,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   onChanged: (value) {
                     isSelected = !isSelected;
                     if (isSelected) {
-                      NotificationServices.sendPeriodicNotification(
+                      NotificationService.sendPeriodicNotification(
                         title: "Test title 2",
                         body: "Test body 2",
                         payload: "Test payload 2",
                       );
                     } else {
-                      NotificationServices.cancelPeriodicNotification();
+                      NotificationService.cancelPeriodicNotification();
                     }
                     setState(() {});
                   },

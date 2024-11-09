@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
-import 'package:habbit_breaker/main.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/language_setting_screen.dart';
 import 'package:habbit_breaker/screens/profile_setting_screen.dart';
-import 'package:habbit_breaker/services/notification_service.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -50,12 +48,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             const Divider(),
-            ElevatedButton(
-                onPressed: () {
-                  NotificationService(flutterLocalNotificationsPlugin)
-                      .scheduleNotificationIn10Seconds();
-                },
-                child: Text('notiviat')),
             SwitchListTile(
               title: Text(S.of(context).enable_notifications),
               value: notificationsEnabled,
