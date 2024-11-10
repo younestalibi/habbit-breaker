@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
-import 'package:habbit_breaker/widgets/custom_dropdown_field.dart';
 import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
 
 class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }

@@ -12,6 +12,8 @@ import 'package:habbit_breaker/widgets/custom_elevated_button.dart';
 import 'package:provider/provider.dart';
 
 class TrackerScreen extends StatefulWidget {
+  const TrackerScreen({super.key});
+
   @override
   _TrackerScreenState createState() => _TrackerScreenState();
 }

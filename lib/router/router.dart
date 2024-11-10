@@ -14,27 +14,28 @@ class CustomeRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/dd':
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
       case '/signin':
-        return MaterialPageRoute(builder: (_) => SignInScreen());
+        return MaterialPageRoute(builder: (_) => const SignInScreen());
       case '/signup':
-        return MaterialPageRoute(builder: (_) => SignUpScreen());
+        return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case '/layout':
-        return MaterialPageRoute(builder: (_) => LayoutScreen());
+        return MaterialPageRoute(builder: (_) => const LayoutScreen());
       case '/language':
-        return MaterialPageRoute(builder: (_) => LanguageSelectionScreen());
+        return MaterialPageRoute(
+            builder: (_) => const LanguageSelectionScreen());
       case '/onboarding':
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case '/tracker':
-        return MaterialPageRoute(builder: (_) => TrackerScreen());
+        return MaterialPageRoute(builder: (_) => const TrackerScreen());
       case '/settings/profile':
-        return MaterialPageRoute(builder: (_) => ProfileSettingsScreen());
+        return MaterialPageRoute(builder: (_) => const ProfileSettingsScreen());
       case '/settings':
-        return MaterialPageRoute(builder: (_) => SettingsScreen());
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
       case '/articles':
         return MaterialPageRoute(builder: (_) => const ArticlesListScreen());
       default:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
     }
   }
 }

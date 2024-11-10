@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:habbit_breaker/data/quotes.dart';
 import 'package:habbit_breaker/firebase_options.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
@@ -11,12 +8,9 @@ import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/router/router.dart';
 import 'package:habbit_breaker/services/notification_service.dart';
 import 'package:habbit_breaker/services/workmanger_service.dart';
-// import 'package:habbit_breaker/services/notification_service.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'providers/auth_provider.dart';
 

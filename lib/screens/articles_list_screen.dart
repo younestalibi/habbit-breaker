@@ -17,10 +17,10 @@ class ArticlesListScreen extends StatefulWidget {
 class _ArticlesListScreenState extends State<ArticlesListScreen> {
   @override
   Widget build(BuildContext context) {
-    final String _selectedLanguage =
+    final String selectedLanguage =
         Provider.of<SettingsProvider>(context).languageCode;
     final List<Map<String, dynamic>> listArticles =
-        articles[_selectedLanguage] ?? articles['en']!;
+        articles[selectedLanguage] ?? articles['en']!;
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).articles_for_you),

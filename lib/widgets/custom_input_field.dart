@@ -12,7 +12,7 @@ class CustomInputField extends StatelessWidget {
   final IconData? icon;
 
   const CustomInputField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.hintText,
     this.obscureText = false,
@@ -21,7 +21,7 @@ class CustomInputField extends StatelessWidget {
     this.validator,
     this.label,
     this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

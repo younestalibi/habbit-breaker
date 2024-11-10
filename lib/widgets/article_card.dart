@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class ArticleCard extends StatelessWidget {
   const ArticleCard({
-    Key? key,
+    super.key,
     required this.category,
     required this.image,
     required this.title,
     required this.press,
     required this.height,
     required this.width,
-  }) : super(key: key);
+  });
 
   final String category, image;
   final String title;

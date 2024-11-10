@@ -6,6 +6,8 @@ import 'package:habbit_breaker/utils/shared_prefs.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }

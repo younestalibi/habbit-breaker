@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../generated/l10n.dart';
 
 class LanguageSettingScreen extends StatefulWidget {
+  const LanguageSettingScreen({super.key});
+
   @override
   _LanguageSettingScreenState createState() => _LanguageSettingScreenState();
 }

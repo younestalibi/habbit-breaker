@@ -8,6 +8,8 @@ import '../generated/l10n.dart';
 import '../providers/auth_provider.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
+  const LanguageSelectionScreen({super.key});
+
   @override
   _LanguageSelectionScreenState createState() =>
       _LanguageSelectionScreenState();

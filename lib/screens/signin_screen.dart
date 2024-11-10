@@ -9,6 +9,8 @@ import 'package:habbit_breaker/widgets/custom_input_field.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -194,20 +196,20 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _showForgotPasswordDialog(BuildContext context) {
-    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
     CustomDialog.show(
       context,
       title: S.of(context).reset_password,
       textConfirm: S.of(context).send_reset_link,
       content: TextField(
-        controller: _emailController,
+        controller: emailController,
         decoration: InputDecoration(hintText: S.of(context).enter_email),
         keyboardType: TextInputType.emailAddress,
       ),
       dialogType: DialogType.confirmation,
       onConfirm: () async {
         String? result = await Provider.of<AuthProvider>(context, listen: false)
-            .resetPassword(_emailController.text);
+            .resetPassword(emailController.text);
         if (result == null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(S.of(context).password_reset_sent)),

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:habbit_breaker/data/dailyReminders.dart';
+import 'package:habbit_breaker/data/daily_reminders.dart';
 import 'package:habbit_breaker/main.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/display_payload_page.dart';
@@ -69,7 +69,7 @@ class NotificationService {
     final String selectedLanguage =
         Provider.of<SettingsProvider>(context).languageCode;
     final List<String> listReminders =
-        dailyReminders[selectedLanguage] ?? dailyReminders['en']!;
+        daily_reminders[selectedLanguage] ?? daily_reminders['en']!;
 
     final random = Random();
     int randomIndex = random.nextInt(listReminders.length);

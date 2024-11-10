@@ -9,6 +9,8 @@ import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 class LayoutScreen extends StatefulWidget {
+  const LayoutScreen({super.key});
+
   @override
   _LayoutScreenState createState() => _LayoutScreenState();
 }
@@ -31,8 +33,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
   List<Widget> _buildScreens() {
     return [
       const Center(child: HomeScreen()),
-      Center(child: TrackerScreen()),
-      Center(child: SettingsScreen()),
+      const Center(child: TrackerScreen()),
+      const Center(child: SettingsScreen()),
     ];
   }
 

@@ -9,7 +9,7 @@ class ColorConstants {
   static const Color white = Color.fromARGB(255, 255, 255, 255);
   static const Color grey = Colors.grey;
   static const Color active = Color.fromARGB(255, 84, 0, 201);
-  static const Color inActive = const Color(0xFF868686);
+  static const Color inActive = Color(0xFF868686);
   static const Color background = Color.fromARGB(255, 253, 245, 255);
   static const Color shadow = Color.fromARGB(61, 99, 0, 238);
 }

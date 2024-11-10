@@ -46,15 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class Articles extends StatelessWidget {
   const Articles({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final String _selectedLanguage =
+    final String selectedLanguage =
         Provider.of<SettingsProvider>(context).languageCode;
     final List<Map<String, dynamic>> listArticles =
-        articles[_selectedLanguage] ?? articles['en']!;
+        articles[selectedLanguage] ?? articles['en']!;
     return Column(
       children: [
         SectionTitle(
@@ -62,7 +62,7 @@ class Articles extends StatelessWidget {
           color: Theme.of(context).primaryColorLight,
           press: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ArticlesListScreen()));
+                MaterialPageRoute(builder: (context) => const ArticlesListScreen()));
           },
         ),
         SingleChildScrollView(
@@ -96,11 +96,11 @@ class Articles extends StatelessWidget {
 
 class SectionTitle extends StatelessWidget {
   const SectionTitle({
-    Key? key,
+    super.key,
     required this.title,
     required this.press,
     required this.color,
-  }) : super(key: key);
+  });
 
   final String title;
   final Color color;
@@ -136,10 +136,10 @@ class Quote extends StatefulWidget {
 class _QuoteState extends State<Quote> {
   @override
   Widget build(BuildContext context) {
-    final String _selectedLanguage =
+    final String selectedLanguage =
         Provider.of<SettingsProvider>(context).languageCode;
     final List<String> englishQuotes =
-        quotes[_selectedLanguage] ?? quotes['en']!;
+        quotes[selectedLanguage] ?? quotes['en']!;
     final random = Random();
     final randomIndex = random.nextInt(englishQuotes.length);
     final randomQuote = englishQuotes[randomIndex];
@@ -208,7 +208,7 @@ class Header extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding:const EdgeInsets.all(16.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -235,13 +235,13 @@ class Header extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 8.0),
+                  Dimensions.xxsHeight,
                   CustomElevatedButton(
                     color: Theme.of(context).primaryColor,
                     backgroundColor: Theme.of(context).primaryColorLight,
                     padding: 10,
                     onPressed: () {
-                      print('Button pressed');
+                      debugPrint('Button pressed');
                     },
                     text: S.of(context).view_progress,
                   ),

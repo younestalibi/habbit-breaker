@@ -5,9 +5,10 @@ import 'package:habbit_breaker/screens/language_setting_screen.dart';
 import 'package:habbit_breaker/screens/profile_setting_screen.dart';
 import 'package:habbit_breaker/services/workmanger_service.dart';
 import 'package:provider/provider.dart';
-import 'package:workmanager/workmanager.dart';
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -34,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => ProfileSettingsScreen()),
+                      builder: (context) => const ProfileSettingsScreen()),
                 );
               },
             ),
@@ -44,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => LanguageSettingScreen()),
+                      builder: (context) => const LanguageSettingScreen()),
                 );
               },
             ),

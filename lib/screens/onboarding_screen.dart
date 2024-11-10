@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habbit_breaker/constants/color_constants.dart';
-import 'package:habbit_breaker/constants/image_constants.dart';
 import 'package:habbit_breaker/data/onboarding.dart';
 import 'package:habbit_breaker/generated/l10n.dart';
-import 'package:habbit_breaker/providers/auth_provider.dart';
 import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:provider/provider.dart';

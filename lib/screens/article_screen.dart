@@ -4,7 +4,7 @@ import 'package:habbit_breaker/generated/l10n.dart';
 class ArticleScreen extends StatelessWidget {
   final Map<String, dynamic> article;
 
-  const ArticleScreen({Key? key, required this.article}) : super(key: key);
+  const ArticleScreen({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {

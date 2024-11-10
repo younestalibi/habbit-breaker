@@ -10,7 +10,7 @@ class CustomDropdownField extends StatelessWidget {
   final String? Function(String?)? validator;
 
   const CustomDropdownField({
-    Key? key,
+    super.key,
     required this.value,
     required this.items,
     required this.hintText,
@@ -18,7 +18,7 @@ class CustomDropdownField extends StatelessWidget {
     this.borderRadius = 50.0,
     this.onChanged,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

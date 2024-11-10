@@ -64,14 +64,14 @@ class TrackerProvider with ChangeNotifier {
       } else {
         String? creationResult = await createTracker(userId);
         if (creationResult != null) {
-          print("Failed to create tracker: $creationResult");
+          debugPrint("Failed to create tracker: $creationResult");
           return null;
         }
         DocumentSnapshot newDoc = await trackerCollection.doc(userId).get();
         return newDoc.data() as Map<String, dynamic>;
       }
     } catch (e) {
-      print("Error fetching tracker data: $e");
+      debugPrint("Error fetching tracker data: $e");
       return null;
     }
   }
