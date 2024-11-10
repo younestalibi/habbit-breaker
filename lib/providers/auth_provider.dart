@@ -18,8 +18,8 @@ class AuthProvider with ChangeNotifier {
     });
   }
 
-  Future<String?> signup(String email, String password, String firstName,
-      String lastName) async {
+  Future<String?> signup(
+      String email, String password, String firstName, String lastName) async {
     try {
       UserCredential userCredential =
           await _firebaseAuth.createUserWithEmailAndPassword(
@@ -130,7 +130,7 @@ class AuthProvider with ChangeNotifier {
       _user = _firebaseAuth.currentUser;
       notifyListeners();
 
-      return null; 
+      return null;
     } catch (e) {
       return "Failed to update profile: $e";
     }

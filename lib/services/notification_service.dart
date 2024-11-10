@@ -11,13 +11,10 @@ class NotificationService {
 
   // Notification details
   static NotificationDetails notificationDetails = const NotificationDetails(
-    android: AndroidNotificationDetails(
-      "channelId",
-      "channelName",
-      priority: Priority.high,
-      importance: Importance.high,
-      icon: "@mipmap/ic_launcher",
-    ),
+    android: AndroidNotificationDetails("channelId", "channelName",
+        priority: Priority.high,
+        importance: Importance.high,
+        icon: "@mipmap/ic_launcher"),
   );
 
   // Initialize method
@@ -40,11 +37,11 @@ class NotificationService {
   static Future<void> askForNotificationPermission() async {
     PermissionStatus status = await Permission.notification.request();
     if (status.isGranted) {
-      print('Notification permission granted.');
+      debugPrint('Notification permission granted.');
     } else if (status.isDenied) {
-      print('Notification permission denied.');
+      debugPrint('Notification permission denied.');
     } else if (status.isPermanentlyDenied) {
-      print(
+      debugPrint(
           'Notification permission permanently denied. Please go to settings.');
     }
   }
@@ -52,6 +49,7 @@ class NotificationService {
   // Method to send instant notification
   static void sendInstantNotification(
       {required String title, required String body, required String payload}) {
+    print('it is notificait');
     flutterLocalNotificationsPlugin.show(
       0,
       title,
@@ -64,9 +62,9 @@ class NotificationService {
   // Method to send periodic notification
   static void sendPeriodicNotification(
       {required String title, required String body, required String payload}) {
-    print("runn preios");
+    debugPrint("period notification is enabled");
     flutterLocalNotificationsPlugin.periodicallyShow(
-      2,
+      1,
       title,
       body,
       RepeatInterval.everyMinute,

@@ -24,7 +24,9 @@ class SettingsProvider extends ChangeNotifier {
   );
 
   Future<void> init() async {
-    _isDark = SharedPrefs.instance.getBoolData('isDark') ?? false;
+    _isDark = SharedPrefs.instance.getBoolData('isDark');
+    _dailyNotifications =
+        SharedPrefs.instance.getBoolData('dailyNotifications');
     _languageCode =
         SharedPrefs.instance.getStringData('languageCode').isNotEmpty
             ? SharedPrefs.instance.getStringData('languageCode')
@@ -51,4 +53,5 @@ class SettingsProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+  
 }
