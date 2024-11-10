@@ -50,8 +50,12 @@ class SettingsProvider extends ChangeNotifier {
     _languageCode = language;
     SharedPrefs.instance.setStringData("languageCode", _languageCode);
     await S.load(Locale(languageCode));
-
     notifyListeners();
   }
-  
+
+  void resetDailyNotification() async {
+    _dailyNotifications = false;
+    SharedPrefs.instance.setBoolData("dailyNotifications", _dailyNotifications);
+    notifyListeners();
+  }
 }

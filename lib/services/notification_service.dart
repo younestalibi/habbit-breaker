@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:habbit_breaker/data/dailyReminders.dart';
 import 'package:habbit_breaker/main.dart';
+import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/screens/display_payload_page.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 class NotificationService {
   // Initialize FlutterLocalNotificationsPlugin
@@ -49,7 +54,6 @@ class NotificationService {
   // Method to send instant notification
   static void sendInstantNotification(
       {required String title, required String body, required String payload}) {
-    print('it is notificait');
     flutterLocalNotificationsPlugin.show(
       0,
       title,
@@ -57,6 +61,25 @@ class NotificationService {
       notificationDetails,
       payload: payload,
     );
+  }
+
+  // Method to send daily notification
+  static void sendDailyNotification() {
+    BuildContext context = navigatorKey.currentContext!;
+    final String selectedLanguage =
+        Provider.of<SettingsProvider>(context).languageCode;
+    final List<String> listReminders =
+        dailyReminders[selectedLanguage] ?? dailyReminders['en']!;
+
+    final random = Random();
+    int randomIndex = random.nextInt(listReminders.length);
+    String randomReminder = listReminders[randomIndex];
+    print(selectedLanguage);
+    print(randomReminder);
+
+    flutterLocalNotificationsPlugin.show(
+        randomIndex, "Reminder", randomReminder, notificationDetails,
+        payload: randomReminder);
   }
 
   // Method to send periodic notification

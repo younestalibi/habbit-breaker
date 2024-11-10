@@ -4,6 +4,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 
+import 'package:habbit_breaker/main.dart';
+import 'package:habbit_breaker/providers/setting_provider.dart';
+import 'package:habbit_breaker/services/workmanger_service.dart';
+import 'package:provider/provider.dart';
+
 class AuthProvider with ChangeNotifier {
   User? _user;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -67,9 +72,17 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<void> logout() async {
-    await _firebaseAuth.signOut();
-    _user = null;
-    notifyListeners();
+    try {
+      await _firebaseAuth.signOut();
+      BuildContext context = navigatorKey.currentContext!;
+      final settingsProvider = Provider.of<SettingsProvider>(context);
+      settingsProvider.resetDailyNotification();
+      ManagerService.cancelDailyNotification();
+      _user = null;
+      notifyListeners();
+    } catch (e) {
+      debugPrint("error in the logout");
+    }
   }
 
   Future<String?> resetPassword(String email) async {

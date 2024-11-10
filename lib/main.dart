@@ -10,6 +10,7 @@ import 'package:habbit_breaker/providers/setting_provider.dart';
 import 'package:habbit_breaker/providers/tracker_provider.dart';
 import 'package:habbit_breaker/router/router.dart';
 import 'package:habbit_breaker/services/notification_service.dart';
+import 'package:habbit_breaker/services/workmanger_service.dart';
 // import 'package:habbit_breaker/services/notification_service.dart';
 import 'package:habbit_breaker/utils/dimensions.dart';
 import 'package:habbit_breaker/utils/shared_prefs.dart';
@@ -25,38 +26,41 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await SharedPrefs.instance.init();
+    debugPrint("Shared Preferences initialized.");
+  } catch (e) {
+    debugPrint("Error initializing Shared Preferences: $e");
+  }
+
+  try {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-    Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-    await NotificationService.init();
-    await NotificationService.askForNotificationPermission();
-
-    runApp(const MyApp());
+    debugPrint("Firebase initialized.");
   } catch (e) {
-    print("Error during app initialization: $e");
+    debugPrint("Error initializing Firebase: $e");
   }
-}
 
-@pragma(
-    'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    final random = Random();
-    // Get a random index within the range of the list length
-    int randomIndex = random.nextInt(quotes['en']!.length);
-    // Access the list element at the random index
-    String randomElement = quotes['en']![randomIndex];
-    print('hello world');
-    print(randomElement);
-    NotificationService.sendInstantNotification(
-      title: "Reminder",
-      body: 'hiii',
-      payload: "Test payload 2",
-    );
-    print(
-        "Native called kkbackground task: $task"); //simpleTask will be emitted here.
-    return Future.value(true);
-  });
+  try {
+    Workmanager()
+        .initialize(ManagerService.callbackDispatcher, isInDebugMode: true);
+    debugPrint("Workmanager initialized.");
+  } catch (e) {
+    debugPrint("Error initializing Workmanager: $e");
+  }
+
+  try {
+    await NotificationService.init();
+    debugPrint("Notification Service initialized.");
+  } catch (e) {
+    debugPrint("Error initializing Notification Service: $e");
+  }
+
+  try {
+    await NotificationService.askForNotificationPermission();
+    debugPrint("Notification permission requested.");
+  } catch (e) {
+    debugPrint("Error requesting notification permission: $e");
+  }
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
